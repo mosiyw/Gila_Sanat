@@ -1,0 +1,19 @@
+{
+  "name": "my-stack",
+  "version": "1.0.0",
+  "repository": "https://github.com/mosiyw/Gila_Sanat",
+  "author": "mosiyw <amirpc.a@yahoo.com>",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "admin",
+    "backend",
+    "frontend"
+  ],
+  "scripts": {
+    "dev": "concurrently \"yarn workspace backend start\" \"yarn workspace admin dev\" \"yarn workspace frontend dev\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
