@@ -136,12 +136,12 @@ const SignUpForm: React.FC<SignUpFormProps> = ({
                   className="flex ltr:ml-auto rtl:mr-auto mt-[2px]"
                   onClick={closeModal}
                 >
-                  {/* <Link
+                  <Link
                     href={ROUTES.PRIVACY}
                     className="text-sm ltr:text-right rtl:text-left text-heading ltr:pl-3 lg:rtl:pr-3 hover:no-underline hover:text-brand-dark focus:outline-none focus:text-brand-dark"
                   >
                     {t('common:text-privacy-and-policy')}
-                  </Link> */}
+                  </Link>
                 </div>
               </div>
               <div className="relative">
