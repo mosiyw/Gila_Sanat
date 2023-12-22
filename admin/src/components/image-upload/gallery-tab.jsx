@@ -8,6 +8,7 @@ import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 
 import axios from "axios";
+import getFullUrl from "../../utils/getFullUrl";
 
 export default function GalleryTab({ results, setImage, handleCloseModal }) {
   const [searchTerm, setSearchTerm] = useState([]);
@@ -21,7 +22,7 @@ export default function GalleryTab({ results, setImage, handleCloseModal }) {
   function handleSearch(event) {
     setSearchInput(event.target.value);
     axios
-      .get(`http://localhost:5000/api/image-gallery/${event.target.value}`, { withCredentials: true })
+      .get(getFullUrl(event.target.value), { withCredentials: true })
       .then((response) => setItems(response.data))
       .catch((error) => {
         console.error("Error:", error);
@@ -52,16 +53,11 @@ export default function GalleryTab({ results, setImage, handleCloseModal }) {
                 className="img-card"
                 style={{ maxWidth: 345 }}
                 onClick={() => {
-                  setImage(`http://localhost:5000${items.imageUrl}`);
+                  setImage(items.imageUrl);
                   handleCloseModal();
                 }}
               >
-                <CardMedia
-                  component="img"
-                  height="140"
-                  image={`http://localhost:5000${items.imageUrl}`}
-                  alt={items.title}
-                />
+                <CardMedia component="img" height="140" image={getFullUrl(items.imageUrl)} alt={items.title} />
                 <CardContent>
                   <Typography variant="body2" color="text.secondary">
                     {items.title}

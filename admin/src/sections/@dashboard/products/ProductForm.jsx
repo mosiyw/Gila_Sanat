@@ -24,6 +24,7 @@ import Iconify from "../../../components/iconify";
 import ImageGallery from "../../../components/image-upload/imageUpload";
 import ControlledInputText from "../../../components/controlled-input";
 import RichEditor from "../../../components/rich-editor";
+import getFullUrl from "../../../utils/getFullUrl";
 
 function ProductForm({ initialProductData, onSubmit, isEditing, isLoading }) {
   const { handleSubmit, control, reset } = useForm();
@@ -34,23 +35,6 @@ function ProductForm({ initialProductData, onSubmit, isEditing, isLoading }) {
   const [galleryImages, setGalleryImages] = useState([]);
   const [openModal, setOpenModal] = useState(false);
   const [modalType, setModalType] = useState();
-
-  const URL = "http://localhost:5000/uploads";
-
-  const modules = {
-    toolbar: [
-      [{ header: [1, 2, false] }],
-      ["bold", "italic", "underline", "strike"],
-      ["blockquote", "code-block"],
-      [{ list: "ordered" }, { list: "bullet" }],
-      [{ script: "sub" }, { script: "super" }],
-      [{ indent: "-1" }, { indent: "+1" }],
-      [{ direction: "rtl" }],
-      [{ align: [] }],
-      ["link", "image", "video"],
-      ["clean"],
-    ],
-  };
 
   useEffect(() => {
     if (isEditing && initialProductData) {
@@ -112,7 +96,6 @@ function ProductForm({ initialProductData, onSubmit, isEditing, isLoading }) {
   const handleCloseModal = () => {
     setOpenModal(false);
   };
-
   const ImageGalleryWithRef = forwardRef((props, ref) => <ImageGallery ref={ref} {...props} />);
 
   return (
@@ -148,7 +131,7 @@ function ProductForm({ initialProductData, onSubmit, isEditing, isLoading }) {
               {coverImage ? (
                 <div>
                   <img
-                    src={coverImage || null}
+                    src={getFullUrl(coverImage) || null}
                     alt="Product Cover"
                     style={{ width: "100%", maxHeight: "400px", objectFit: "cover" }}
                   />
@@ -187,7 +170,7 @@ function ProductForm({ initialProductData, onSubmit, isEditing, isLoading }) {
                 {galleryImages[index - 1] ? (
                   <>
                     <img
-                      src={galleryImages[index - 1]}
+                      src={getFullUrl(galleryImages[index - 1]) || null}
                       alt="test"
                       style={{ maxWidth: "100%", maxHeight: "400px", objectFit: "cover" }}
                     />
