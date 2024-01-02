@@ -12,7 +12,10 @@
   ],
   "scripts": {
     "dev": "concurrently \"yarn workspace backend start\" \"yarn workspace admin dev\" \"yarn workspace frontend dev\"",
-    "dev:admin": "concurrently \"yarn workspace backend start\" \"yarn workspace admin dev\""
+    "dev:admin": "concurrently \"yarn workspace backend start\" \"yarn workspace admin dev\"",
+    "dev:shop": "concurrently \"yarn workspace backend start\" \"yarn workspace frontend dev\"",
+    "backend": "yarn workspace backend start",
+    "shop": "yarn workspace frontend dev"
   },
   "devDependencies": {
     "concurrently": "^8.2.2"

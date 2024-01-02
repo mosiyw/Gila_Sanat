@@ -46,12 +46,12 @@ const ProductsGridBlock: React.FC<ProductsProps> = ({
           ))
         ) : (
           <>
-            {/* {products?.map((product: any) => (
+            {products?.map((product: any) => (
               <ProductCard
                 key={`${uniqueKey}-${product._id}`}
                 product={product}
               />
-            ))} */}
+            ))}
           </>
         )}
       </div>

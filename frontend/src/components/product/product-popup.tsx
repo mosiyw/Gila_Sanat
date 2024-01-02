@@ -32,6 +32,7 @@ import CloseButton from '@components/ui/close-button';
 import VariationPrice from './variation-price';
 import isEqual from 'lodash/isEqual';
 import { productGalleryPlaceholder } from '@assets/placeholders';
+import formatProductName from '@utils/format-product-name';
 
 const breakpoints = {
   '1536': {
@@ -89,8 +90,9 @@ export default function ProductPopup() {
   const originalPrice = `${originalPriceValue.replace('IRR', '').trim()}`;
 
   const variations = getVariations(data.variations);
-  const { slug, image, name, unit, description, gallery, tag, balance } = data;
-  const productUrl = `${process.env.NEXT_PUBLIC_WEBSITE_URL}${ROUTES.PRODUCT}/${slug}`;
+  const { image, name, unit, description, gallery, tag, balance } = data;
+  const productUrlName = formatProductName(name);
+  const productUrl = `${process.env.NEXT_PUBLIC_WEBSITE_URL}${ROUTES.PRODUCT}/${productUrlName}`;
   const handleChange = () => {
     setShareButtonStatus(!shareButtonStatus);
   };
@@ -150,7 +152,7 @@ export default function ProductPopup() {
 
   function navigateToProductPage() {
     closeModal();
-    router.push(`${ROUTES.PRODUCT}/${slug}`);
+    router.push(`${ROUTES.PRODUCT}/${productUrlName}`);
   }
 
   useEffect(() => {

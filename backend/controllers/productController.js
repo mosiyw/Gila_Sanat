@@ -37,7 +37,6 @@ exports.getTopSellingProducts = async (req, res) => {
     const products = await Product.find({ totalSell: { $gt: 0 } })
       .sort({ totalSell: -1 })
       .limit(15);
-    console.log(products);
     res.json(products);
   } catch (error) {
     console.error(error);
