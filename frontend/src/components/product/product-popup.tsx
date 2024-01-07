@@ -90,9 +90,9 @@ export default function ProductPopup() {
   const originalPrice = `${originalPriceValue.replace('IRR', '').trim()}`;
 
   const variations = getVariations(data.variations);
-  const { image, name, unit, description, gallery, tag, balance } = data;
+  const { image, name, unit, description, gallery, tag, balance, _id } = data;
   const productUrlName = formatProductName(name);
-  const productUrl = `${process.env.NEXT_PUBLIC_WEBSITE_URL}${ROUTES.PRODUCT}/${productUrlName}`;
+  const productUrl = `${process.env.NEXT_PUBLIC_WEBSITE_URL}${ROUTES.PRODUCT}/${_id}/${productUrlName}`;
   const handleChange = () => {
     setShareButtonStatus(!shareButtonStatus);
   };
@@ -152,7 +152,7 @@ export default function ProductPopup() {
 
   function navigateToProductPage() {
     closeModal();
-    router.push(`${ROUTES.PRODUCT}/${productUrlName}`);
+    router.push(`${ROUTES.PRODUCT}/${_id}/${productUrlName}`);
   }
 
   useEffect(() => {

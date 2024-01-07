@@ -80,14 +80,16 @@ const Breadcrumb: React.FC<{ separator?: string }> = ({
         </a>
       </ActiveLink>
 
-      {breadcrumbs?.map((breadcrumb: any) => (
+      {breadcrumbs?.slice(0, -1).map((breadcrumb: any) => (
         <ActiveLink
           href={breadcrumb.href}
           activeClassName="font-semibold text-heading"
           key={breadcrumb.href}
         >
           <a className="capitalize">
-            {convertBreadcrumbTitle(breadcrumb.breadcrumb)}
+            {breadcrumb.href === '/products'
+              ? t('breadcrumb-products')
+              : convertBreadcrumbTitle(breadcrumb.breadcrumb)}
           </a>
         </ActiveLink>
       ))}

@@ -24,13 +24,18 @@ const LoginForm: React.FC<LoginFormProps> = ({ isPopup = true, className }) => {
   const { mutate: login, isLoading } = useLoginMutation();
   const [remember, setRemember] = useState(false);
 
+  interface LoginInputType1 {
+    email: string;
+    password: string;
+    remember_me: boolean;
+  }
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<LoginInputType>();
+  } = useForm<LoginInputType1>();
 
-  function onSubmit({ email, password, remember_me }: LoginInputType) {
+  function onSubmit({ email, password, remember_me }: LoginInputType1) {
     login({
       email,
       password,
