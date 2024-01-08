@@ -43,26 +43,8 @@ const BottomNavigation: React.FC = () => {
 
   return (
     <>
-      <div className="lg:hidden fixed z-30 -bottom-0.5 flex items-center justify-between shadow-bottomNavigation body-font bg-brand-light w-full h-14 px-4 md:px-6 lg:px-8 text-brand-muted pb-0.5">
-        <button
-          aria-label="Menu"
-          className="flex flex-col items-center justify-center outline-none shrink-0 focus:outline-none"
-          onClick={handleMobileMenu}
-        >
-          <MenuIcon />
-        </button>
-        <button
-          className="relative flex items-center justify-center h-auto shrink-0 focus:outline-none"
-          onClick={toggleMobileSearch}
-          aria-label="Search Button"
-        >
-          <SearchIcon />
-        </button>
-        <Link href={ROUTES.HOME} className="shrink-0">
-          <span className="sr-only">{t('breadcrumb-home')}</span>
-          <HomeIcon />
-        </Link>
-        <CartButton hideLabel={true} iconClassName="text-opacity-100" />
+      <div className="lg:hidden fixed z-30 -bottom-0.5 flex items-center justify-between shadow-bottomNavigation body-font bg-brand-light w-[94%] mr-[3%] ml-[3%] mb-[3%] h-14 px-4 md:px-6 lg:px-8 text-brand-muted pb-0.5 rounded-lg">
+        {' '}
         <AuthMenu
           isAuthorized={isAuthorized}
           href={ROUTES.ACCOUNT}
@@ -74,6 +56,25 @@ const BottomNavigation: React.FC = () => {
         >
           <UserIcon />
         </AuthMenu>
+        <CartButton hideLabel={true} iconClassName="text-opacity-100" />
+        <button
+          aria-label="Menu"
+          className="flex flex-col items-center justify-center outline-none shrink-0 focus:outline-none"
+          onClick={handleMobileMenu}
+        >
+          <MenuIcon />
+        </button>
+        {/* <button
+          className="relative flex items-center justify-center h-auto shrink-0 focus:outline-none"
+          onClick={toggleMobileSearch}
+          aria-label="Search Button"
+        >
+          <SearchIcon />
+        </button> */}
+        <Link href={ROUTES.HOME} className="shrink-0">
+          <span className="sr-only">{t('breadcrumb-home')}</span>
+          <HomeIcon />
+        </Link>
       </div>
       <Drawer
         placement={dir === 'rtl' ? 'right' : 'left'}

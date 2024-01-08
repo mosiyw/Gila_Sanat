@@ -74,7 +74,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ isPopup = true, className }) => {
               <Logo />
             </div>
             <h4 className="text-xl font-semibold text-brand-dark sm:text-2xl sm:pt-3 ">
-              {t('common:text-welcome-back')}
+              {t('common:login-to-your-account')}
             </h4>
             <div className="mt-3 mb-1 text-sm text-center sm:text-15px text-body">
               {t('common:text-don’t-have-account')}
@@ -93,8 +93,8 @@ const LoginForm: React.FC<LoginFormProps> = ({ isPopup = true, className }) => {
             noValidate
           >
             <div className="flex flex-col space-y-3.5">
-              <Input
-                label={t('forms:label-email')}
+              {/* <Input
+                label={t('label-email')}
                 type="email"
                 variant="solid"
                 {...register('email', {
@@ -106,9 +106,24 @@ const LoginForm: React.FC<LoginFormProps> = ({ isPopup = true, className }) => {
                   },
                 })}
                 error={errors.email?.message}
+              /> */}
+              <Input
+                label={t('forms:label-phone-number')}
+                type="tel"
+                variant="solid"
+                className="text-right"
+                {...register('phoneNumber', {
+                  required: `${t('forms:phone-number-required')}`,
+                  pattern: {
+                    value: /^(\+\d{1,3}[- ]?)?\d{10}$/,
+                    message: t('forms:phone-number-error'),
+                  },
+                })}
+                error={errors.phoneNumber?.message}
               />
               <PasswordInput
                 label={t('forms:label-password')}
+                className="text-right"
                 error={errors.password?.message}
                 {...register('password', {
                   required: `${t('forms:password-required')}`,

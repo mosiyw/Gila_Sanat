@@ -6,6 +6,7 @@ import SearchProduct from '@components/common/search-product';
 import SearchResultLoader from '@components/ui/loaders/search-result-loader';
 import useFreezeBodyScroll from '@utils/use-freeze-body-scroll';
 import Scrollbar from '@components/ui/scrollbar';
+import Logo from '@components/ui/logo';
 import { useUI } from '@contexts/ui.context';
 
 type Props = {

@@ -29,10 +29,10 @@ const HeroBannerCard: FC<BannerProps> = ({
 
   const images = [{ url: `${selectedImage.url}` }, { url: `${banner2.src}` }];
   return (
-    <div className="mb-5">
+    <div className="relative mb-5 lg:h-[45vh] h-[30vh] md:h-[20vh]">
       <SimpleImageSlider
         width={'100%'}
-        height={'45vh'}
+        height={'100%'}
         images={images}
         slideDuration={1.5}
         autoPlay={true}

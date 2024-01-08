@@ -2,6 +2,8 @@ import React from 'react';
 import { useTranslation } from 'next-i18next';
 import SearchIcon from '@components/icons/search-icon';
 import CloseIcon from '@components/icons/close-icon';
+import { siteSettings } from '@settings/site-settings';
+import Image from 'next/image';
 import cn from 'classnames';
 
 type SearchProps = {
@@ -42,7 +44,7 @@ const SearchBox = React.forwardRef<HTMLInputElement, SearchProps>(
           <input
             id={searchId}
             className={cn(
-              'text-heading outline-none w-full h-[52px] ltr:pl-5 rtl:pr-14 md:ltr:pl-6 md:rtl:pr-16 ltr:pr-14 rtl:pl-14 md:ltr:pr-16 md:rtl:pl-16 bg-brand-light text-brand-dark text-sm lg:text-15px rounded-md transition-all duration-200 focus:border-brand focus:ring-0 placeholder:text-brand-dark/50',
+              'text-heading outline-none w-full h-[52px] ltr:pl-5 rtl:pr-14 md:ltr:pl-6 md:rtl:pr-16 ltr:pr-14 rtl:pl-14 md:ltr:pr-16 md:rtl:pl-16 bg-brand-light text-brand-dark text-sm lg:text-15px rounded-md transition-all duration-200 focus:border-brand focus:ring-0 placeholder:text-brand-dark/50 lg:flex hidden',
               {
                 'border border-border-base': variant === 'border',
                 'bg-fill-one': variant === 'fill',
@@ -56,6 +58,28 @@ const SearchBox = React.forwardRef<HTMLInputElement, SearchProps>(
             ref={ref}
             {...rest}
           />
+          {
+            // Search box for mobile
+          }
+          {/* <div className="relative w-full">
+            <input
+              id={searchId}
+              className={cn(
+                'text-heading outline-none w-full h-[52px] ltr:pl-5 rtl:pr-14 md:ltr:pl-6 md:rtl:pr-16 ltr:pr-14 rtl:pl-14 md:ltr:pr-16 md:rtl:pl-16 bg-brand-light text-brand-dark text-sm lg:text-15px rounded-md transition-all duration-200 focus:border-brand focus:ring-0 placeholder:text-brand-dark/50 lg:hidden',
+                {
+                  'border border-border-base': variant === 'border',
+                  'bg-fill-one': variant === 'fill',
+                }
+              )}
+              placeholder={t('placeholder-search-mobile')}
+              aria-label={searchId}
+              autoComplete="off"
+              value={value}
+              onFocus={onFocus}
+              ref={ref}
+              {...rest}
+            />
+          </div> */}
         </label>
         {value ? (
           <button

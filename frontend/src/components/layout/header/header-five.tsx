@@ -66,37 +66,23 @@ const Header: React.FC = () => {
         />
         {/* End of Mobile search */}
         <Container className="sticky top-0 bg-brand-light z-[5] flex items-center justify-between h-16 py-3 border-b top-bar lg:h-auto border-border-base">
-          <div className="relative shrink-0 lg:hidden">
-            <button
-              className="border border-border-base rounded-md focus:outline-none shrink-0 text-sm lg:text-15px font-medium text-brand-dark px-2.5 md:px-3 lg:px-[18px] py-2 md:py-2.5 lg:py-3 flex items-center transition-all hover:border-border-four"
-              onClick={handleCategoryMenu}
-            >
-              <FiMenu className="text-xl lg:text-2xl" />
-              <span className="hidden md:inline-flex ltr:ml-2.5 rtl:mr-2.5">
-                {t('text-all-categories')}
-              </span>
-            </button>
-            {categoryMenu && (
-              <CategoryDropdownMenu className="mt-3 md:mt-2.5" />
-            )}
-          </div>
           {/* End of Category */}
 
           <div className="flex items-center justify-start w-full">
-            <div className="w-1/6 flex justify-center">
-              <Logo className="logo -mt-1.5 md:-mt-1 md:mx-auto ltr:pl-3 rtl:pr-3 md:ltr:pl-0 md:rtl:pr-0 lg:mx-0" />
+            <div className=" flex justify-center">
+              <Logo className="logo -mt-1.5 md:-mt-1 md:mx-auto ltr:pl-3 rtl:pr-3 md:ltr:pl-0 md:rtl:pr-0 lg:mx-0 hidden lg:flex" />
               {/* End of logo */}
             </div>
 
             <Search
               searchId="top-bar-search"
-              className="hidden lg:flex lg:max-w-[650px] 2xl:max-w-[800px] lg:mx-8"
+              className="lg:flex lg:max-w-[650px] 2xl:max-w-[800px] lg:mx-8"
               variant="fill"
             />
             {/* End of search */}
           </div>
 
-          <div className="ltr:ml-auto rtl:mr-auto md:ltr:ml-0 md:rtl:mr-0 w-1/4 text-center flex items-center justify-center">
+          <div className="ltr:ml-auto rtl:mr-auto md:ltr:ml-0 md:rtl:mr-0 w-1/4 text-center flex items-center justify-center lg:flex hidden">
             <div className="flex shrink-0 -mx-2.5 xl:-mx-3.5 ">
               <div className="items-center hidden lg:flex shrink-0 xl:mx-3.5 mx-2.5">
                 <UserIcon className="text-brand-dark text-opacity-40" />
@@ -119,7 +105,7 @@ const Header: React.FC = () => {
         {/* End of top part */}
 
         <div className=" bg-brand-light">
-          <Container className="h-20 flex justify-between items-center py-2.5">
+          <Container className="h-20 flex justify-between items-center py-2.5 lg:flex hidden">
             <div className="relative  rtl:ml-8 shrink-0 w-1/7">
               <button
                 className="border border-border-base rounded-md focus:outline-none shrink-0 text-15px font-medium text-brand-dark px-[18px] py-3 flex items-center transition-all hover:border-border-four "

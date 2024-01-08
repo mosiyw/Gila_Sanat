@@ -31,7 +31,7 @@ const PasswordInput = React.forwardRef<HTMLInputElement, Props>(
     const [show, setShow] = useState(false);
 
     const { t } = useTranslation();
-    const rootClassName = cn(classes.root, inputClassName);
+    const rootClassName = cn(classes.root, inputClassName, 'text-right');
     return (
       <div className={className}>
         {label && (
@@ -55,7 +55,7 @@ const PasswordInput = React.forwardRef<HTMLInputElement, Props>(
           />
           <label
             htmlFor={name}
-            className="absolute -mt-2 cursor-pointer ltr:right-4 rtl:left-4 top-5 text-brand-dark text-opacity-30"
+            className="absolute -mt-2 cursor-pointer ltr:left-4 rtl:right-4 top-5 text-brand-dark text-opacity-30"
             onClick={() => setShow((prev) => !prev)}
           >
             {show ? (

@@ -50,7 +50,8 @@ const Input = React.forwardRef<HTMLInputElement, Props>(
       {
         [classes.shadow]: shadow,
       },
-      inputClassName
+      inputClassName,
+      'text-right'
     );
     const { t } = useTranslation();
     return (
@@ -58,7 +59,7 @@ const Input = React.forwardRef<HTMLInputElement, Props>(
         {label && (
           <label
             htmlFor={name}
-            className={`block font-normal text-sm leading-none mb-3 cursor-pointer ${
+            className={`block font-normal text-sm leading-none mb-3 cursor-pointer text-right ${
               labelClassName || 'text-brand-dark text-opacity-70'
             }`}
           >
@@ -79,7 +80,7 @@ const Input = React.forwardRef<HTMLInputElement, Props>(
           {...rest}
         />
         {error && (
-          <p className="my-2 text-13px text-brand-danger text-opacity-70">
+          <p className="my-2 text-13px text-brand-danger text-opacity-70 text-right">
             {t(error)}
           </p>
         )}
