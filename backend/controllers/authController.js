@@ -4,10 +4,10 @@ const User = require("../models/User");
 
 exports.register = async (req, res) => {
   try {
-    const { email, username, password } = req.body;
+    const { phone_number, username, password } = req.body;
 
-    // Check if the email is already taken
-    const existingEmailUser = await User.findOne({ email });
+    // Check if the phone_number is already taken
+    const existingEmailUser = await User.findOne({ phone_number });
 
     // Check if the username is already taken
     const existingUsernameUser = await User.findOne({ username });
@@ -15,9 +15,9 @@ exports.register = async (req, res) => {
     if (existingEmailUser && existingUsernameUser) {
       return res
         .status(400)
-        .json({ error: "Email and username already exist" });
+        .json({ error: "phone_number and username already exist" });
     } else if (existingEmailUser) {
-      return res.status(400).json({ error: "Email already exists" });
+      return res.status(400).json({ error: "phone_number already exists" });
     } else if (existingUsernameUser) {
       return res.status(400).json({ error: "Username already exists" });
     }
@@ -26,7 +26,11 @@ exports.register = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Create the new user
-    const newUser = new User({ email, username, password: hashedPassword });
+    const newUser = new User({
+      phone_number,
+      username,
+      password: hashedPassword,
+    });
     await newUser.save();
 
     res.status(201).json({ message: "User registered successfully" });
@@ -38,13 +42,13 @@ exports.register = async (req, res) => {
 
 exports.login = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { phone_number, password } = req.body;
 
-    // Find the user by email
-    const user = await User.findOne({ email });
+    // Find the user by phone_number
+    const user = await User.findOne({ phone_number });
 
     if (!user) {
-      return res.status(401).json({ error: "Email is incorrect" });
+      return res.status(401).json({ error: "phone_number is incorrect" });
     }
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
@@ -56,7 +60,7 @@ exports.login = async (req, res) => {
       { userId: user._id, isAdmin: user.isAdmin },
       process.env.JWT_SECRET,
       {
-        expiresIn: "1h",
+        expiresIn: "48h",
       }
     );
 

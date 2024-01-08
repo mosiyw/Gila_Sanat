@@ -3,7 +3,8 @@ import Cookies from 'js-cookie';
 import { useMutation } from 'react-query';
 
 export interface LoginInputType {
-  email: string;
+  // email: string;
+  phone_number: string;
   password: string;
   remember_me: boolean;
 }

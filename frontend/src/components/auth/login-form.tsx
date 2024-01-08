@@ -25,7 +25,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ isPopup = true, className }) => {
   const [remember, setRemember] = useState(false);
 
   interface LoginInputType1 {
-    email: string;
+    phone_number: string;
     password: string;
     remember_me: boolean;
   }
@@ -35,23 +35,23 @@ const LoginForm: React.FC<LoginFormProps> = ({ isPopup = true, className }) => {
     formState: { errors },
   } = useForm<LoginInputType1>();
 
-  function onSubmit({ email, password, remember_me }: LoginInputType1) {
+  function onSubmit({ phone_number, password, remember_me }: LoginInputType1) {
     login({
-      email,
+      phone_number,
       password,
-      remember_me,
+      remember_me: remember,
     });
     closeModal();
-    console.log(email, password, remember_me, 'data');
+    console.log(phone_number, password, remember_me, 'data');
   }
-  function handelSocialLogin() {
-    login({
-      email: 'demo@demo.com',
-      password: 'demo',
-      remember_me: true,
-    });
-    closeModal();
-  }
+  // function handelSocialLogin() {
+  //   login({
+  //     phone_number: 'demo@demo.com',
+  //     password: 'demo',
+  //     remember_me: true,
+  //   });
+  //   closeModal();
+  // }
   function handleSignUp() {
     return openModal('SIGN_UP_VIEW');
   }
@@ -112,10 +112,10 @@ const LoginForm: React.FC<LoginFormProps> = ({ isPopup = true, className }) => {
                 type="tel"
                 variant="solid"
                 className="text-right"
-                {...register('phoneNumber', {
+                {...register('phone_number', {
                   required: `${t('forms:phone-number-required')}`,
                   pattern: {
-                    value: /^(\+\d{1,3}[- ]?)?\d{10}$/,
+                    value: /^(\+\d{1,3}[- ]?)?\d{11}$/,
                     message: t('forms:phone-number-error'),
                   },
                 })}
