@@ -33,7 +33,7 @@
     "rc-drawer": "^4.4.3",
     "rc-pagination": "^3.1.15",
     "rc-table": "^7.23.0",
-    "react": "^16.14.0",
+    "react": "17.0.2",
     "react-content-loader": "^6.1.0",
     "react-copy-to-clipboard": "^5.0.4",
     "react-countdown": "^2.3.2",

@@ -1,8 +1,8 @@
+import { useForm, Controller } from 'react-hook-form';
 import Input from '@components/ui/form/input';
 import PasswordInput from '@components/ui/form/password-input';
 import Button from '@components/ui/button';
 import Heading from '@components/ui/heading';
-import { useForm, Controller } from 'react-hook-form';
 import {
   useUpdateUserMutation,
   UpdateUserType,
@@ -16,6 +16,8 @@ const defaultValues = {};
 const AccountDetails: React.FC = () => {
   const { mutate: updateUser, isLoading } = useUpdateUserMutation();
   const { t } = useTranslation();
+  console.log(useForm);
+
   const {
     register,
     handleSubmit,

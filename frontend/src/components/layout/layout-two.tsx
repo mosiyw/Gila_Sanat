@@ -6,7 +6,7 @@ import Header from '@components/layout/header/header-five';
 import Footer from '@components/layout/footer/footer';
 import MobileNavigation from '@components/layout/mobile-navigation/mobile-navigation';
 import { useTranslation } from 'next-i18next';
-
+const defaultValues = {};
 const Layout: React.FC = ({ children }) => {
   const { t } = useTranslation('common');
   const [highlightedBar, setHighlightedBar] = useSessionStorage(
