@@ -39,8 +39,8 @@ export function generateCartItem(item: Item, variation: Variation) {
     id,
     name,
     slug,
-    image: item.image.cover,
-    stock: item.balance,
+    image: item?.image?.cover,
+    stock: item?.balance,
     price: price,
   };
 }

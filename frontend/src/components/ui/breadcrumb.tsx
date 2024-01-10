@@ -80,7 +80,7 @@ const Breadcrumb: React.FC<{ separator?: string }> = ({
         </a>
       </ActiveLink>
 
-      {breadcrumbs?.slice(0, -1).map((breadcrumb: any) => (
+      {breadcrumbs?.slice(0, -2).map((breadcrumb: any) => (
         <ActiveLink
           href={breadcrumb.href}
           activeClassName="font-semibold text-heading"

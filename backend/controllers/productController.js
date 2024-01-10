@@ -103,7 +103,7 @@ exports.getProductById = async (req, res) => {
     if (!product) {
       return res.status(404).json({ error: "Product not found or not active" });
     }
-    res.json({ product });
+    res.json(product); // Changed from { product } to product
   } catch (error) {
     res.status(500).json({ error: "An error occurred" });
   }

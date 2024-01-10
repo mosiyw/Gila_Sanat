@@ -12,33 +12,33 @@ import { useTranslation } from 'next-i18next';
 const data = [
   {
     id: 1,
-    title: 'text-delivery-address',
-    component: <Address />,
-  },
-  {
-    id: 2,
-    title: 'text-delivery-schedule',
-    component: <DeliverySchedule />,
-  },
-  {
-    id: 3,
     title: 'text-contact-number',
     component: <Contact />,
   },
   {
-    id: 4,
-    title: 'text-payment-option',
-    component: <StripeCheckoutInlineForm />,
+    id: 2,
+    title: 'text-delivery-address',
+    component: <Address />,
   },
   {
-    id: 5,
+    id: 3,
+    title: 'text-delivery-schedule',
+    component: <DeliverySchedule />,
+  },
+  {
+    id: 4,
     title: 'text-delivery-instructions',
     component: <DeliveryNotes />,
   },
   {
-    id: 6,
+    id: 5,
     title: 'text-delivery-tip',
     component: <DeliveryTips />,
+  },
+  {
+    id: 6,
+    title: 'text-payment-option',
+    component: <StripeCheckoutInlineForm />,
   },
 ];
 

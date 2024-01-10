@@ -4,7 +4,7 @@ import Counter from '@components/ui/counter';
 import { useRouter } from 'next/router';
 import { ROUTES } from '@utils/routes';
 import useWindowSize from '@utils/use-window-size';
-import { useProductQuery } from '@framework/product/get-product';
+import { useProductQuery } from '@framework/product/new-get-product';
 import { getVariations } from '@framework/utils/get-variations';
 import usePrice from '@framework/product/use-price';
 import { useCart } from '@contexts/cart/cart.context';
@@ -24,15 +24,15 @@ import SocialShareBox from '@components/ui/social-share-box';
 import ProductDetailsTab from '@components/product/product-details/product-tab';
 import VariationPrice from './variation-price';
 import isEqual from 'lodash/isEqual';
+import getFullUrl from '@utils/imgurl';
 
 const ProductSingleDetails: React.FC = () => {
   const { t } = useTranslation('common');
   const router = useRouter();
-  const {
-    query: { slug },
-  } = router;
+  const { slug = [] } = router.query;
   const { width } = useWindowSize();
-  const { data, isLoading } = useProductQuery(slug as string);
+  const productSlug = slug?.[0];
+  const { data, isLoading } = useProductQuery(productSlug as string);
   const { addItemToCart, isInCart, getItemFromCart, isInStock } = useCart();
   const [selectedQuantity, setSelectedQuantity] = useState(1);
   const [attributes, setAttributes] = useState<{ [key: string]: string }>({});
@@ -118,16 +118,20 @@ const ProductSingleDetails: React.FC = () => {
     <div className="pt-6 pb-2 md:pt-7">
       <div className="grid-cols-10 lg:grid gap-7 2xl:gap-8">
         <div className="col-span-5 mb-6 overflow-hidden xl:col-span-6 md:mb-8 lg:mb-0">
-          {!!data?.gallery?.length ? (
+          {!!data?.image?.length ? (
             <ThumbnailCarousel
-              gallery={data?.gallery}
+              gallery={data?.image ?? getFullUrl(data.image.images)}
               thumbnailClassName="xl:w-[700px] 2xl:w-[900px]"
               galleryClassName="xl:w-[150px] 2xl:w-[170px]"
             />
           ) : (
             <div className="flex items-center justify-center w-auto">
               <Image
-                src={data?.image?.original ?? '/product-placeholder.svg'}
+                src={
+                  data?.image.cover
+                    ? getFullUrl(data.image.cover)
+                    : '/product-placeholder.svg'
+                }
                 alt={data?.name!}
                 width={900}
                 height={680}
