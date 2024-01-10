@@ -1,3 +1,5 @@
+import { Carousel } from 'react-responsive-carousel';
+import 'react-responsive-carousel/lib/styles/carousel.min.css'; // requires a loader
 import type { FC } from 'react';
 import cn from 'classnames';
 import Link from '@components/ui/link';
@@ -7,15 +9,7 @@ import { useTranslation } from 'next-i18next';
 import SimpleImageSlider from 'react-simple-image-slider';
 import banner2 from '../../../public/assets/images/banner/Ronix-banner.jpg';
 
-interface BannerProps {
-  banner?: any;
-  className?: string;
-  variant?: 'default' | 'slider' | 'medium';
-}
-
-function getImage(deviceWidth: number, imgObj: any) {
-  return deviceWidth < 480 ? imgObj.mobile : imgObj.desktop;
-}
+// ... rest of your imports
 
 const HeroBannerCard: FC<BannerProps> = ({
   banner,
@@ -25,21 +19,21 @@ const HeroBannerCard: FC<BannerProps> = ({
   const { t } = useTranslation('common');
   const { width } = useWindowSize();
   const { title, description, image } = banner;
-  const selectedImage = getImage(width!, image);
 
-  const images = [{ url: `${selectedImage.url}` }, { url: `${banner2.src}` }];
+  const images = [{ url: `${banner2.src}` }, { url: `${banner2.src}` }];
+
   return (
-    <div className="relative mb-5 lg:h-[45vh] h-[30vh] md:h-[20vh]">
-      <SimpleImageSlider
-        width={'100%'}
-        height={'100%'}
-        images={images}
-        slideDuration={1.5}
-        autoPlay={true}
-        autoPlayDelay={5}
-        showBullets={true}
-        showNavs={true}
-      />
+    <div className="relative mb-5 lg:h-[45vh] h-[30vh] md:h-[20vh] ">
+      <Carousel autoPlay infiniteLoop showThumbs={false} showStatus={false}>
+        {images.map((img, index) => (
+          <div key={index}>
+            <img
+              src={img.url}
+              className="lg:h-[45vh] h-[30vh] md:h-[20vh] object-cover object-center"
+            />
+          </div>
+        ))}
+      </Carousel>
     </div>
   );
 };

@@ -23,6 +23,12 @@
     @apply antialiased bg-brand-light text-brand-muted;
     font-family: 'IranYekan', sans-serif;
   }
+  span {
+    font-family: 'IranYekan', sans-serif;
+  }
+  h1 h2 h3 h4 h5 h6 {
+    font-family: 'IranYekan', sans-serif;
+  }
   p {
     @apply mb-5;
   }
@@ -96,7 +102,6 @@
 .switch {
   height: 22px;
 }
-
 .slider:before {
   position: absolute;
   content: '';

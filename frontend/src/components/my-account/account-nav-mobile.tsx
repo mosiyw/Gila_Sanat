@@ -30,20 +30,20 @@ export default function AccountNavMobile({ options }: { options: Option[] }) {
   const { mutate: logout } = useLogoutMutation();
 
   return (
-    <Listbox value={selectedItem} onChange={handleItemClick}>
+    <Listbox value={selectedItem} onChange={handleItemClick} dir="rtl">
       {({ open }) => (
         <div className="relative w-full font-body">
-          <Listbox.Button className="relative flex items-center w-full p-4 border rounded cursor-pointer text-brand-dark md:p-5 ltr:text-left rtl:text-right focus:outline-none border-border-base">
-            {selectedItem?.icon}
-            <span className="flex truncate items-center text-sm md:text-15px font-medium ltr:pl-2.5 rtl:pr-2.5 relative">
+          <Listbox.Button className="relative flex items-center justify-between w-full p-4 border rounded cursor-pointer text-brand-dark md:p-5 ltr:text-left rtl:text-right focus:outline-none border-border-base">
+            <span className="absolute inset-y-0 flex items-center pointer-events-none ltr:right-4 rtl:left-4 md:ltr:right-5 md:rtl:left-5">
+              {selectedItem?.icon}
+            </span>
+            <span className="flex truncate items-center text-sm md:text-15px font-medium ltr:pl-2.5 rtl:pr-2.5 relative mr-5">
               {t(selectedItem?.name)}
             </span>
-            <span className="absolute inset-y-0 flex items-center pointer-events-none ltr:right-4 rtl:left-4 md:ltr:right-5 md:rtl:left-5">
-              <FaChevronDown
-                className="w-3 md:w-3.5 h-3 md:h-3.5 text-brand-dark text-opacity-70"
-                aria-hidden="true"
-              />
-            </span>
+            <FaChevronDown
+              className="w-3 md:w-3.5 h-3 md:h-3.5 text-brand-dark text-opacity-70"
+              aria-hidden="true"
+            />
           </Listbox.Button>
           <Transition
             show={open}

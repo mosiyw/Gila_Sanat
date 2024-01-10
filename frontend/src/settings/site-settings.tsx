@@ -21,8 +21,8 @@ export const siteSettings = {
     width: 150,
     height: 40,
   },
-  defaultLanguage: 'en',
-  currencyCode: 'USD',
+  defaultLanguage: 'fa',
+  currencyCode: 'IRT',
   site_header: {
     menu: [
       {

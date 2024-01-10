@@ -43,7 +43,13 @@ const BottomNavigation: React.FC = () => {
 
   return (
     <>
-      <div className="lg:hidden fixed z-30 -bottom-0.5 flex items-center justify-between shadow-bottomNavigation body-font bg-brand-light w-[94%] mr-[3%] ml-[3%] mb-[3%] h-14 px-4 md:px-6 lg:px-8 text-brand-muted pb-0.5 rounded-lg">
+      <div
+        className="lg:hidden fixed z-30 -bottom-0.5 flex items-center justify-between body-font bg-brand-light w-[94%] mr-[3%] ml-[3%] mb-[3%] h-14 px-4 md:px-6 lg:px-8 text-brand-muted pb-0.5 rounded-lg"
+        style={{
+          boxShadow:
+            '10px 0 15px -3px rgba(0, 0, 0, 0.1), -10px 0 15px -3px rgba(0, 0, 0, 0.1), 0 10px 15px -3px rgba(0, 0, 0, 0.1)',
+        }}
+      >
         {' '}
         <AuthMenu
           isAuthorized={isAuthorized}

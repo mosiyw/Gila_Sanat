@@ -41,6 +41,7 @@
     "react-hook-form": "^7.27.0",
     "react-icons": "^4.3.1",
     "react-query": "^3.34.15",
+    "react-responsive-carousel": "^3.2.23",
     "react-scroll": "^1.8.5",
     "react-share": "^4.4.0",
     "react-simple-image-slider": "^2.4.1",

@@ -61,7 +61,7 @@ const SearchBox = React.forwardRef<HTMLInputElement, SearchProps>(
           {
             // Search box for mobile
           }
-          {/* <div className="relative w-full">
+          <div className="relative w-full">
             <input
               id={searchId}
               className={cn(
@@ -79,7 +79,7 @@ const SearchBox = React.forwardRef<HTMLInputElement, SearchProps>(
               ref={ref}
               {...rest}
             />
-          </div> */}
+          </div>
         </label>
         {value ? (
           <button

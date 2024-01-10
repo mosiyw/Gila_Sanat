@@ -16,7 +16,6 @@ const defaultValues = {};
 const AccountDetails: React.FC = () => {
   const { mutate: updateUser, isLoading } = useUpdateUserMutation();
   const { t } = useTranslation();
-  console.log(useForm);
 
   const {
     register,
