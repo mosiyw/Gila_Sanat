@@ -17,6 +17,7 @@ const BestSellerGroceryProductFeed: FC<ProductFeedProps> = ({ className }) => {
       sectionSubHeading="text-fresh-grocery-items"
       className={className}
       products={data}
+      rowlimit={'oneLine'}
       loading={isLoading}
       error={error?.message}
       limit={LIMITS.BEST_SELLER_GROCERY_PRODUCTS_LIMITS}

@@ -32,7 +32,7 @@ const BundleCard: React.FC<Props> = ({
   return (
     <Link href={href} className={cn('group flex', className)}>
       <div
-        className="relative flex items-center w-full overflow-hidden"
+        className="relative flex items-center justify-center w-full overflow-hidden rounded-xl"
         style={{ backgroundColor: bgColor }}
       >
         <div className={cn('flex shrink-0', thumbnailClassName)}>
@@ -44,14 +44,14 @@ const BundleCard: React.FC<Props> = ({
             className="object-cover transition duration-200 ease-in-out transform bg-sink-thumbnail group-hover:scale-105"
           />
         </div>
-        <div className="py-3 lg:py-5 ltr:pr-4 rtl:pl-4 lg:ltr:pr-3 lg:rtl:pl-3 xl:ltr:pr-4 xl:rtl:pl-4">
+        {/* <div className="py-3 lg:py-5 ltr:pr-4 rtl:pl-4 lg:ltr:pr-3 lg:rtl:pl-3 xl:ltr:pr-4 xl:rtl:pl-4">
           <Heading variant="title" className="mb-[5px]">
             {t(title)}
           </Heading>
           <p className="text-sm leading-6 lg:text-13px xl:text-sm">
             {t(`${description}`)}
           </p>
-        </div>
+        </div> */}
       </div>
     </Link>
   );

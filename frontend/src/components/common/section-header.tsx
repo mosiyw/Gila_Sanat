@@ -27,7 +27,8 @@ const SectionHeader: React.FC<Props> = ({
       <Heading
         variant="heading"
         className={cn({
-          '3xl:text-[25px] 3xl:leading-9': headingPosition === 'center',
+          '3xl:text-[25px] 3xl:leading-9 CustomFont':
+            headingPosition === 'center',
         })}
       >
         {t(sectionHeading)}

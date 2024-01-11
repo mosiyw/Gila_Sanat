@@ -15,37 +15,54 @@ interface Props {
 
 const breakpoints = {
   '1024': {
-    slidesPerView: 3,
+    slidesPerView: 4,
     spaceBetween: 16,
   },
   '768': {
     slidesPerView: 2,
     spaceBetween: 16,
   },
-  '680': {
+  '640': {
     slidesPerView: 2,
     spaceBetween: 12,
   },
   '0': {
-    slidesPerView: 1,
+    slidesPerView: 2,
+    spaceBetween: 12,
   },
 };
 
 const BundleGrid: React.FC<Props> = ({ className = 'mb-12 pb-0.5', data }) => {
   const { width } = useWindowSize();
+  const halfLength = Math.ceil(data.length / 2);
+  const firstHalf = data.slice(0, halfLength);
+  const secondHalf = data.slice(halfLength);
+
   return (
     <div className={cn('heightFull', className)}>
-      {width! < 1536 ? (
-        <Carousel breakpoints={breakpoints}>
-          {data?.map((item: any) => (
-            <SwiperSlide key={`bundle-key-${item.id}`}>
-              <BundleCard
-                bundle={item}
-                href={`${ROUTES.BUNDLE}/${item.slug}`}
-              />
-            </SwiperSlide>
-          ))}
-        </Carousel>
+      {width! < 1024 ? (
+        <>
+          <Carousel breakpoints={breakpoints} className="mb-[1.5vh]">
+            {firstHalf?.map((item: any) => (
+              <SwiperSlide key={`bundle-key-${item.id}`}>
+                <BundleCard
+                  bundle={item}
+                  href={`${ROUTES.BUNDLE}/${item.slug}`}
+                />
+              </SwiperSlide>
+            ))}
+          </Carousel>
+          <Carousel breakpoints={breakpoints}>
+            {secondHalf?.map((item: any) => (
+              <SwiperSlide key={`bundle-key-${item.id}`}>
+                <BundleCard
+                  bundle={item}
+                  href={`${ROUTES.BUNDLE}/${item.slug}`}
+                />
+              </SwiperSlide>
+            ))}
+          </Carousel>
+        </>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {data?.map((item: any) => (
@@ -60,5 +77,4 @@ const BundleGrid: React.FC<Props> = ({ className = 'mb-12 pb-0.5', data }) => {
     </div>
   );
 };
-
 export default BundleGrid;

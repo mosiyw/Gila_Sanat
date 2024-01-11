@@ -23,6 +23,9 @@
     @apply antialiased bg-brand-light text-brand-muted;
     font-family: 'IranYekan', sans-serif;
   }
+  .CustomFont {
+    font-family: 'IranYekan', sans-serif !important;
+  }
   span {
     font-family: 'IranYekan', sans-serif;
   }

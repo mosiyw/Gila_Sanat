@@ -25,7 +25,7 @@ const CategoryCard: React.FC<Props> = ({ item, href, className }) => {
     >
       <div className="flex max-w-[178px] max-h-[178px] mb-3.5 xl:mb-4 mx-auto rounded-full overflow-hidden bg-fill-thumbnail">
         <div
-          className={`flex shrink-0 transition-all duration-700 w-full h-full transform scale-50 group-hover:scale-100 ${
+          className={`flex shrink-0 transition-all duration-700 w-full  transform scale-50 group-hover:scale-100 ${
             dir === 'rtl'
               ? 'translate-x-full group-hover:translate-x-0'
               : '-translate-x-full group-hover:translate-x-0'
