@@ -17,11 +17,11 @@ interface CategoriesProps {
 }
 const breakpoints = {
   '1640': {
-    slidesPerView: 9,
+    slidesPerView: 10,
     spaceBetween: 24,
   },
   '1280': {
-    slidesPerView: 7,
+    slidesPerView: 10,
     spaceBetween: 20,
   },
   '1024': {
@@ -29,7 +29,7 @@ const breakpoints = {
     spaceBetween: 20,
   },
   '768': {
-    slidesPerView: 5,
+    slidesPerView: 4,
     spaceBetween: 15,
   },
   '530': {
@@ -37,13 +37,13 @@ const breakpoints = {
     spaceBetween: 15,
   },
   '0': {
-    slidesPerView: 3,
+    slidesPerView: 4,
     spaceBetween: 15,
   },
 };
 
 const CategoryGridBlock: React.FC<CategoriesProps> = ({
-  className = 'md:pt-3 lg:pt-0 3xl:pb-2 mb-12 sm:mb-14 md:mb-16 xl:mb-24 2xl:mb-16',
+  className = 'md:pt-3 lg:pt-0 3xl:pb-2 mb-12 sm:mb-14 md:mb-16 xl:mb-24 2xl:mb-16 ',
 }) => {
   const { width } = useWindowSize();
 
@@ -70,7 +70,6 @@ const CategoryGridBlock: React.FC<CategoriesProps> = ({
           <Alert message={error?.message} className="mb-14 3xl:mx-3.5" />
         ) : width! < 1536 ? (
           <Carousel
-            autoplay={false}
             breakpoints={breakpoints}
             buttonGroupClassName="-mt-5 md:-mt-4 lg:-mt-5"
           >

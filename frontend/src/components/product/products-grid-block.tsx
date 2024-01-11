@@ -4,6 +4,12 @@ import ProductCard from '@components/product/product-cards/product-card';
 import ProductCardLoader from '@components/ui/loaders/product-card-loader';
 import { Product } from '@framework/types';
 import Alert from '@components/ui/alert';
+import { SwiperSlide } from 'swiper/react';
+import useWindowSize from '@utils/use-window-size';
+import dynamic from 'next/dynamic';
+const Carousel = dynamic(() => import('@components/ui/carousel/carousel'), {
+  ssr: false,
+});
 
 interface ProductsProps {
   sectionHeading: string;
@@ -13,10 +19,36 @@ interface ProductsProps {
   products?: Product[];
   loading: boolean;
   error?: string;
-  limit?: number;
-  rowlimit?: 'oneLine';
+  limit?: number | 'oneLine';
   uniqueKey?: string;
 }
+
+const breakpoints = {
+  '1640': {
+    slidesPerView: 5,
+    spaceBetween: 16,
+  },
+  '1280': {
+    slidesPerView: 5,
+    spaceBetween: 16,
+  },
+  '1024': {
+    slidesPerView: 5,
+    spaceBetween: 16,
+  },
+  '768': {
+    slidesPerView: 2,
+    spaceBetween: 16,
+  },
+  '530': {
+    slidesPerView: 2,
+    spaceBetween: 16,
+  },
+  '0': {
+    slidesPerView: 2,
+    spaceBetween: 16,
+  },
+};
 
 const ProductsGridBlock: React.FC<ProductsProps> = ({
   sectionHeading,
@@ -27,23 +59,9 @@ const ProductsGridBlock: React.FC<ProductsProps> = ({
   loading,
   error,
   limit,
-  rowlimit,
   uniqueKey,
 }) => {
-  const [isDesktop, setIsDesktop] = useState(false);
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      setIsDesktop(window.innerWidth > 768);
-    }
-  }, []);
-
-  const displayedProducts =
-    rowlimit === 'oneLine'
-      ? isDesktop
-        ? products?.slice(0, 5)
-        : products?.slice(0, 6)
-      : products;
+  const { width } = useWindowSize();
 
   return (
     <div className={`${className}`}>
@@ -52,27 +70,45 @@ const ProductsGridBlock: React.FC<ProductsProps> = ({
         sectionSubHeading={sectionSubHeading}
         headingPosition={headingPosition}
       />
-      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 3xl:grid-cols-7 md:gap-4 2xl:gap-5">
-        {error ? (
-          <Alert message={error} className="col-span-full" />
-        ) : loading && !displayedProducts?.length ? (
-          Array.from({ length: limit! }).map((_, idx) => (
-            <ProductCardLoader
-              key={`${uniqueKey}-${idx}`}
-              uniqueKey={`${uniqueKey}-${idx}`}
+      {error ? (
+        <Alert message={error} className="mb-14 3xl:mx-3.5" />
+      ) : width! < 1536 ? (
+        <Carousel
+          autoplay={true}
+          breakpoints={breakpoints}
+          buttonGroupClassName="-mt-5 md:-mt-4 lg:-mt-5"
+        >
+          {loading && !products
+            ? Array.from({ length: limit! }).map((_, idx) => (
+                <SwiperSlide key={`${uniqueKey}-${idx}`}>
+                  <ProductCardLoader
+                    key={`${uniqueKey}-${idx}`}
+                    uniqueKey={`${uniqueKey}-${idx}`}
+                  />
+                </SwiperSlide>
+              ))
+            : products?.map((product: any) => (
+                <SwiperSlide
+                  key={`${uniqueKey}-${product._id}`}
+                  className="lg:px-[1vw]"
+                >
+                  <ProductCard
+                    key={`${uniqueKey}-${product._id}`}
+                    product={product}
+                  />
+                </SwiperSlide>
+              ))}
+        </Carousel>
+      ) : (
+        <>
+          {products?.map((product: any) => (
+            <ProductCard
+              key={`${uniqueKey}-${product._id}`}
+              product={product}
             />
-          ))
-        ) : (
-          <>
-            {displayedProducts?.map((product: any) => (
-              <ProductCard
-                key={`${uniqueKey}-${product._id}`}
-                product={product}
-              />
-            ))}
-          </>
-        )}
-      </div>
+          ))}
+        </>
+      )}
     </div>
   );
 };

@@ -13,7 +13,7 @@ const BestSellerGroceryProductFeed: FC<ProductFeedProps> = ({ className }) => {
   });
   return (
     <ProductsGridBlock
-      sectionHeading="text-best-grocery-near-you"
+      sectionHeading="text-best-sellers"
       sectionSubHeading="text-fresh-grocery-items"
       className={className}
       products={data}

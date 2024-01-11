@@ -44,7 +44,7 @@ const Carousel: React.FunctionComponent<CarouselPropsType> = ({
   breakpoints,
   navigation = true,
   pagination = false,
-  loop = false,
+  loop = true,
   grid,
   autoplay,
   ...props
