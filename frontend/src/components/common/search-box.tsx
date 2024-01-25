@@ -61,7 +61,7 @@ const SearchBox = React.forwardRef<HTMLInputElement, SearchProps>(
           {
             // Search box for mobile
           }
-          <div className="relative w-full">
+          <div className="relative w-full lg:hidden">
             <input
               id={searchId}
               className={cn(

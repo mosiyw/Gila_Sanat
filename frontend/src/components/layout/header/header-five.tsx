@@ -65,7 +65,7 @@ const Header: React.FC = () => {
           className="top-bar-search hidden lg:max-w-[600px] absolute z-30 px-4 md:px-6 top-1"
         />
         {/* End of Mobile search */}
-        <Container className=" absolute top-0 left-0 sticky top-0 bg-brand-light z-[5] flex items-center justify-between h-16 py-3 border-b top-bar lg:h-auto border-border-base">
+        <Container className="sticky top-0 z-10 absolute top-0 left-0 bg-brand-light flex items-center justify-between h-16 py-3 border-b top-bar lg:h-auto border-border-base">
           {/* End of Category */}
 
           <div className="flex items-center justify-start w-full">
@@ -134,7 +134,7 @@ const Header: React.FC = () => {
             {/* End of conditional search  */}
 
             <div className="flex items-center ltr:ml-auto rtl:mr-auto shrink-0">
-              <Delivery />
+              {/* <Delivery /> */}
               <div className="flex items-center w-0 py-4 overflow-hidden transition-all duration-200 ease-in-out opacity-0 navbar-right">
                 <button
                   type="button"
