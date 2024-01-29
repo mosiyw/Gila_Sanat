@@ -1,20 +1,20 @@
-import Container from '@components/ui/container';
-import Layout from '@components/layout/layout';
-import { ShopFilters } from '@components/search/filters';
-import { ProductGrid } from '@components/product/product-grid';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import DownloadApps from '@components/common/download-apps';
-import { GetStaticProps } from 'next';
-import { Element } from 'react-scroll';
+import Layout from '@components/layout/layout';
+import { ProductGrid } from '@components/product/product-grid';
+import { ShopFilters } from '@components/search/filters';
 import SearchTopBar from '@components/search/search-top-bar';
-import Divider from '@components/ui/divider';
 import Seo from '@components/seo/seo';
-import { QueryClient } from 'react-query';
-import { dehydrate } from 'react-query/hydration';
-import { API_ENDPOINTS } from '@framework/utils/api-endpoints';
+import Container from '@components/ui/container';
+import Divider from '@components/ui/divider';
+import { API_ENDPOINTS } from '@framework/api-endpoints';
 import { fetchCategories } from '@framework/category/get-all-categories';
 import { fetchProducts } from '@framework/product/get-all-products';
 import { LIMITS } from '@framework/utils/limits';
+import { GetStaticProps } from 'next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { QueryClient } from 'react-query';
+import { dehydrate } from 'react-query/hydration';
+import { Element } from 'react-scroll';
 
 export default function Search() {
   return (

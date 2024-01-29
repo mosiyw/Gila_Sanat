@@ -10,6 +10,7 @@ async function forgetPassword() {
     message: 'Forget password Successful!',
   };
 }
+
 export const useForgetPasswordMutation = () => {
   return useMutation(() => forgetPassword(), {
     onSuccess: (_data) => {

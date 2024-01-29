@@ -1,6 +1,10 @@
 {
   "extends": ["next", "next/core-web-vitals"],
   "rules": {
-    "@next/next/no-document-import-in-page": "off"
+    "@next/next/no-document-import-in-page": "off",
+    "padding-line-between-statements": [
+      "error",
+      { "blankLine": "always", "prev": "*", "next": "export" }
+    ]
   }
 }

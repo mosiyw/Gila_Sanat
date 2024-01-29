@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosError, AxiosResponse } from 'axios';
 import { getToken } from './get-token';
 
 const http = axios.create({
@@ -10,7 +10,6 @@ const http = axios.create({
   },
 });
 
-// Change request data/error here
 http.interceptors.request.use(
   (config) => {
     const token = getToken();
@@ -23,6 +22,11 @@ http.interceptors.request.use(
   (error) => {
     return Promise.reject(error);
   }
+);
+
+http.interceptors.response.use(
+  (response: AxiosResponse) => response.data,
+  (error: AxiosError) => Promise.reject(error)
 );
 
 export default http;

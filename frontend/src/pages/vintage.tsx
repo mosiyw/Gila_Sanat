@@ -1,24 +1,26 @@
 import BundleGrid from '@components/bundle/bundle-grid';
-import AllProductFeed from '@components/product/feeds/all-products-feed';
-import Layout from '@components/layout/layout';
-import Container from '@components/ui/container';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import DownloadApps from '@components/common/download-apps';
-import { homeTwoHeroBanner as heroBanner } from '@framework/static/banner';
-import { homeTwoBanner as banner } from '@framework/static/banner';
 import BannerCard from '@components/cards/banner-card';
-import HeroSliderBlock from '@components/hero/hero-slider-block';
-import { Element } from 'react-scroll';
-import { GetStaticProps } from 'next';
 import CategoryDropdownSidebar from '@components/category/category-dropdown-sidebar';
-import { bundleDataTwo as bundle } from '@framework/static/bundle';
+import DownloadApps from '@components/common/download-apps';
+import HeroSliderBlock from '@components/hero/hero-slider-block';
+import Layout from '@components/layout/layout';
+import AllProductFeed from '@components/product/feeds/all-products-feed';
 import Seo from '@components/seo/seo';
+import Container from '@components/ui/container';
+import { API_ENDPOINTS } from '@framework/api-endpoints';
+import { fetchCategories } from '@framework/category/get-all-categories';
+import { fetchProducts } from '@framework/product/get-all-products';
+import {
+  homeTwoBanner as banner,
+  homeTwoHeroBanner as heroBanner,
+} from '@framework/static/banner';
+import { bundleDataTwo as bundle } from '@framework/static/bundle';
+import { LIMITS } from '@framework/utils/limits';
+import { GetStaticProps } from 'next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { QueryClient } from 'react-query';
 import { dehydrate } from 'react-query/hydration';
-import { API_ENDPOINTS } from '@framework/utils/api-endpoints';
-import { fetchProducts } from '@framework/product/get-all-products';
-import { fetchCategories } from '@framework/category/get-all-categories';
-import { LIMITS } from '@framework/utils/limits';
+import { Element } from 'react-scroll';
 
 export default function Home() {
   return (
