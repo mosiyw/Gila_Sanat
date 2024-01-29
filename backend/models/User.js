@@ -10,7 +10,7 @@ const userSchema = new mongoose.Schema({
   password: String,
   isAdmin: { type: Boolean, default: false },
   addresses: [],
-  favorite: [],
+  favorites: [],
   cart: [],
   orders: [],
   tickets: [],
