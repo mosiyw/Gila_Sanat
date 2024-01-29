@@ -1,40 +1,46 @@
 import { useUI } from '@contexts/ui.context';
+import { API_ENDPOINTS } from '@framework/api-endpoints';
+import http from '@framework/utils/http';
 import Cookies from 'js-cookie';
 import { useMutation } from 'react-query';
+import { toast } from 'react-toastify';
+import { LoginType } from './types';
 
-export interface LoginInputType {
-  // email: string;
-  phone_number: string;
-  password: string;
-  remember_me: boolean;
-}
-
-async function login(input: LoginInputType) {
-  const response = await fetch('http://localhost:5000/api/auth/login', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(input),
-  });
-
-  if (!response.ok) {
-    throw new Error('Network response was not ok');
-  }
-
-  return response.json();
-}
+const postLogin = (
+  input: LoginType['payload']
+): Promise<LoginType['response']> => http.post(API_ENDPOINTS.LOGIN, input);
 
 export const useLoginMutation = () => {
   const { authorize, closeModal } = useUI();
-  return useMutation((input: LoginInputType) => login(input), {
+
+  return useMutation((input: LoginType['payload']) => postLogin(input), {
     onSuccess: (data) => {
+      console.log(data);
+
+      toast(data.message, {
+        progressClassName: 'fancy-progress-bar',
+        autoClose: 1500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+
       Cookies.set('auth_token', data.token);
-      authorize();
-      closeModal();
+      // authorize();
+      // closeModal();
     },
-    onError: (data) => {
-      console.log(data, 'login error response');
+    onError: (error) => {
+      console.log(error);
+
+      // toast(error, {
+      //   progressClassName: 'fancy-progress-bar',
+      //   autoClose: 1500,
+      //   hideProgressBar: false,
+      //   closeOnClick: true,
+      //   pauseOnHover: true,
+      //   draggable: true,
+      // });
     },
   });
 };

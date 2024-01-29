@@ -6,6 +6,7 @@ export const API_ENDPOINTS = {
   TOPSELLINGS: '/products/top-selling',
   PRODUCT: '/product',
 };
+
 export const API_ENDPOINTS2 = {
   LOGIN: '/login',
   REGISTER: '/register',

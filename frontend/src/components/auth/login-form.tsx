@@ -1,21 +1,25 @@
-import { useState } from 'react';
+import { useModalAction } from '@components/common/modal/modal.context';
+import Button from '@components/ui/button';
+import CloseButton from '@components/ui/close-button';
 import Input from '@components/ui/form/input';
 import PasswordInput from '@components/ui/form/password-input';
-import Button from '@components/ui/button';
-import { useForm } from 'react-hook-form';
-import { useLoginMutation, LoginInputType } from '@framework/auth/use-login';
 import Logo from '@components/ui/logo';
-import { useTranslation } from 'next-i18next';
-import Image from '@components/ui/image';
-import { useModalAction } from '@components/common/modal/modal.context';
 import Switch from '@components/ui/switch';
-import CloseButton from '@components/ui/close-button';
-import { FaFacebook, FaTwitter, FaLinkedinIn } from 'react-icons/fa';
+import { useLoginMutation } from '@framework/auth/use-login';
 import cn from 'classnames';
+import { useTranslation } from 'next-i18next';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 
 interface LoginFormProps {
   isPopup?: boolean;
   className?: string;
+}
+
+interface LoginInputType1 {
+  phone_number: string;
+  password: string;
+  remember_me: boolean;
 }
 
 const LoginForm: React.FC<LoginFormProps> = ({ isPopup = true, className }) => {
@@ -24,40 +28,26 @@ const LoginForm: React.FC<LoginFormProps> = ({ isPopup = true, className }) => {
   const { mutate: login, isLoading } = useLoginMutation();
   const [remember, setRemember] = useState(false);
 
-  interface LoginInputType1 {
-    phone_number: string;
-    password: string;
-    remember_me: boolean;
-  }
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<LoginInputType1>();
 
-  function onSubmit({ phone_number, password, remember_me }: LoginInputType1) {
+  const onSubmit = ({ phone_number, password }: LoginInputType1) => {
+    console.log(phone_number, password, remember, 'data');
     login({
       phone_number,
       password,
       remember_me: remember,
     });
-    closeModal();
-    console.log(phone_number, password, remember_me, 'data');
-  }
-  // function handelSocialLogin() {
-  //   login({
-  //     phone_number: 'demo@demo.com',
-  //     password: 'demo',
-  //     remember_me: true,
-  //   });
-  //   closeModal();
-  // }
-  function handleSignUp() {
-    return openModal('SIGN_UP_VIEW');
-  }
-  function handleForgetPassword() {
-    return openModal('FORGET_PASSWORD');
-  }
+    // closeModal();
+  };
+
+  const handleSignUp = () => openModal('SIGN_UP_VIEW');
+
+  const handleForgetPassword = () => openModal('FORGET_PASSWORD');
+
   return (
     <div
       className={cn(
@@ -68,7 +58,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ isPopup = true, className }) => {
       {isPopup === true && <CloseButton onClick={closeModal} />}
 
       <div className="flex mx-auto overflow-hidden rounded-lg bg-brand-light">
-        <div className="w-full py-6 sm:py-10 px-4 sm:px-8 md:px-6 lg:px-8 xl:px-12 rounded-md flex flex-col justify-center">
+        <div className="flex flex-col justify-center w-full px-4 py-6 rounded-md sm:py-10 sm:px-8 md:px-6 lg:px-8 xl:px-12">
           <div className="mb-6 text-center">
             <div onClick={closeModal}>
               <Logo />
@@ -164,32 +154,6 @@ const LoginForm: React.FC<LoginFormProps> = ({ isPopup = true, className }) => {
               </div>
             </div>
           </form>
-          {/* <div className="relative flex flex-col items-center justify-center text-sm">
-            <span className="mt-6 text-sm text-brand-dark opacity-70">
-              {t('common:text-or')}
-            </span>
-          </div>
-
-          <div className="flex justify-center mt-5 space-x-2.5">
-            <button
-              className="flex items-center justify-center w-10 h-10 transition-all border rounded-full cursor-pointer group border-border-one hover:border-brand focus:border-brand focus:outline-none"
-              onClick={handelSocialLogin}
-            >
-              <FaFacebook className="w-4 h-4 text-opacity-50 transition-all text-brand-dark group-hover:text-brand " />
-            </button>
-            <button
-              className="flex items-center justify-center w-10 h-10 transition-all border rounded-full cursor-pointer group border-border-one hover:border-brand focus:border-brand focus:outline-none"
-              onClick={handelSocialLogin}
-            >
-              <FaTwitter className="w-4 h-4 text-opacity-50 transition-all text-brand-dark group-hover:text-brand" />
-            </button>
-            <button
-              className="flex items-center justify-center w-10 h-10 transition-all border rounded-full cursor-pointer group border-border-one hover:border-brand focus:border-brand focus:outline-none"
-              onClick={handelSocialLogin}
-            >
-              <FaLinkedinIn className="w-4 h-4 text-opacity-50 transition-all text-brand-dark group-hover:text-brand" />
-            </button>
-          </div> */}
         </div>
       </div>
     </div>

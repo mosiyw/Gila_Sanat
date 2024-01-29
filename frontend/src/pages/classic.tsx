@@ -1,27 +1,27 @@
+import BannerGridTwo from '@components/common/banner-grid-two';
 import CollectionGrid from '@components/common/collection-grid';
-import Seo from '@components/seo/seo';
+import DownloadApps from '@components/common/download-apps';
 import FeatureGrid from '@components/common/featured-grid';
 import Layout from '@components/layout/layout';
-import Container from '@components/ui/container';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import DownloadApps from '@components/common/download-apps';
 import BestSellerProductFeed from '@components/product/feeds/best-seller-product-feed';
-import FreshVegetablesProductFeed from '@components/product/feeds/fresh-vegetables-product-feed';
-import CookiesProductFeed from '@components/product/feeds/cookies-product-feed';
-import PopcornJerkyProductFeed from '@components/product/feeds/popcorn-jerky-product-feed';
 import ChipsProductFeed from '@components/product/feeds/chips-product-feed';
-import BannerGridTwo from '@components/common/banner-grid-two';
-import { bannerGridTwo as banners } from '@framework/static/banner';
-import { GetStaticProps } from 'next';
-import { QueryClient } from 'react-query';
-import { dehydrate } from 'react-query/hydration';
-import { API_ENDPOINTS } from '@framework/utils/api-endpoints';
+import CookiesProductFeed from '@components/product/feeds/cookies-product-feed';
+import FreshVegetablesProductFeed from '@components/product/feeds/fresh-vegetables-product-feed';
+import PopcornJerkyProductFeed from '@components/product/feeds/popcorn-jerky-product-feed';
+import Seo from '@components/seo/seo';
+import Container from '@components/ui/container';
+import { API_ENDPOINTS } from '@framework/api-endpoints';
 import { fetchBestSellerProducts } from '@framework/product/get-all-best-seller-products';
-import { fetchFreshVegetablesProducts } from '@framework/product/get-all-fresh-vegetables-products';
 import { fetchChipsProducts } from '@framework/product/get-all-chips-products';
 import { fetchCookiesProducts } from '@framework/product/get-all-cookies-products';
+import { fetchFreshVegetablesProducts } from '@framework/product/get-all-fresh-vegetables-products';
 import { fetchPopcornJerkyProducts } from '@framework/product/get-all-popcorn-jerky-products';
+import { bannerGridTwo as banners } from '@framework/static/banner';
 import { LIMITS } from '@framework/utils/limits';
+import { GetStaticProps } from 'next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { QueryClient } from 'react-query';
+import { dehydrate } from 'react-query/hydration';
 
 export default function Home() {
   return (

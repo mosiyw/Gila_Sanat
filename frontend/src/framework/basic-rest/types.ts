@@ -1,5 +1,9 @@
 import { QueryKey } from 'react-query';
 
+export type RestCommonType = {
+  message: string;
+};
+
 export type CollectionsQueryOptionsType = {
   text?: string;
   collection?: string;
@@ -13,6 +17,7 @@ export type CategoriesQueryOptionsType = {
   status?: string;
   limit?: number;
 };
+
 export type ProductsQueryOptionsType = {
   type: string;
   text?: string;
@@ -20,6 +25,7 @@ export type ProductsQueryOptionsType = {
   status?: string;
   limit?: number;
 };
+
 export type QueryOptionsType = {
   text?: string;
   category?: string;
@@ -31,11 +37,13 @@ export type QueryParamsType = {
   queryKey: QueryKey;
   pageParam?: string;
 };
+
 export type Attachment = {
   id: string | number;
   thumbnail: string;
   original: string;
 };
+
 export type Category = {
   id: number | string;
   name: string;
@@ -48,6 +56,7 @@ export type Category = {
   productCount?: number;
   [key: string]: unknown;
 };
+
 export type Collection = {
   id: number | string;
   name: string;
@@ -58,6 +67,7 @@ export type Collection = {
   products?: Product[];
   productCount?: number;
 };
+
 export type Brand = {
   id: number | string;
   name: string;
@@ -65,17 +75,20 @@ export type Brand = {
   image?: Attachment;
   [key: string]: unknown;
 };
+
 export type Dietary = {
   id: number | string;
   name: string;
   slug: string;
   [key: string]: unknown;
 };
+
 export type Tag = {
   id: string | number;
   name: string;
   slug: string;
 };
+
 export type Product = {
   id: number | string;
   name: string;
@@ -98,12 +111,14 @@ export type Product = {
   variations?: object;
   [key: string]: unknown;
 };
+
 export type OrderItem = {
   id: number | string;
   name: string;
   price: number;
   quantity: number;
 };
+
 export type Order = {
   id: string | number;
   name: string;

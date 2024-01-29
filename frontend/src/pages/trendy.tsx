@@ -1,24 +1,24 @@
+import BundleComboGrid from '@components/bundle/bundle-combo-grid';
 import BannerGrid from '@components/common/banner-grid';
-import Layout from '@components/layout/layout-three';
-import Container from '@components/ui/container';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import DownloadApps from '@components/common/download-apps';
-import { bannerGridThree as banners } from '@framework/static/banner';
 import CollectionGrid from '@components/common/collection-grid';
+import DownloadApps from '@components/common/download-apps';
+import HeroBannerWithCategory from '@components/hero/hero-banner-with-category';
+import Layout from '@components/layout/layout-three';
 import BestSellerGroceryProductFeed from '@components/product/feeds/best-seller-grocery-product-feed';
 import PopularProductFeed from '@components/product/feeds/popular-product-feed';
-import BundleComboGrid from '@components/bundle/bundle-combo-grid';
-import { GetStaticProps } from 'next';
-import HeroBannerWithCategory from '@components/hero/hero-banner-with-category';
-import { bundleData as bundle } from '@framework/static/bundle';
 import Seo from '@components/seo/seo';
-import { QueryClient } from 'react-query';
-import { dehydrate } from 'react-query/hydration';
-import { API_ENDPOINTS } from '@framework/utils/api-endpoints';
+import Container from '@components/ui/container';
+import { API_ENDPOINTS } from '@framework/api-endpoints';
 import { fetchCategories } from '@framework/category/get-all-categories';
 import { fetchBestSellerGroceryProducts } from '@framework/product/get-all-best-seller-grocery-products';
 import { fetchPopularProducts } from '@framework/product/get-all-popular-products';
+import { bannerGridThree as banners } from '@framework/static/banner';
+import { bundleData as bundle } from '@framework/static/bundle';
 import { LIMITS } from '@framework/utils/limits';
+import { GetStaticProps } from 'next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { QueryClient } from 'react-query';
+import { dehydrate } from 'react-query/hydration';
 
 export default function Home() {
   return (

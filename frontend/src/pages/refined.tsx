@@ -1,21 +1,21 @@
-import Layout from '@components/layout/layout-six';
-import Container from '@components/ui/container';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { refinedSixHeroBanner as heroBanner } from '@framework/static/banner';
-import { Element } from 'react-scroll';
-import { GetStaticProps } from 'next';
 import CategoryDropdownSidebar from '@components/category/category-dropdown-sidebar';
+import DownloadAppsTwo from '@components/common/download-apps-two';
+import RefinedSidebar from '@components/common/refined-sidebar';
+import HeroCarouselBlock from '@components/hero/hero-carousel-block';
+import Layout from '@components/layout/layout-six';
+import RefinedAllProductFeed from '@components/product/feeds/refined-all-products-feed';
 import Seo from '@components/seo/seo';
+import Container from '@components/ui/container';
+import { API_ENDPOINTS } from '@framework/api-endpoints';
+import { fetchCategories } from '@framework/category/get-all-categories';
+import { fetchProducts } from '@framework/product/get-all-products';
+import { refinedSixHeroBanner as heroBanner } from '@framework/static/banner';
+import { LIMITS } from '@framework/utils/limits';
+import { GetStaticProps } from 'next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { QueryClient } from 'react-query';
 import { dehydrate } from 'react-query/hydration';
-import { API_ENDPOINTS } from '@framework/utils/api-endpoints';
-import { fetchProducts } from '@framework/product/get-all-products';
-import { fetchCategories } from '@framework/category/get-all-categories';
-import { LIMITS } from '@framework/utils/limits';
-import RefinedSidebar from '@components/common/refined-sidebar';
-import DownloadAppsTwo from '@components/common/download-apps-two';
-import RefinedAllProductFeed from '@components/product/feeds/refined-all-products-feed';
-import HeroCarouselBlock from '@components/hero/hero-carousel-block';
+import { Element } from 'react-scroll';
 
 export default function Home() {
   return (

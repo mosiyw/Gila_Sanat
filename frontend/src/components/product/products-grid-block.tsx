@@ -1,12 +1,11 @@
-import { useEffect, useState } from 'react';
 import SectionHeader from '@components/common/section-header';
 import ProductCard from '@components/product/product-cards/product-card';
+import Alert from '@components/ui/alert';
 import ProductCardLoader from '@components/ui/loaders/product-card-loader';
 import { Product } from '@framework/types';
-import Alert from '@components/ui/alert';
-import { SwiperSlide } from 'swiper/react';
 import useWindowSize from '@utils/use-window-size';
 import dynamic from 'next/dynamic';
+import { SwiperSlide } from 'swiper/react';
 const Carousel = dynamic(() => import('@components/ui/carousel/carousel'), {
   ssr: false,
 });
@@ -24,27 +23,15 @@ interface ProductsProps {
 }
 
 const breakpoints = {
-  '1640': {
-    slidesPerView: 5,
-    spaceBetween: 16,
+  1024: {
+    slidesPerView: 4,
+    spaceBetween: 12,
   },
-  '1280': {
-    slidesPerView: 5,
-    spaceBetween: 16,
-  },
-  '1024': {
-    slidesPerView: 5,
-    spaceBetween: 16,
-  },
-  '768': {
+  768: {
     slidesPerView: 2,
     spaceBetween: 16,
   },
-  '530': {
-    slidesPerView: 2,
-    spaceBetween: 16,
-  },
-  '0': {
+  530: {
     slidesPerView: 2,
     spaceBetween: 16,
   },
@@ -72,9 +59,9 @@ const ProductsGridBlock: React.FC<ProductsProps> = ({
       />
       {error ? (
         <Alert message={error} className="mb-14 3xl:mx-3.5" />
-      ) : width! < 1536 ? (
+      ) : (
         <Carousel
-          autoplay={true}
+          autoplay
           breakpoints={breakpoints}
           buttonGroupClassName="-mt-5 md:-mt-4 lg:-mt-5"
         >
@@ -99,15 +86,6 @@ const ProductsGridBlock: React.FC<ProductsProps> = ({
                 </SwiperSlide>
               ))}
         </Carousel>
-      ) : (
-        <>
-          {products?.map((product: any) => (
-            <ProductCard
-              key={`${uniqueKey}-${product._id}`}
-              product={product}
-            />
-          ))}
-        </>
       )}
     </div>
   );
