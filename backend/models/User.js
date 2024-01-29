@@ -9,7 +9,19 @@ const userSchema = new mongoose.Schema({
   phone_number: String,
   password: String,
   isAdmin: { type: Boolean, default: false },
-  addresses: [],
+  addresses: [
+    {
+      state: String,
+      city: String,
+      address: String,
+      zipcode: Number,
+      transferee: {
+        firstname: String,
+        lastname: String,
+        phone_number: String,
+      },
+    },
+  ],
   favorites: [],
   cart: [],
   orders: [],

@@ -21,6 +21,27 @@ exports.getActiveProducts = async (req, res) => {
 //   }
 // };
 
+exports.getProductsByIds = async (req, res) => {
+  try {
+    const ids = req.body.ids;
+
+    // Check if the number of IDs is more than 200
+    if (ids.length > 200) {
+      return res
+        .status(400)
+        .json({ error: "Too many IDs. Please provide between 0 and 200 IDs." });
+    }
+
+    const products = await Product.find({
+      _id: { $in: ids },
+      isActive: true,
+    });
+    res.json(products);
+  } catch (error) {
+    res.status(500).json({ error: "An error occurred" });
+  }
+};
+
 exports.getAllProducts = async (req, res) => {
   try {
     const products = await Product.find()

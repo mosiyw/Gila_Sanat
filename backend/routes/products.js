@@ -31,6 +31,35 @@ const productService = require("../services/productService");
 router.get("/top-selling", (req, res) => {
   productController.getTopSellingProducts(req, res);
 });
+/**
+ * @swagger
+ * /listofProducts:
+ *   get:
+ *     summary: Get a list of products by their IDs
+ *     tags: [Products]
+ *     parameters:
+ *       - in: query
+ *         name: ids
+ *         schema:
+ *           type: array
+ *           items:
+ *             type: string
+ *         description: The product IDs.
+ *     responses:
+ *       200:
+ *         description: The list of products was successfully retrieved.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Product'
+ *       404:
+ *         description: The products were not found.
+ *       500:
+ *         description: There was an error.
+ */
+router.get("/list", productController.getProductsByIds);
 
 /**
  * @swagger
