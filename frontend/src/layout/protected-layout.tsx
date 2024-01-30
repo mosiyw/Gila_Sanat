@@ -6,6 +6,7 @@ interface Props {
 
 function ProtectedLayout({ children }: Props) {
   const { isAuthenticated } = useAuth();
+
   if (isAuthenticated) {
     return <>{children}</>;
   }

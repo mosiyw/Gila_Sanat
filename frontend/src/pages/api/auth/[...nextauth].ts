@@ -1,4 +1,5 @@
 import { API_ENDPOINTS } from '@framework/api-endpoints';
+import { LoginType, ProfileType } from '@framework/auth/types';
 import NextAuth, { AuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
@@ -11,7 +12,7 @@ export const authOptions: AuthOptions = {
         password: { label: 'رمز عبور', type: 'password' },
       },
       async authorize(credentials, req) {
-        const loginResponse = await fetch(
+        const login = await fetch(
           `${process.env.NEXT_PUBLIC_BACKEND_API_ENDPOINT}/${API_ENDPOINTS.LOGIN}`,
           {
             method: 'POST',
@@ -20,10 +21,25 @@ export const authOptions: AuthOptions = {
           }
         );
 
-        const token = await loginResponse.json();
+        const loginResult: LoginType['response'] = await login.json();
 
-        if (loginResponse.ok && token) {
-          return token;
+        const profile = await fetch(
+          `${process.env.NEXT_PUBLIC_BACKEND_API_ENDPOINT}/${API_ENDPOINTS.PROFILE}`,
+          {
+            method: 'GET',
+            headers: { authorization: `${loginResult.token}` },
+          }
+        );
+
+        const profileResult: ProfileType = await profile.json();
+
+        if (login.ok && profile.ok) {
+          return {
+            id: profileResult.user._id,
+            username: profileResult.user.username,
+            token: loginResult.token,
+            phone_number: profileResult.user.phone_number,
+          };
         }
 
         return null;
@@ -31,9 +47,25 @@ export const authOptions: AuthOptions = {
     }),
   ],
   callbacks: {
-    async jwt({ token }) {
+    async session({ session, user, token }) {
+      if (token) {
+        session.user = token;
+      }
+      return session;
+    },
+    async jwt({ token, user }) {
+      if (user) {
+        return {
+          ...user,
+          ...token,
+        };
+      }
       return token;
     },
+  },
+  session: {
+    strategy: 'jwt',
+    maxAge: 360000,
   },
 };
 

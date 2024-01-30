@@ -8,6 +8,9 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 export default function AccountDetailsPage() {
   const { data: session, status } = useSession();
 
+  console.log(session);
+  console.log(status);
+
   return (
     <>
       <Seo
