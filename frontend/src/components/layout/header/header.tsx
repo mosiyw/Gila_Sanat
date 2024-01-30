@@ -1,21 +1,21 @@
-import { useRef } from 'react';
-import dynamic from 'next/dynamic';
-import { useTranslation } from 'next-i18next';
-import cn from 'classnames';
-import { ROUTES } from '@utils/routes';
+import { useModalAction } from '@components/common/modal/modal.context';
+import Search from '@components/common/search';
+import SearchIcon from '@components/icons/search-icon';
+import UserIcon from '@components/icons/user-icon';
+import Delivery from '@components/layout/header/delivery';
+import HeaderMenu from '@components/layout/header/header-menu';
+import Container from '@components/ui/container';
+import LanguageSwitcher from '@components/ui/language-switcher';
+import Logo from '@components/ui/logo';
 import { useUI } from '@contexts/ui.context';
 import { siteSettings } from '@settings/site-settings';
 import { addActiveScroll } from '@utils/add-active-scroll';
-import Container from '@components/ui/container';
-import Logo from '@components/ui/logo';
-import HeaderMenu from '@components/layout/header/header-menu';
-import Search from '@components/common/search';
-import LanguageSwitcher from '@components/ui/language-switcher';
-import UserIcon from '@components/icons/user-icon';
-import SearchIcon from '@components/icons/search-icon';
-import { useModalAction } from '@components/common/modal/modal.context';
+import { ROUTES } from '@utils/routes';
 import useOnClickOutside from '@utils/use-click-outside';
-import Delivery from '@components/layout/header/delivery';
+import cn from 'classnames';
+import { useTranslation } from 'next-i18next';
+import dynamic from 'next/dynamic';
+import { useRef } from 'react';
 const AuthMenu = dynamic(() => import('./auth-menu'), { ssr: false });
 const CartButton = dynamic(() => import('@components/cart/cart-button'), {
   ssr: false,
@@ -38,6 +38,7 @@ const Header: React.FC = () => {
   const siteSearchRef = useRef() as DivElementRef;
   addActiveScroll(siteHeaderRef, 40);
   useOnClickOutside(siteSearchRef, () => closeSearch());
+
   function handleLogin() {
     openModal('LOGIN_VIEW');
   }

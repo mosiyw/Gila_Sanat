@@ -1,17 +1,16 @@
-import axios from 'axios';
+import axios, { AxiosError, AxiosResponse } from 'axios';
 import { getToken } from './get-token';
 
-const http = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_REST_API_ENDPOINT,
-  timeout: 30000,
+const rest = axios.create({
+  baseURL: process.env.NEXT_PUBLIC_BACKEND_API_ENDPOINT,
+  timeout: 5000,
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json',
   },
 });
 
-// Change request data/error here
-http.interceptors.request.use(
+rest.interceptors.request.use(
   (config) => {
     const token = getToken();
     config.headers = {
@@ -25,4 +24,9 @@ http.interceptors.request.use(
   }
 );
 
-export default http;
+rest.interceptors.response.use(
+  (response: AxiosResponse) => response.data,
+  (error: AxiosError) => Promise.reject(error.response?.data)
+);
+
+export default rest;

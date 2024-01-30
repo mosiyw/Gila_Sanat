@@ -1,11 +1,13 @@
 import Layout from '@components/layout/layout';
 import AccountLayout from '@components/my-account/account-layout';
-import AccountDetails from '@components/my-account/account-details';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { GetStaticProps } from 'next';
 import Seo from '@components/seo/seo';
+import { GetStaticProps } from 'next';
+import { signIn, signOut, useSession } from 'next-auth/react';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 export default function AccountDetailsPage() {
+  const { data: session, status } = useSession();
+
   return (
     <>
       <Seo
@@ -14,7 +16,24 @@ export default function AccountDetailsPage() {
         path="my-account/account-settings"
       />
       <AccountLayout>
-        <AccountDetails />
+        <h1>Hello World</h1>
+        <button
+          onClick={() => {
+            signIn();
+          }}
+        >
+          Login
+        </button>
+
+        {status === 'authenticated' ? (
+          <button
+            onClick={() => {
+              signOut();
+            }}
+          >
+            Logout
+          </button>
+        ) : null}
       </AccountLayout>
     </>
   );

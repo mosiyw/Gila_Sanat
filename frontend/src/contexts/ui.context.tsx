@@ -1,7 +1,8 @@
-import React from 'react';
-import { getToken } from '@framework/utils/get-token';
-import { CartProvider } from './cart/cart.context';
+/* eslint-disable react-hooks/exhaustive-deps */
 import { ModalProvider } from '@components/common/modal/modal.context';
+import { getToken } from '@framework/utils/get-token';
+import React from 'react';
+import { CartProvider } from './cart/cart.context';
 
 export interface State {
   isAuthorized: boolean;
@@ -317,7 +318,14 @@ export const UIProvider: React.FC = (props) => {
       enableStickyHeader,
       disableStickyHeader,
     }),
-    [state]
+    [
+      closeCartIfPresent,
+      closeSidebarIfPresent,
+      state,
+      toggleCart,
+      toggleMobileSearch,
+      toggleSidebar,
+    ]
   );
   return <UIContext.Provider value={value} {...props} />;
 };

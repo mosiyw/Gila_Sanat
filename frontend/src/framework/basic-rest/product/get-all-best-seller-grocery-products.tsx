@@ -1,6 +1,6 @@
-import { QueryOptionsType, Product } from '@framework/types';
-import http2 from '@framework/utils/http2';
+import { Product, QueryOptionsType } from '@framework/types';
 import { API_ENDPOINTS } from '@framework/utils/api-endpoints2';
+import http2 from '@framework/utils/http2';
 import { useQuery } from 'react-query';
 
 export const fetchBestSellerGroceryProducts = async ({ queryKey }: any) => {
@@ -8,6 +8,7 @@ export const fetchBestSellerGroceryProducts = async ({ queryKey }: any) => {
   const { data } = await http2.get(API_ENDPOINTS.TOPSELLINGS);
   return data as Product[];
 };
+
 export const useBestSellerGroceryProductsQuery = (
   options: QueryOptionsType
 ) => {

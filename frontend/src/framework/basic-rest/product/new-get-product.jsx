@@ -1,6 +1,5 @@
-import { Product } from '@framework/types';
-import http from '@framework/utils/http2';
 import { API_ENDPOINTS } from '@framework/utils/api-endpoints2';
+import http from '@framework/utils/http2';
 import { useQuery } from 'react-query';
 
 export const fetchProduct = async (_slug) => {

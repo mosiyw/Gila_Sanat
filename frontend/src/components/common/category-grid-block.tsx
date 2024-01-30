@@ -1,13 +1,13 @@
-import dynamic from 'next/dynamic';
 import CategoryCard from '@components/cards/category-card';
 import SectionHeader from '@components/common/section-header';
+import Alert from '@components/ui/alert';
 import CategoryCardLoader from '@components/ui/loaders/category-card-loader';
 import { useCategoriesQuery } from '@framework/category/get-all-categories';
-import { ROUTES } from '@utils/routes';
-import Alert from '@components/ui/alert';
-import { SwiperSlide } from 'swiper/react';
-import useWindowSize from '@utils/use-window-size';
 import { LIMITS } from '@framework/utils/limits';
+import { ROUTES } from '@utils/routes';
+import useWindowSize from '@utils/use-window-size';
+import dynamic from 'next/dynamic';
+import { SwiperSlide } from 'swiper/react';
 const Carousel = dynamic(() => import('@components/ui/carousel/carousel'), {
   ssr: false,
 });
@@ -43,7 +43,7 @@ const breakpoints = {
 };
 
 const CategoryGridBlock: React.FC<CategoriesProps> = ({
-  className = 'md:pt-3 lg:pt-0 3xl:pb-2 mb-12 sm:mb-14 md:mb-16 xl:mb-24 2xl:mb-16 ',
+  className = 'mb-12 md:pt-3 lg:pt-0 3xl:pb-2 sm:mb-14 md:mb-16 xl:mb-24 2xl:mb-16 ',
 }) => {
   const { width } = useWindowSize();
 
@@ -76,7 +76,7 @@ const CategoryGridBlock: React.FC<CategoriesProps> = ({
             {isLoading && !data
               ? Array.from({ length: 16 }).map((_, idx) => {
                   return (
-                    <SwiperSlide key={`category--key-${idx}`}>
+                    <SwiperSlide key={`category-key-${idx}`}>
                       <CategoryCardLoader uniqueKey={`category-card-${idx}`} />
                     </SwiperSlide>
                   );

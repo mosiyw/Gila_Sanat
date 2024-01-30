@@ -4,6 +4,10 @@ export type RestCommonType = {
   message: string;
 };
 
+export type RestErrorType = {
+  error: string;
+};
+
 export type CollectionsQueryOptionsType = {
   text?: string;
   collection?: string;
