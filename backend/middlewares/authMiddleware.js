@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const authenticate = (req, res, next) => {
   // Get the token from either the Authorization header or the cookie
   const token = req.headers.authorization
-    ? req.headers.authorization.split(" ")[1]
+    ? req.headers.authorization
     : req.cookies.token;
 
   if (!token) {
