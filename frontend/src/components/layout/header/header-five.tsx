@@ -12,12 +12,10 @@ import { addActiveScroll } from '@utils/add-active-scroll';
 import { ROUTES } from '@utils/routes';
 import useOnClickOutside from '@utils/use-click-outside';
 import cn from 'classnames';
-import { signIn } from 'next-auth/react';
 import { useTranslation } from 'next-i18next';
 import dynamic from 'next/dynamic';
 import { useRef, useState } from 'react';
 import { FiMenu } from 'react-icons/fi';
-import { useAuth } from 'src/hooks/auth';
 const AuthMenu = dynamic(() => import('./auth-menu'), { ssr: false });
 const CartButton = dynamic(() => import('@components/cart/cart-button'), {
   ssr: false,
@@ -27,7 +25,6 @@ type DivElementRef = React.MutableRefObject<HTMLDivElement>;
 const { site_header } = siteSettings;
 
 const Header: React.FC = () => {
-  const { isAuthenticated } = useAuth();
   const { t } = useTranslation('common');
   const {
     displaySearch,
@@ -81,7 +78,6 @@ const Header: React.FC = () => {
               className="lg:flex lg:max-w-[650px] 2xl:max-w-[800px] lg:mx-8"
               variant="fill"
             />
-            {/* End of search */}
           </div>
 
           <div className="items-center justify-center hidden w-1/4 text-center ltr:ml-auto rtl:mr-auto md:ltr:ml-0 md:rtl:mr-0 lg:flex">
@@ -89,11 +85,11 @@ const Header: React.FC = () => {
               <div className="items-center hidden lg:flex shrink-0 xl:mx-3.5 mx-2.5">
                 <UserIcon className="text-brand-dark text-opacity-40" />
                 <AuthMenu
-                  isAuthorized={isAuthenticated}
+                  isAuthorized={isAuthorized}
                   href={ROUTES.ACCOUNT}
                   btnProps={{
                     children: t('text-sign-in'),
-                    onClick: signIn,
+                    onClick: handleLogin,
                   }}
                 >
                   {t('text-account')}

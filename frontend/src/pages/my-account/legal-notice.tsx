@@ -1,9 +1,9 @@
-import Layout from '@components/layout/layout';
+import ProtectedLayout from '@components/layout/protected-layout';
 import AccountLayout from '@components/my-account/account-layout';
 import Legal from '@components/my-account/notice';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { GetStaticProps } from 'next';
 import Seo from '@components/seo/seo';
+import { GetStaticProps } from 'next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 export default function LegalNotice() {
   return (
@@ -20,7 +20,7 @@ export default function LegalNotice() {
   );
 }
 
-LegalNotice.Layout = Layout;
+LegalNotice.Layout = ProtectedLayout;
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {

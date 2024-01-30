@@ -15,7 +15,7 @@ rest.interceptors.request.use(
     const token = getToken();
     config.headers = {
       ...config.headers,
-      Authorization: `Bearer ${token ? token : ''}`,
+      authorization: `${token ? token : ''}`,
     };
     return config;
   },

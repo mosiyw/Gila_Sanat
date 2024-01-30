@@ -2,21 +2,9 @@
 import { ModalProvider } from '@components/common/modal/modal.context';
 import { getToken } from '@framework/utils/get-token';
 import React from 'react';
+import { Action, DRAWER_VIEWS } from './actions.types';
 import { CartProvider } from './cart/cart.context';
-
-export interface State {
-  isAuthorized: boolean;
-  displaySidebar: boolean;
-  displayFilter: boolean;
-  displayCart: boolean;
-  displaySearch: boolean;
-  displayMobileSearch: boolean;
-  displayDrawer: boolean;
-  drawerView: string | null;
-  toastText: string;
-  isStickyheader: boolean;
-  data?: any;
-}
+import { State } from './types';
 
 const initialState = {
   isAuthorized: getToken() ? true : false,
@@ -31,78 +19,6 @@ const initialState = {
   isStickyheader: false,
   data: null,
 };
-
-type Action =
-  | {
-      type: 'SET_AUTHORIZED';
-    }
-  | {
-      type: 'SET_UNAUTHORIZED';
-    }
-  | {
-      type: 'OPEN_SIDEBAR';
-    }
-  | {
-      type: 'CLOSE_SIDEBAR';
-    }
-  | {
-      type: 'OPEN_SHOP';
-    }
-  | {
-      type: 'CLOSE_SHOP';
-    }
-  | {
-      type: 'OPEN_CART';
-    }
-  | {
-      type: 'CLOSE_CART';
-    }
-  | {
-      type: 'OPEN_SEARCH';
-    }
-  | {
-      type: 'CLOSE_SEARCH';
-    }
-  | {
-      type: 'OPEN_MOBILE_SEARCH';
-    }
-  | {
-      type: 'CLOSE_MOBILE_SEARCH';
-    }
-  | {
-      type: 'SET_TOAST_TEXT';
-      text: ToastText;
-    }
-  | {
-      type: 'OPEN_FILTER';
-    }
-  | {
-      type: 'CLOSE_FILTER';
-    }
-  | {
-      type: 'OPEN_DRAWER';
-      data: null;
-    }
-  | {
-      type: 'CLOSE_DRAWER';
-    }
-  | {
-      type: 'SET_DRAWER_VIEW';
-      view: DRAWER_VIEWS;
-    }
-  | {
-      type: 'SET_USER_AVATAR';
-      value: string;
-    }
-  | {
-      type: 'ENABLE_STICKY_HEADER';
-    }
-  | {
-      type: 'DISABLE_STICKY_HEADER';
-    };
-
-type DRAWER_VIEWS = 'CART_SIDEBAR' | 'MOBILE_MENU' | 'ORDER_DETAILS';
-type ToastText = string;
 
 export const UIContext = React.createContext<State | any>(initialState);
 
@@ -327,6 +243,7 @@ export const UIProvider: React.FC = (props) => {
       toggleSidebar,
     ]
   );
+
   return <UIContext.Provider value={value} {...props} />;
 };
 

@@ -1,3 +1,4 @@
+import { useModalAction } from '@components/common/modal/modal.context';
 import { useUI } from '@contexts/ui.context';
 import { API_ENDPOINTS } from '@framework/api-endpoints';
 import { RestErrorType } from '@framework/types';
@@ -12,7 +13,8 @@ export const postLogin = (
 ): Promise<LoginType['response']> => rest.post(API_ENDPOINTS.LOGIN, input);
 
 export const useLoginMutation = () => {
-  const { authorize, closeModal } = useUI();
+  const { authorize } = useUI();
+  const { closeModal } = useModalAction();
 
   return useMutation((input: LoginType['payload']) => postLogin(input), {
     onSuccess: (data) => {
@@ -26,8 +28,8 @@ export const useLoginMutation = () => {
       });
 
       Cookies.set('auth_token', data.token);
-      // authorize();
-      // closeModal();
+      authorize();
+      closeModal();
     },
     onError: (data: RestErrorType) => {
       toast(data.error, {

@@ -1,9 +1,9 @@
-import Layout from '@components/layout/layout';
-import AccountLayout from '@components/my-account/account-layout';
+import ProtectedLayout from '@components/layout/protected-layout';
 import AccountDetails from '@components/my-account/account-details';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { GetStaticProps } from 'next';
+import AccountLayout from '@components/my-account/account-layout';
 import Seo from '@components/seo/seo';
+import { GetStaticProps } from 'next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 export default function AccountDetailsPage() {
   return (
@@ -20,7 +20,7 @@ export default function AccountDetailsPage() {
   );
 }
 
-AccountDetailsPage.Layout = Layout;
+AccountDetailsPage.Layout = ProtectedLayout;
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {

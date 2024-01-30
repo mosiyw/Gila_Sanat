@@ -16,6 +16,7 @@ interface State {
   data?: any;
   isOpen: boolean;
 }
+
 type Action =
   | { type: 'open'; view?: MODAL_VIEWS; payload?: any }
   | { type: 'close' };

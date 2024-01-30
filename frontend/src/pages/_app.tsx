@@ -2,7 +2,6 @@ import ManagedDrawer from '@components/common/drawer/managed-drawer';
 import ManagedModal from '@components/common/modal/managed-modal';
 import { DefaultSeo } from '@components/seo/default-seo';
 import { ManagedUIContext } from '@contexts/ui.context';
-import { SessionProvider } from 'next-auth/react';
 import { appWithTranslation } from 'next-i18next';
 import type { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
@@ -36,24 +35,22 @@ const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
   const Layout = (Component as any).Layout || Noop;
 
   return (
-    <SessionProvider session={session}>
-      <QueryClientProvider client={queryClientRef.current}>
-        <Hydrate state={pageProps.dehydratedState}>
-          <ManagedUIContext>
-            <>
-              <DefaultSeo />
-              <Layout pageProps={pageProps}>
-                <Component {...pageProps} key={router.route} />
-              </Layout>
-              <ToastContainer />
-              <ManagedModal />
-              <ManagedDrawer />
-            </>
-          </ManagedUIContext>
-        </Hydrate>
-        {/* <ReactQueryDevtools /> */}
-      </QueryClientProvider>
-    </SessionProvider>
+    <QueryClientProvider client={queryClientRef.current}>
+      <Hydrate state={pageProps.dehydratedState}>
+        <ManagedUIContext>
+          <>
+            <DefaultSeo />
+            <Layout pageProps={pageProps}>
+              <Component {...pageProps} key={router.route} />
+            </Layout>
+            <ToastContainer />
+            <ManagedModal />
+            <ManagedDrawer />
+          </>
+        </ManagedUIContext>
+      </Hydrate>
+      {/* <ReactQueryDevtools /> */}
+    </QueryClientProvider>
   );
 };
 

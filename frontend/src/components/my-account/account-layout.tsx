@@ -9,7 +9,6 @@ import AccountNav from '@components/my-account/account-nav';
 import Container from '@components/ui/container';
 import { ROUTES } from '@utils/routes';
 import { IoSettingsOutline } from 'react-icons/io5';
-import ProtectedLayout from 'src/layout/protected-layout';
 import AccountNavMobile from './account-nav-mobile';
 
 const accountMenu = [
@@ -59,32 +58,30 @@ const accountMenu = [
 
 const AccountLayout: React.FunctionComponent<{}> = ({ children }) => {
   return (
-    <ProtectedLayout>
-      <div className="border-t border-b border-border-base">
-        <Container>
-          <div className="pt-10 2xl:pt-12 pb-12 lg:pb-14 xl:pb-16 2xl:pb-20 xl:max-w-screen-xl 2xl:max-w-[1300px] mx-auto">
-            <div className="flex flex-col w-full lg:flex-row">
-              <div className="lg:hidden">
-                <AccountNavMobile
-                  options={accountMenu}
-                  style={{ fontFamily: 'BYekan' }}
-                />
-              </div>
-              <div className="w-full p-4 mt-4 border rounded-md lg:mt-0 border-border-base sm:p-5 lg:py-8 2xl:py-10 lg:px-7 2xl:px-12">
-                {children}
-              </div>
+    <div className="border-t border-b border-border-base">
+      <Container>
+        <div className="pt-10 2xl:pt-12 pb-12 lg:pb-14 xl:pb-16 2xl:pb-20 xl:max-w-screen-xl 2xl:max-w-[1300px] mx-auto">
+          <div className="flex flex-col w-full lg:flex-row">
+            <div className="lg:hidden">
+              <AccountNavMobile
+                options={accountMenu}
+                style={{ fontFamily: 'BYekan' }}
+              />
+            </div>
+            <div className="w-full p-4 mt-4 border rounded-md lg:mt-0 border-border-base sm:p-5 lg:py-8 2xl:py-10 lg:px-7 2xl:px-12">
+              {children}
+            </div>
 
-              <div
-                className="hidden lg:block shrink-0 w-72 xl:w-[385px] ltr:mr-7 rtl:ml-7 xl:ltr:mr-8 xl:rtl:ml-8"
-                dir="rtl"
-              >
-                <AccountNav options={accountMenu} />
-              </div>
+            <div
+              className="hidden lg:block shrink-0 w-72 xl:w-[385px] ltr:mr-7 rtl:ml-7 xl:ltr:mr-8 xl:rtl:ml-8"
+              dir="rtl"
+            >
+              <AccountNav options={accountMenu} />
             </div>
           </div>
-        </Container>
-      </div>
-    </ProtectedLayout>
+        </div>
+      </Container>
+    </div>
   );
 };
 
