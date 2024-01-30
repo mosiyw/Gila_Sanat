@@ -1,17 +1,25 @@
-const NextAuth = require("next-auth");
 const jwt = require("jsonwebtoken");
 
-const authenticate = async (req, res, next) => {
-  // Get the session from the NextAuth server-side session handling
-  const session = await NextAuth.options.session.get(req);
+const authenticate = (req, res, next) => {
+  // Get the token from either the Authorization header or the cookie
+  const token = req.headers.authorization
+    ? req.headers.authorization.split(" ")[1]
+    : req.cookies.token;
 
-  if (!session) {
+  if (!token) {
     return res.status(401).json({ error: "Unauthorized" });
   }
 
-  // Attach user information to the request
-  req.user = session.user;
-  next(); // Move to the next middleware
+  // Verify the token and extract user information
+  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+    if (err) {
+      // console.log(err);
+      return res.status(401).json({ error: "Unauthorized" });
+    }
+    // Attach user information to the request
+    req.user = decoded;
+    next(); // Move to the next middleware
+  });
 };
 
 module.exports = { authenticate };
