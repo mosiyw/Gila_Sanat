@@ -1,6 +1,6 @@
 import { useUI } from '@contexts/ui.context';
 import { useRouter } from 'next/router';
-import { useLayoutEffect } from 'react';
+import { useEffect } from 'react';
 import Layout from './layout';
 
 type Props = {
@@ -11,7 +11,7 @@ function ProtectedLayout({ children }: Props) {
   const router = useRouter();
   const { isAuthorized } = useUI();
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (!isAuthorized) {
       router.push('/signin');
     }
