@@ -116,6 +116,7 @@ exports.updateProfile = async (req, res) => {
 };
 
 exports.logout = (req, res) => {
-  // Perform any necessary logout operations
+  // Destroy the session or remove user information
+  req.session = null;
   res.json({ message: "Logout successful" });
 };

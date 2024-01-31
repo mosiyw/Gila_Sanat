@@ -55,7 +55,7 @@ router.post("/register", (req, res) => {
  * /api/auth/login:
  *   post:
  *     summary: Login
- *     description: Login with email and password.
+ *     description: Login with phone number and password.
  *     tags: [Authentication]
  *     requestBody:
  *       required: true
@@ -64,12 +64,12 @@ router.post("/register", (req, res) => {
  *           schema:
  *             type: object
  *             properties:
- *               email:
+ *               phone_number:
  *                 type: string
  *               password:
  *                 type: string
  *             example:
- *               email: "user@example.com"
+ *               phone_number: "1234567890"
  *               password: "password123"
  *     responses:
  *       '200':
@@ -89,7 +89,7 @@ router.post("/register", (req, res) => {
  *       '400':
  *         description: Invalid request - missing or invalid parameters.
  *       '401':
- *         description: Unauthorized - incorrect email or password.
+ *         description: Unauthorized - incorrect phone number or password.
  *       '500':
  *         description: Internal server error.
  */
@@ -119,6 +119,22 @@ router.post("/login", (req, res) => {
  */
 router.get("/profile", authMiddleware.authenticate, (req, res) => {
   authController.getProfile(req, res);
+});
+
+/**
+ * @swagger
+ * /auth/logout:
+ *   get:
+ *     summary: Logout the user
+ *     responses:
+ *       '200':
+ *         description: Logout successful
+ *       '500':
+ *         description: Internal server error
+ */
+router.get("/logout", (req, res) => {
+  req.session = null;
+  res.json({ message: "Logout successful" });
 });
 
 // Add more routes as needed
