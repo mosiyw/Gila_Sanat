@@ -90,7 +90,9 @@ exports.login = async (req, res) => {
 
 exports.getProfile = async (req, res) => {
   try {
-    const user = await User.findById(req.user.userId);
+    const user = await User.findById(req.user.userId).select(
+      "_id username firstname lastname phone_number email"
+    );
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
