@@ -5,7 +5,9 @@ const SECRET_KEY = process.env.JWT_SECRET;
 
 exports.addProductToFavorites = async (req, res) => {
   try {
-    const token = req.cookies.token;
+    const token = req.headers.authorization
+      ? req.headers.authorization
+      : req.cookies.token;
     const decoded = jwt.verify(token, SECRET_KEY);
     const userId = decoded.userId;
     const productId = req.body.productId;
@@ -45,7 +47,9 @@ exports.addProductToFavorites = async (req, res) => {
 
 exports.removeProductFromFavorites = async (req, res) => {
   try {
-    const token = req.cookies.token;
+    const token = req.headers.authorization
+      ? req.headers.authorization
+      : req.cookies.token;
     const decoded = jwt.verify(token, SECRET_KEY);
     const userId = decoded.userId;
     const productId = req.body.productId;
@@ -72,7 +76,9 @@ exports.removeProductFromFavorites = async (req, res) => {
 
 exports.getFavoriteList = async (req, res) => {
   try {
-    const token = req.cookies.token;
+    const token = req.headers.authorization
+      ? req.headers.authorization
+      : req.cookies.token;
     const decoded = jwt.verify(token, SECRET_KEY);
     const userId = decoded.userId;
 
@@ -91,7 +97,9 @@ exports.getFavoriteList = async (req, res) => {
 exports.isFavorite = async (req, res) => {
   try {
     const productId = req.params.productId;
-    const token = req.cookies.token;
+    const token = req.headers.authorization
+      ? req.headers.authorization
+      : req.cookies.token;
     const decoded = jwt.verify(token, SECRET_KEY);
     const userId = decoded.userId;
 
