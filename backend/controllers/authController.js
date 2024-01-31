@@ -102,7 +102,9 @@ exports.getProfile = async (req, res) => {
 
 exports.updateProfile = async (req, res) => {
   try {
-    const updates = req.body;
+    const updates = { ...req.body };
+    delete updates.password; // Prevent password updates
+
     const updatedUser = await User.findByIdAndUpdate(req.user.userId, updates, {
       new: true,
     });

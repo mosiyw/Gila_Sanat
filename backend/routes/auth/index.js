@@ -18,6 +18,10 @@ router.get("/profile", authMiddleware.authenticate, (req, res) => {
   authController.getProfile(req, res);
 });
 
+router.put("/profile", authMiddleware.authenticate, (req, res) => {
+  authController.updateProfile(req, res);
+});
+
 router.get("/logout", (req, res) => {
   req.session = null;
   res.json({ message: "Logout successful" });

@@ -105,3 +105,34 @@
  *       '500':
  *         description: Internal server error
  */
+/**
+ * @swagger
+ * /api/auth/profile:
+ *   put:
+ *     tags: [Users]
+ *     summary: Update the user's profile
+ *     parameters:
+ *       - in: header
+ *         name: Authorization
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: Bearer token for authentication
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Profile updated successfully
+ *       404:
+ *         description: User not found
+ *       500:
+ *         description: An error occurred
+ */
