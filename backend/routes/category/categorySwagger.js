@@ -5,12 +5,6 @@
  *   description: API operations related to categories
  */
 
-const express = require("express");
-const router = express.Router();
-const categoryController = require("../controllers/categoryController");
-const authMiddleware = require("../middlewares/authMiddleware");
-const categoryService = require("../services/categoryService");
-
 /**
  * @swagger
  * /api/categories:
@@ -21,20 +15,9 @@ const categoryService = require("../services/categoryService");
  *     responses:
  *       '200':
  *         description: A list of categories.
- *         content:
- *           application/json:
- *             schema:
  *       '500':
  *         description: Internal server error.
  */
-router.get("/", async (req, res) => {
-  try {
-    const categories = await categoryService.getAllCategories();
-    res.json(categories);
-  } catch (error) {
-    res.status(500).json({ error: "Error fetching categories" });
-  }
-});
 
 /**
  * @swagger
@@ -53,16 +36,9 @@ router.get("/", async (req, res) => {
  *     responses:
  *       '200':
  *         description: The category object.
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Category'
  *       '404':
  *         description: Category not found.
  */
-router.get("/:id", (req, res) => {
-  categoryController.getCategoryById(req, res);
-});
 
 /**
  * @swagger
@@ -92,14 +68,6 @@ router.get("/:id", (req, res) => {
  *       '500':
  *         description: Internal server error.
  */
-router.post(
-  "/",
-  authMiddleware.authenticate,
-  authMiddleware.isAdmin,
-  (req, res) => {
-    categoryController.createCategory(req, res);
-  }
-);
 
 /**
  * @swagger
@@ -138,14 +106,6 @@ router.post(
  *       '500':
  *         description: Internal server error.
  */
-router.put(
-  "/:id",
-  authMiddleware.authenticate,
-  authMiddleware.isAdmin,
-  (req, res) => {
-    categoryController.updateCategory(req, res);
-  }
-);
 
 /**
  * @swagger
@@ -173,13 +133,3 @@ router.put(
  *       '500':
  *         description: Internal server error.
  */
-router.delete(
-  "/:id",
-  authMiddleware.authenticate,
-  authMiddleware.isAdmin,
-  (req, res) => {
-    categoryController.deleteCategory(req, res);
-  }
-);
-
-module.exports = router;

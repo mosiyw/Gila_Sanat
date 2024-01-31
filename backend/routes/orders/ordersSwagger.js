@@ -5,14 +5,6 @@
  *   description: API operations related to orders
  */
 
-const express = require("express");
-const router = express.Router();
-const orderController = require("../controllers/orderController");
-const authMiddleware = require("../middlewares/authMiddleware");
-
-// Apply authentication middleware to all routes in this file
-router.use(authMiddleware.authenticate);
-
 /**
  * @swagger
  * /api/orders:
@@ -28,9 +20,6 @@ router.use(authMiddleware.authenticate);
  *       '401':
  *         description: Unauthorized - user is not authenticated.
  */
-router.get("/", (req, res) => {
-  orderController.getOrderHistory(req, res);
-});
 
 /**
  * @swagger
@@ -47,9 +36,6 @@ router.get("/", (req, res) => {
  *       '401':
  *         description: Unauthorized - user is not authenticated.
  */
-router.post("/", (req, res) => {
-  orderController.placeOrder(req, res);
-});
 
 /**
  * @swagger
@@ -73,9 +59,6 @@ router.post("/", (req, res) => {
  *       '404':
  *         description: Order not found.
  */
-router.get("/:id", (req, res) => {
-  orderController.getOrderById(req, res);
-});
 
 /**
  * @swagger
@@ -112,8 +95,3 @@ router.get("/:id", (req, res) => {
  *       '404':
  *         description: Order not found.
  */
-router.put("/:id", (req, res) => {
-  orderController.updateOrderStatus(req, res);
-});
-
-module.exports = router;

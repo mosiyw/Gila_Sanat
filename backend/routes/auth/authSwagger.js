@@ -3,17 +3,7 @@
  * tags:
  *   name: Authentication
  *   description: API operations related to user authentication
- */
-
-const express = require("express");
-const router = express.Router();
-
-// Import controllers and middleware
-const authController = require("../controllers/authController");
-const authMiddleware = require("../middlewares/authMiddleware");
-const User = require("../models/User");
-/**
- * @swagger
+ *
  * /api/auth/register:
  *   post:
  *     summary: Register a User
@@ -45,13 +35,7 @@ const User = require("../models/User");
  *         description: Conflict - user already exists with the provided email.
  *       '500':
  *         description: Internal server error.
- */
-router.post("/register", (req, res) => {
-  authController.register(req, res);
-});
-
-/**
- * @swagger
+ *
  * /api/auth/login:
  *   post:
  *     summary: Login
@@ -92,13 +76,7 @@ router.post("/register", (req, res) => {
  *         description: Unauthorized - incorrect phone number or password.
  *       '500':
  *         description: Internal server error.
- */
-router.post("/login", (req, res) => {
-  authController.login(req, res);
-});
-
-/**
- * @swagger
+ *
  * /api/auth/profile:
  *   get:
  *     summary: Get User Profile
@@ -116,27 +94,14 @@ router.post("/login", (req, res) => {
  *         description: Unauthorized - user is not authenticated.
  *       '500':
  *         description: Internal server error.
- */
-router.get("/profile", authMiddleware.authenticate, (req, res) => {
-  authController.getProfile(req, res);
-});
-
-/**
- * @swagger
- * /auth/logout:
+ *
+ * /api/auth/logout:
  *   get:
  *     summary: Logout the user
+ *     tags: [Authentication]
  *     responses:
  *       '200':
  *         description: Logout successful
  *       '500':
  *         description: Internal server error
  */
-router.get("/logout", (req, res) => {
-  req.session = null;
-  res.json({ message: "Logout successful" });
-});
-
-// Add more routes as needed
-
-module.exports = router;

@@ -1,9 +1,9 @@
 const express = require("express");
-const authMiddleware = require("../middlewares/authMiddleware");
-const upload = require("../middlewares/uploadMiddleware");
+const authMiddleware = require("../../middlewares/authMiddleware");
+const upload = require("../../middlewares/uploadMiddleware");
 const path = require("path");
 const fs = require("fs");
-const imageController = require("../controllers/imageController");
+const imageController = require("../../controllers/imageController");
 
 const router = express.Router();
 

@@ -28,12 +28,13 @@ const options = {
   },
   apis: [
     // Define the paths to your route files here
-    "./routes/admin.js",
-    "./routes/auth.js",
-    "./routes/cart.js",
-    "./routes/categories.js",
-    "./routes/orders.js",
-    "./routes/products.js",
+    "./routes/admin/adminSwagger.js",
+    "./routes/auth/authSwagger.js",
+    "./routes/cart/cartSwagger.js",
+    "./routes/categories/categorySwagger.js",
+    "./routes/favoriteList/favoritesSwagger.js",
+    "./routes/orders/ordersSwagger.js",
+    "./routes/products/productsSwagger.js",
   ],
 };
 
