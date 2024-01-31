@@ -1,14 +1,15 @@
 import { API_ENDPOINTS } from '@framework/api-endpoints';
-import { Product } from '@framework/types';
-import http from '@framework/utils/http';
+import rest from '@framework/utils/rest';
+import ssr_rest from '@framework/utils/ssr-rest';
 import { useQuery } from 'react-query';
+import { ProductType } from './types';
 
-export const fetchProduct = async (_slug: string) => {
-  const { data } = await http.get(`${API_ENDPOINTS.PRODUCT}`);
-  return data;
-};
+export const fetchProduct = (_slug: string) =>
+  rest.get(`${API_ENDPOINTS.PRODUCT}/${_slug}`);
+
+export const fetchProductSsr = (_slug: string) =>
+  ssr_rest.get<ProductType['response']>(`${API_ENDPOINTS.PRODUCT}/${_slug}`);
+
 export const useProductQuery = (slug: string) => {
-  return useQuery<Product, Error>([API_ENDPOINTS.PRODUCT, slug], () =>
-    fetchProduct(slug)
-  );
+  return useQuery([API_ENDPOINTS.PRODUCT, slug], () => fetchProduct(slug));
 };

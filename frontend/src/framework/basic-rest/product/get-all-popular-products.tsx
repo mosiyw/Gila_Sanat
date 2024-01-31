@@ -1,6 +1,6 @@
-import { QueryOptionsType, Product } from '@framework/types';
-import http2 from '@framework/utils/http2';
+import { Product, QueryOptionsType } from '@framework/types';
 import { API_ENDPOINTS } from '@framework/utils/api-endpoints2';
+import http2 from '@framework/utils/ssr-rest';
 import { useQuery } from 'react-query';
 
 export const fetchPopularProducts = async ({ queryKey }: any) => {

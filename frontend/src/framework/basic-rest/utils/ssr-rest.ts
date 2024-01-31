@@ -1,22 +1,18 @@
 import axios from 'axios';
-import { getToken } from './get-token';
 
-const http2 = axios.create({
+const ssr_rest = axios.create({
   baseURL: process.env.NEXT_PUBLIC_BACKEND_API_ENDPOINT,
-  timeout: 30000,
+  timeout: 5000,
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json',
   },
 });
 
-// Change request data/error here
-http2.interceptors.request.use(
+ssr_rest.interceptors.request.use(
   (config) => {
-    const token = getToken();
     config.headers = {
       ...config.headers,
-      Authorization: `Bearer ${token ? token : ''}`,
     };
     return config;
   },
@@ -25,4 +21,4 @@ http2.interceptors.request.use(
   }
 );
 
-export default http2;
+export default ssr_rest;

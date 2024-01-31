@@ -1,5 +1,5 @@
-import React, { JSXElementConstructor, CSSProperties } from 'react';
 import cn from 'classnames';
+import React, { CSSProperties, JSXElementConstructor } from 'react';
 
 interface Props {
   variant?: Variant;
@@ -7,6 +7,7 @@ interface Props {
   style?: CSSProperties;
   children?: React.ReactNode | any;
   html?: string;
+  dir?: 'rtl' | 'ltr';
 }
 
 type Variant =
@@ -26,6 +27,7 @@ const Heading: React.FC<Props> = ({
   variant = 'base',
   children,
   html,
+  dir,
 }) => {
   const componentsMap: {
     [P in Variant]: React.ComponentType<any> | string;
@@ -55,6 +57,7 @@ const Heading: React.FC<Props> = ({
 
   return (
     <Component
+      dir={dir}
       className={cn(
         'text-brand-dark',
         {
@@ -68,7 +71,7 @@ const Heading: React.FC<Props> = ({
             variant === 'mediumHeading',
           'text-lg lg:text-xl xl:text-[22px] xl:leading-8 font-bold font-manrope':
             variant === 'heading',
-          'text-lg lg:text-xl xl:text-[26px] xl:leading-8 font-semibold text-brand-dark ':
+          'text-lg lg:text-xl xl:text-[26px] xl:leading-8 font-black text-brand-dark':
             variant === 'checkoutHeading',
         },
         className

@@ -1,38 +1,49 @@
-import { useState } from 'react';
+import CartIcon from '@components/icons/cart-icon';
+import LabelIcon from '@components/icons/label-icon';
+import ProductAttributes from '@components/product/product-attributes';
+import ProductDetailsTab from '@components/product/product-details/product-tab';
 import Button from '@components/ui/button';
+import ThumbnailCarousel from '@components/ui/carousel/thumbnail-carousel';
 import Counter from '@components/ui/counter';
-import { useRouter } from 'next/router';
+import Image from '@components/ui/image';
+import SocialShareBox from '@components/ui/social-share-box';
+import TagLabel from '@components/ui/tag-label';
+import { useCart } from '@contexts/cart/cart.context';
+import { useFavoriteProductMutation } from '@framework/product/post-favorite-product';
+import { ProductType } from '@framework/product/types';
+import usePrice from '@framework/product/use-price';
+import { getVariations } from '@framework/utils/get-variations';
+import { generateCartItem } from '@utils/generate-cart-item';
+import getFullUrl from '@utils/imgurl';
 import { ROUTES } from '@utils/routes';
 import useWindowSize from '@utils/use-window-size';
-import { useProductQuery } from '@framework/product/new-get-product';
-import { getVariations } from '@framework/utils/get-variations';
-import usePrice from '@framework/product/use-price';
-import { useCart } from '@contexts/cart/cart.context';
-import { generateCartItem } from '@utils/generate-cart-item';
-import ProductAttributes from '@components/product/product-attributes';
 import isEmpty from 'lodash/isEmpty';
-import { toast } from 'react-toastify';
-import ThumbnailCarousel from '@components/ui/carousel/thumbnail-carousel';
-import { useTranslation } from 'next-i18next';
-import Image from '@components/ui/image';
-import CartIcon from '@components/icons/cart-icon';
-import { IoIosHeart, IoIosHeartEmpty } from 'react-icons/io';
-import TagLabel from '@components/ui/tag-label';
-import LabelIcon from '@components/icons/label-icon';
-import { IoArrowRedoOutline } from 'react-icons/io5';
-import SocialShareBox from '@components/ui/social-share-box';
-import ProductDetailsTab from '@components/product/product-details/product-tab';
-import VariationPrice from './variation-price';
 import isEqual from 'lodash/isEqual';
-import getFullUrl from '@utils/imgurl';
+import { useTranslation } from 'next-i18next';
+import { useRouter } from 'next/router';
+import { useState } from 'react';
+import { IoIosHeart, IoIosHeartEmpty } from 'react-icons/io';
+import { IoArrowRedoOutline } from 'react-icons/io5';
+import { toast } from 'react-toastify';
+import VariationPrice from './variation-price';
 
-const ProductSingleDetails: React.FC = () => {
+interface Props {
+  product: ProductType['response'];
+}
+
+const ProductSingleDetails = ({ product }: Props) => {
   const { t } = useTranslation('common');
+
   const router = useRouter();
   const { slug = [] } = router.query;
-  const { width } = useWindowSize();
   const productSlug = slug?.[0];
-  const { data, isLoading } = useProductQuery(productSlug as string);
+  // const { data: product, isLoading } = useProductQuery(
+  //   productSlug as string
+  // );
+
+  const { mutate: addToFavorite } = useFavoriteProductMutation();
+
+  const { width } = useWindowSize();
   const { addItemToCart, isInCart, getItemFromCart, isInStock } = useCart();
   const [selectedQuantity, setSelectedQuantity] = useState(1);
   const [attributes, setAttributes] = useState<{ [key: string]: string }>({});
@@ -43,18 +54,13 @@ const ProductSingleDetails: React.FC = () => {
     useState<boolean>(false);
   const [shareButtonStatus, setShareButtonStatus] = useState<boolean>(false);
   const productUrl = `${process.env.NEXT_PUBLIC_WEBSITE_URL}${ROUTES.PRODUCT}/${router.query.slug}`;
-  const { price, basePrice, discount } = usePrice(
-    data && {
-      amount: data.sale_price ? data.sale_price : data.price,
-      baseAmount: data.price,
-      currencyCode: 'USD',
-    }
-  );
+  const { price, basePrice, discount } = usePrice(product);
+
   const handleChange = () => {
     setShareButtonStatus(!shareButtonStatus);
   };
-  if (isLoading) return <p>Loading...</p>;
-  const variations = getVariations(data?.variations);
+
+  const variations = getVariations(product?.variations);
 
   const isSelected = !isEmpty(variations)
     ? !isEmpty(attributes) &&
@@ -64,17 +70,18 @@ const ProductSingleDetails: React.FC = () => {
     : true;
   let selectedVariation: any = {};
   if (isSelected) {
-    const dataVaiOption: any = data?.variation_options;
-    selectedVariation = dataVaiOption?.find((o: any) =>
+    const productVaiOption: any = product?.variation_options;
+    selectedVariation = productVaiOption?.find((o: any) =>
       isEqual(
         o.options.map((v: any) => v.value).sort(),
         Object.values(attributes).sort()
       )
     );
   }
-  const item = generateCartItem(data!, selectedVariation);
+  const item = generateCartItem(product!, selectedVariation);
   const outOfStock = isInCart(item.id) && !isInStock(item.id);
-  function addToCart() {
+
+  const addToCart = () => {
     if (!isSelected) return;
     // to show btn feedback while product carting
     setAddToCartLoader(true);
@@ -82,7 +89,7 @@ const ProductSingleDetails: React.FC = () => {
       setAddToCartLoader(false);
     }, 1500);
 
-    const item = generateCartItem(data!, selectedVariation);
+    const item = generateCartItem(product!, selectedVariation);
     addItemToCart(item, quantity);
     toast('Added to the bag', {
       progressClassName: 'fancy-progress-bar',
@@ -93,9 +100,9 @@ const ProductSingleDetails: React.FC = () => {
       pauseOnHover: true,
       draggable: true,
     });
-  }
-  function addToWishlist() {
-    // to show btn feedback while product wishlist
+  };
+
+  const addToWishlist = () => {
     setAddToWishlistLoader(true);
     setFavorite(!favorite);
     const toastStatus: string =
@@ -112,15 +119,15 @@ const ProductSingleDetails: React.FC = () => {
       pauseOnHover: true,
       draggable: true,
     });
-  }
+  };
 
   return (
     <div className="pt-6 pb-2 md:pt-7">
       <div className="grid-cols-10 lg:grid gap-7 2xl:gap-8">
         <div className="col-span-5 mb-6 overflow-hidden xl:col-span-6 md:mb-8 lg:mb-0">
-          {!!data?.image?.length ? (
+          {!!product?.image?.length ? (
             <ThumbnailCarousel
-              gallery={data?.image ?? getFullUrl(data.image.images)}
+              gallery={product?.image ?? getFullUrl(product.image.images)}
               thumbnailClassName="xl:w-[700px] 2xl:w-[900px]"
               galleryClassName="xl:w-[150px] 2xl:w-[170px]"
             />
@@ -128,11 +135,11 @@ const ProductSingleDetails: React.FC = () => {
             <div className="flex items-center justify-center w-auto">
               <Image
                 src={
-                  data?.image.cover
-                    ? getFullUrl(data.image.cover)
+                  product?.image.cover
+                    ? getFullUrl(product.image.cover)
                     : '/product-placeholder.svg'
                 }
-                alt={data?.name!}
+                alt={product?.name!}
                 width={900}
                 height={680}
               />
@@ -144,18 +151,18 @@ const ProductSingleDetails: React.FC = () => {
           <div className="pb-3 lg:pb-5">
             <div className="md:mb-2.5 block -mt-1.5">
               <h2 className="text-lg font-medium transition-colors duration-300 text-brand-dark md:text-xl xl:text-2xl">
-                {data?.name}
+                {product?.name}
               </h2>
             </div>
-            {data?.unit && isEmpty(variations) ? (
+            {product?.unit && isEmpty(variations) ? (
               <div className="text-sm font-medium md:text-15px">
-                {data?.unit}
+                {product?.unit}
               </div>
             ) : (
               <VariationPrice
                 selectedVariation={selectedVariation}
-                minPrice={data?.min_price}
-                maxPrice={data?.max_price}
+                minPrice={product?.min_price}
+                maxPrice={product?.max_price}
               />
             )}
 
@@ -288,14 +295,14 @@ const ProductSingleDetails: React.FC = () => {
               </div>
             </div>
           </div>
-          {data?.tag && (
+          {product?.tag && (
             <ul className="pt-5 xl:pt-6">
               <li className="relative inline-flex items-center justify-center text-sm md:text-15px text-brand-dark text-opacity-80 ltr:mr-2 rtl:ml-2 top-1">
                 <LabelIcon className="ltr:mr-2 rtl:ml-2" /> {t('text-tags')}:
               </li>
-              {data?.tag?.map((item: any) => (
+              {product?.tag?.map((item: any) => (
                 <li className="inline-block p-[3px]" key={`tag-${item.id}`}>
-                  <TagLabel data={item} />
+                  <TagLabel product={item} />
                 </li>
               ))}
             </ul>

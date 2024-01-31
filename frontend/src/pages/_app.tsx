@@ -5,7 +5,7 @@ import { ManagedUIContext } from '@contexts/ui.context';
 import { appWithTranslation } from 'next-i18next';
 import type { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { Hydrate } from 'react-query/hydration';
 import { ToastContainer } from 'react-toastify';
@@ -18,20 +18,16 @@ import '@assets/css/custom-plugins.css';
 import '@assets/css/globals.css';
 import '@assets/css/scrollbar.css';
 import '@assets/css/swiper-carousel.css';
-import { getDirection } from '@utils/get-direction';
 
 const Noop: React.FC = ({ children }) => <>{children}</>;
 
-const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
+const App = ({ Component, pageProps: { ...pageProps } }: AppProps) => {
   const queryClientRef = useRef<any>();
   if (!queryClientRef.current) {
     queryClientRef.current = new QueryClient();
   }
   const router = useRouter();
-  const dir = getDirection(router.locale);
-  useEffect(() => {
-    document.documentElement.dir = dir;
-  }, [dir]);
+
   const Layout = (Component as any).Layout || Noop;
 
   return (

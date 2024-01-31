@@ -1,10 +1,11 @@
 import Layout from '@components/layout/layout';
 import AccountLayout from '@components/my-account/account-layout';
 import Wishlist from '@components/my-account/wishlist';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { useTranslation } from 'next-i18next';
-import { GetStaticProps } from 'next';
 import Seo from '@components/seo/seo';
+import Heading from '@components/ui/heading';
+import { GetStaticProps } from 'next';
+import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 export default function LegalNotice() {
   const { t } = useTranslation();
@@ -16,9 +17,13 @@ export default function LegalNotice() {
         path="my-account/wishlist"
       />
       <AccountLayout>
-        <h2 className="text-base md:text-lg xl:text-[20px] font-semibold text-brand-dark  lg:pt-0">
+        <Heading
+          dir="rtl"
+          variant="titleLarge"
+          className="mb-5 md:mb-6 lg:mb-7 lg:-mt-1"
+        >
           {t('common:text-account-wishlist')}
-        </h2>
+        </Heading>
         <Wishlist />
       </AccountLayout>
     </>
