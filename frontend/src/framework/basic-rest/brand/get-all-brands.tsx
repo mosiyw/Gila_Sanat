@@ -10,6 +10,7 @@ export const fetchBrands = async ({ queryKey }: any) => {
   } = await http.get(API_ENDPOINTS.BRANDS);
   return { brands: { data: data as Brand[] } };
 };
+
 export const useBrandsQuery = (options: QueryOptionsType) => {
   return useQuery<{ brands: { data: Brand[] } }, Error>(
     [API_ENDPOINTS.BRANDS, options],

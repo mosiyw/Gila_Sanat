@@ -12,11 +12,7 @@ export default function AccountDetailsPage() {
         description="Fastest E-commerce template built with React, NextJS, TypeScript, React-Query and Tailwind CSS."
         path="my-account/account-settings"
       />
-      <AccountLayout>
-        <button onClick={() => {}}>Login</button>
-
-        <button onClick={() => {}}>Logout</button>
-      </AccountLayout>
+      <AccountLayout>کاربر گرامی خوش آمدید</AccountLayout>
     </>
   );
 }

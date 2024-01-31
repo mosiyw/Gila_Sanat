@@ -1,9 +1,9 @@
 import WishlistProductCard from '@components/product/wishlist-product-card';
-import type { FC } from 'react';
-import { useWishlistProductsQuery } from '@framework/product/get-wishlist-product';
-import ProductCardLoader from '@components/ui/loaders/product-card-loader';
 import Alert from '@components/ui/alert';
+import ProductCardLoader from '@components/ui/loaders/product-card-loader';
+import { useWishlistProductsQuery } from '@framework/product/get-wishlist-product';
 import cn from 'classnames';
+import type { FC } from 'react';
 interface ProductWishlistProps {
   element?: any;
   className?: string;
@@ -40,4 +40,5 @@ const ProductWishlistGrid: FC<ProductWishlistProps> = ({
     </div>
   );
 };
+
 export default ProductWishlistGrid;

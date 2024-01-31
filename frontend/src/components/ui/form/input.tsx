@@ -1,6 +1,6 @@
 import cn from 'classnames';
-import React, { InputHTMLAttributes } from 'react';
 import { useTranslation } from 'next-i18next';
+import React, { InputHTMLAttributes } from 'react';
 
 export interface Props extends InputHTMLAttributes<HTMLInputElement> {
   className?: string;
@@ -23,6 +23,7 @@ const classes = {
   outline: 'border-gray-300 focus:border-brand',
   shadow: 'focus:shadow',
 };
+
 const Input = React.forwardRef<HTMLInputElement, Props>(
   (
     {
@@ -54,6 +55,7 @@ const Input = React.forwardRef<HTMLInputElement, Props>(
       'text-right'
     );
     const { t } = useTranslation();
+
     return (
       <div className={className}>
         {label && (
@@ -80,7 +82,7 @@ const Input = React.forwardRef<HTMLInputElement, Props>(
           {...rest}
         />
         {error && (
-          <p className="my-2 text-13px text-brand-danger text-opacity-70 text-right">
+          <p className="my-2 text-right text-13px text-brand-danger text-opacity-70">
             {t(error)}
           </p>
         )}
@@ -90,4 +92,5 @@ const Input = React.forwardRef<HTMLInputElement, Props>(
 );
 
 Input.displayName = 'Input';
+
 export default Input;

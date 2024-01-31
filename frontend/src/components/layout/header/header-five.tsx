@@ -33,20 +33,23 @@ const Header: React.FC = () => {
     closeSearch,
     isAuthorized,
   } = useUI();
+
   const { openModal } = useModalAction();
   const siteHeaderRef = useRef() as DivElementRef;
   const siteSearchRef = useRef() as DivElementRef;
+
   const [categoryMenu, setCategoryMenu] = useState(Boolean(false));
+
   addActiveScroll(siteHeaderRef, 40);
   useOnClickOutside(siteSearchRef, () => closeSearch());
 
-  function handleLogin() {
+  const handleLogin = () => {
     openModal('LOGIN_VIEW');
-  }
+  };
 
-  function handleCategoryMenu() {
+  const handleCategoryMenu = () => {
     setCategoryMenu(!categoryMenu);
-  }
+  };
 
   return (
     <header
@@ -117,7 +120,6 @@ const Header: React.FC = () => {
               data={site_header.menu}
               className="flex transition-all duration-200 ease-in-out"
             />
-            {/* End of main menu */}
 
             {displaySearch && (
               <div className="absolute top-0 left-0 flex items-center justify-center w-full h-full px-4 sticky-search">

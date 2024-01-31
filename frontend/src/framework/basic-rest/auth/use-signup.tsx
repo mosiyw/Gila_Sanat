@@ -13,6 +13,7 @@ async function signUp(input: SignUpInputType) {
     token: `${input.email}.${input.name}`.split('').reverse().join(''),
   };
 }
+
 export const useSignUpMutation = () => {
   const { authorize, closeModal } = useUI();
   return useMutation((input: SignUpInputType) => signUp(input), {

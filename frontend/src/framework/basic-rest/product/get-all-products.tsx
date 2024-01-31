@@ -1,6 +1,6 @@
-import { QueryOptionsType, Product } from '@framework/types';
+import { Product, QueryOptionsType } from '@framework/types';
 import { API_ENDPOINTS } from '@framework/utils/api-endpoints2';
-import http2 from '@framework/utils/http2';
+import http2 from '@framework/utils/ssr-rest';
 import shuffle from 'lodash/shuffle';
 import { useInfiniteQuery } from 'react-query';
 type PaginatedProduct = {
@@ -28,4 +28,4 @@ const useProductsQuery = (options: QueryOptionsType) => {
   );
 };
 
-export { useProductsQuery, fetchProducts };
+export { fetchProducts, useProductsQuery };

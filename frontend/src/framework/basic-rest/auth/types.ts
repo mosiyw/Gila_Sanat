@@ -8,17 +8,20 @@ export type LoginType = {
 };
 
 export type ProfileType = {
-  user: {
-    favorites: any[];
-    cart: any[];
-    orders: any[];
-    tickets: any[];
-    _id: string;
-    username: string;
-    password: string;
-    isAdmin: boolean;
-    __v: number;
-    phone_number: string;
-    addresses: any[];
+  payload: {};
+  response: {
+    user: {
+      favorites: any[];
+      cart: any[];
+      orders: any[];
+      tickets: any[];
+      _id: string;
+      username: string;
+      password: string;
+      isAdmin: boolean;
+      __v: number;
+      phone_number: string;
+      addresses: any[];
+    };
   };
 };

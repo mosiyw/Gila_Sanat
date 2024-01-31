@@ -8,6 +8,7 @@ export const fetchWishlistProducts = async ({ queryKey }: any) => {
   const { data } = await http.get(API_ENDPOINTS.WISHLIST);
   return data;
 };
+
 export const useWishlistProductsQuery = (options: QueryOptionsType) => {
   return useQuery<Product[], Error>(
     [API_ENDPOINTS.WISHLIST, options],

@@ -8,7 +8,7 @@ export const API_ENDPOINTS = {
   DIETARY: '/dietary.json',
   BRANDS: '/brands.json',
   PRODUCTS: '/products.json',
-  PRODUCT: '/product.json',
+  PRODUCT: '/products',
   RELATED_PRODUCTS: '/related_products.json',
   FLASH_SELL_PRODUCTS: '/products_flash_sell.json',
   BEST_SELLER_PRODUCTS: '/products_best_seller.json',

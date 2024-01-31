@@ -20,6 +20,7 @@ interface Variation {
   quantity: number;
   [key: string]: unknown;
 }
+
 export function generateCartItem(item: Item, variation: Variation) {
   const { _id, name, slug, image, price, quantity } = item;
   const id = _id;

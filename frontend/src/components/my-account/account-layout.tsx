@@ -1,6 +1,4 @@
 import MapIcon from '@components/icons/account-address';
-import HelpIcon from '@components/icons/account-help';
-import NoticeIcon from '@components/icons/account-notice';
 import NotificationIcon from '@components/icons/account-notification';
 import OrdersIcon from '@components/icons/account-order';
 import SettingsIcon from '@components/icons/account-settings';
@@ -36,16 +34,6 @@ const accountMenu = [
     slug: ROUTES.NOTIFICATION,
     name: 'text-notifications',
     icon: <NotificationIcon className="w-5 md:w-[22px] h-5 md:h-[22px]" />,
-  },
-  {
-    slug: ROUTES.LEGAL_NOTICE,
-    name: 'text-account-details-notice',
-    icon: <NoticeIcon className="w-5 md:w-[22px] h-5 md:h-[22px]" />,
-  },
-  {
-    slug: ROUTES.HELP_CENTER,
-    name: 'text-account-details-help',
-    icon: <HelpIcon className="w-5 md:w-[22px] h-5 md:h-[22px]" />,
   },
   {
     slug: ROUTES.CHANGE_PASSWORD,
