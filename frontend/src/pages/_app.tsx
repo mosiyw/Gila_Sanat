@@ -2,13 +2,19 @@ import ManagedDrawer from '@components/common/drawer/managed-drawer';
 import ManagedModal from '@components/common/modal/managed-modal';
 import { DefaultSeo } from '@components/seo/default-seo';
 import { ManagedUIContext } from '@contexts/ui.context';
+import { hotToastSetting } from '@settings/toast-setting';
 import { appWithTranslation } from 'next-i18next';
 import type { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
 import { useRef } from 'react';
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { Toaster } from 'react-hot-toast';
+
+import {
+  QueryClient,
+  QueryClientProvider,
+  type DehydratedState,
+} from 'react-query';
 import { Hydrate } from 'react-query/hydration';
-import { ToastContainer } from 'react-toastify';
 
 // external
 import 'react-toastify/dist/ReactToastify.css';
@@ -18,10 +24,14 @@ import '@assets/css/custom-plugins.css';
 import '@assets/css/globals.css';
 import '@assets/css/scrollbar.css';
 import '@assets/css/swiper-carousel.css';
+import '@assets/css/toast.css';
 
 const Noop: React.FC = ({ children }) => <>{children}</>;
 
-const App = ({ Component, pageProps: { ...pageProps } }: AppProps) => {
+const App = ({
+  Component,
+  pageProps,
+}: AppProps<{ dehydratedState: DehydratedState }>) => {
   const queryClientRef = useRef<any>();
   if (!queryClientRef.current) {
     queryClientRef.current = new QueryClient();
@@ -39,7 +49,7 @@ const App = ({ Component, pageProps: { ...pageProps } }: AppProps) => {
             <Layout pageProps={pageProps}>
               <Component {...pageProps} key={router.route} />
             </Layout>
-            <ToastContainer />
+            <Toaster {...hotToastSetting} />
             <ManagedModal />
             <ManagedDrawer />
           </>
@@ -50,4 +60,5 @@ const App = ({ Component, pageProps: { ...pageProps } }: AppProps) => {
   );
 };
 
+// @ts-ignore
 export default appWithTranslation(App);

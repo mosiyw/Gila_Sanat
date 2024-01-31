@@ -7,9 +7,9 @@ import { getToken } from '@framework/utils/get-token';
 import React, { useReducer } from 'react';
 import { Action, DRAWER_VIEWS } from './actions.types';
 import { CartProvider } from './cart/cart.context';
-import { State } from './context.types';
+import { ContextType, State } from './context.types';
 
-const initialState = {
+const initialState: State = {
   isAuthorized: getToken() ? true : false,
   displaySidebar: false,
   displayFilter: false,
@@ -25,10 +25,10 @@ const initialState = {
 
 export const UIContext = React.createContext<State | any>(initialState);
 
-UIContext.displayName = 'UIContext';
-
 function uiReducer(state: State, action: Action) {
-  switch (action.type) {
+  const { type } = action;
+
+  switch (type) {
     case 'SET_AUTHORIZED': {
       return {
         ...state,
@@ -163,8 +163,9 @@ function uiReducer(state: State, action: Action) {
 }
 
 export const UIProvider: React.FC = (props) => {
-  const [state, dispatch] = useReducer(uiReducer, initialState);
   const { openModal } = useModalAction();
+
+  const [state, dispatch] = useReducer(uiReducer, initialState);
 
   const withAuth = (fn: Function) => {
     if (state.isAuthorized) {
@@ -173,6 +174,7 @@ export const UIProvider: React.FC = (props) => {
       return openModal('LOGIN_VIEW');
     }
   };
+
   const authorize = () => dispatch({ type: 'SET_AUTHORIZED' });
   const unauthorize = () => dispatch({ type: 'SET_UNAUTHORIZED' });
   const openSidebar = () => dispatch({ type: 'OPEN_SIDEBAR' });
@@ -254,8 +256,6 @@ export const UIProvider: React.FC = (props) => {
 
   return <UIContext.Provider value={value} {...props} />;
 };
-
-type ContextType = State;
 
 export const useUI = (): ContextType => {
   const context = React.useContext(UIContext);

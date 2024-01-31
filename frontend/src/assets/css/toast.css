@@ -1,0 +1,21 @@
+/* Hot Toast */
+.hot-toast {
+  border-style: solid !important;
+  border-width: 1.4px !important;
+
+  padding: 0.8rem !important;
+}
+
+.hot-toast-success {
+  border-color: #61d345 !important;
+}
+
+.hot-toast-error {
+  border-color: #ff6b6b !important;
+}
+
+@media (max-width: 480px) {
+  .hot-toast {
+    top: 66px;
+  }
+}

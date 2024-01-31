@@ -25,9 +25,16 @@ export type ProductType = {
   };
 };
 
-export type AddFavoriteProductType = {
+export type ProductWishlistType = {
   payload: { productId: string };
   response: {
     productId: string;
+  };
+};
+
+export type GetIsProductExistInWishlistType = {
+  param: { productId: string };
+  response: {
+    isFavorite: boolean;
   };
 };

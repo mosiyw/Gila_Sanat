@@ -7,6 +7,7 @@ import Container from '@components/ui/container';
 import Divider from '@components/ui/divider';
 import { fetchProductSsr } from '@framework/product/get-product';
 import { ProductType } from '@framework/product/types';
+import { AxiosError } from 'axios';
 import { GetServerSideProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
@@ -61,8 +62,20 @@ export const getServerSideProps: GetServerSideProps = async ({
         },
       };
     } catch (error) {
+      const { response } = error as AxiosError;
+
+      if (response && response.status === 404) {
+        return {
+          notFound: true,
+        };
+      }
+
       return {
-        notFound: true,
+        props: {},
+        redirect: {
+          destination: '/error',
+          permanent: false,
+        },
       };
     }
   }

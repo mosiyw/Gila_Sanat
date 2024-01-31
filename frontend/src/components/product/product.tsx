@@ -10,7 +10,10 @@ import SocialShareBox from '@components/ui/social-share-box';
 import TagLabel from '@components/ui/tag-label';
 import { useCart } from '@contexts/cart/cart.context';
 import { useUI } from '@contexts/ui.context';
-import { useFavoriteProductMutation } from '@framework/product/post-favorite-product';
+import {
+  useIsProductExistInWishlistQuery,
+  useWishlistProductMutation,
+} from '@framework/product/product-wishlist';
 import { ProductType } from '@framework/product/types';
 import usePrice from '@framework/product/use-price';
 import { getVariations } from '@framework/utils/get-variations';
@@ -34,15 +37,34 @@ interface Props {
 
 const ProductSingleDetails = ({ product }: Props) => {
   const { t } = useTranslation('common');
+  const { withAuth } = useUI();
 
   const { query } = useRouter();
   const productID = query.slug?.[0];
 
-  const { withAuth } = useUI();
+  const { data: isWishListed, refetch: fetchIsWishListed } =
+    useIsProductExistInWishlistQuery(productID || '');
 
-  const { mutate: addToWishList } = useFavoriteProductMutation();
+  const {
+    add: addToWishlist,
+    remove: removeFromWishlist,
+    isLoading,
+  } = useWishlistProductMutation();
+
   const handleAddToWishList = () => {
-    addToWishList(productID || '');
+    addToWishlist.mutate(productID || '', {
+      onSuccess() {
+        fetchIsWishListed();
+      },
+    });
+  };
+
+  const handleRemoveFromWishlist = () => {
+    removeFromWishlist.mutate(productID || '', {
+      onSuccess() {
+        fetchIsWishListed();
+      },
+    });
   };
 
   const { width } = useWindowSize();
@@ -70,6 +92,7 @@ const ProductSingleDetails = ({ product }: Props) => {
       )
     : true;
   let selectedVariation: any = {};
+
   if (isSelected) {
     const productVaiOption: any = product?.variation_options;
     selectedVariation = productVaiOption?.find((o: any) =>
@@ -79,18 +102,19 @@ const ProductSingleDetails = ({ product }: Props) => {
       )
     );
   }
+
   const item = generateCartItem(product!, selectedVariation);
   const outOfStock = isInCart(item.id) && !isInStock(item.id);
 
   const addToCart = () => {
     if (!isSelected) return;
-    // to show btn feedback while product carting
     setAddToCartLoader(true);
     setTimeout(() => {
       setAddToCartLoader(false);
     }, 1500);
 
     const item = generateCartItem(product!, selectedVariation);
+
     addItemToCart(item, quantity);
     toast('Added to the bag', {
       progressClassName: 'fancy-progress-bar',
@@ -245,15 +269,20 @@ const ProductSingleDetails = ({ product }: Props) => {
             <div className="grid grid-cols-2 gap-2.5">
               <Button
                 variant="border"
+                loading={isLoading}
                 onClick={() => {
-                  withAuth(handleAddToWishList);
+                  if (isWishListed?.isFavorite) {
+                    withAuth(handleRemoveFromWishlist);
+                  } else {
+                    withAuth(handleAddToWishList);
+                  }
                 }}
                 className={`group hover:text-brand ${
-                  favorite === true && 'text-brand'
+                  isWishListed?.isFavorite === true && 'text-brand'
                 }`}
               >
-                {favorite === true ? (
-                  <IoIosHeart className="text-2xl md:text-[26px] ltr:mr-2 rtl:ml-2 transition-all" />
+                {isWishListed?.isFavorite === true ? (
+                  <IoIosHeart className="text-red-600 text-2xl md:text-[26px] ltr:mr-2 rtl:ml-2 transition-all" />
                 ) : (
                   <IoIosHeartEmpty className="text-2xl md:text-[26px] ltr:mr-2 rtl:ml-2 transition-all group-hover:text-brand" />
                 )}

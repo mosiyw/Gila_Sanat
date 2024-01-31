@@ -7,7 +7,6 @@ import BestSellerProductFeed from '@components/product/feeds/best-seller-product
 import ChipsProductFeed from '@components/product/feeds/chips-product-feed';
 import CookiesProductFeed from '@components/product/feeds/cookies-product-feed';
 import FreshVegetablesProductFeed from '@components/product/feeds/fresh-vegetables-product-feed';
-import PopcornJerkyProductFeed from '@components/product/feeds/popcorn-jerky-product-feed';
 import Seo from '@components/seo/seo';
 import Container from '@components/ui/container';
 import { API_ENDPOINTS } from '@framework/api-endpoints';
@@ -43,7 +42,6 @@ export default function Home() {
       <ChipsProductFeed />
       <CollectionGrid className="mb-12 lg:mb-14 xl:mb-16" />
       <CookiesProductFeed />
-      <PopcornJerkyProductFeed />
       <DownloadApps />
     </>
   );

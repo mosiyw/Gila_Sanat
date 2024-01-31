@@ -10,6 +10,9 @@ export type State = {
   toastText: string;
   isStickyheader: boolean;
   data?: any;
-  authorize: () => void;
+};
+
+export type ContextType = State & {
   withAuth: (fn: () => void) => void;
+  authorize: () => void;
 };

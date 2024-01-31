@@ -1,9 +1,12 @@
 export const API_ENDPOINTS = {
   LOGIN: 'auth/login',
   PROFILE: 'auth/profile',
-  REGISTER: '/register',
-  LOGOUT: '/logout',
-  ADD_WISHLIST: '/favorites/add',
+  REGISTER: 'register',
+  LOGOUT: 'logout',
+  ADD_WISHLIST: 'favorites/add',
+  REMOVE_WISHLIST: 'favorites/remove',
+  IS_EXIST_IN_WISHLIST: 'favorites/isFavorite/',
+
   FORGET_PASSWORD: '/forget-password',
   CATEGORIES: '/categories.json',
   DIETARY: '/dietary.json',

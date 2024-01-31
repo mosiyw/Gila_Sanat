@@ -1,7 +1,3 @@
-import WishlistProductCard from '@components/product/wishlist-product-card';
-import Alert from '@components/ui/alert';
-import ProductCardLoader from '@components/ui/loaders/product-card-loader';
-import { useWishlistProductsQuery } from '@framework/product/get-wishlist-product';
 import cn from 'classnames';
 import type { FC } from 'react';
 interface ProductWishlistProps {
@@ -13,12 +9,10 @@ const ProductWishlistGrid: FC<ProductWishlistProps> = ({
   className = '',
 }) => {
   const limit = 35;
-  const { data, isLoading, error } = useWishlistProductsQuery({
-    limit: limit,
-  });
+
   return (
     <div className={cn(className)}>
-      {error ? (
+      {/* {error ? (
         <Alert message={error?.message} />
       ) : (
         <div className="flex flex-col">
@@ -36,7 +30,7 @@ const ProductWishlistGrid: FC<ProductWishlistProps> = ({
                 />
               ))}
         </div>
-      )}
+      )} */}
     </div>
   );
 };
