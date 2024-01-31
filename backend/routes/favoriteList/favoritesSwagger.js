@@ -81,3 +81,49 @@
  *       '500':
  *         description: There was an error.
  */
+
+/**
+ * @swagger
+ * /api/favorites/isFavorite/{productId}:
+ *   get:
+ *     summary: Check if a product is in the user's favorites
+ *     tags: [Favorites]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: productId
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The product's id.
+ *     responses:
+ *       '200':
+ *         description: Returns a boolean indicating if the product is in the user's favorites.
+ *       '404':
+ *         description: The user was not found.
+ *       '500':
+ *         description: There was an error.
+ */ /**
+ * @swagger
+ * /api/favorites/isFavorite/{productId}:
+ *   get:
+ *     summary: Check if a product is in the user's favorites
+ *     tags: [Favorites]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: productId
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The product's id.
+ *     responses:
+ *       '200':
+ *         description: Returns a boolean indicating if the product is in the user's favorites.
+ *       '404':
+ *         description: The user was not found.
+ *       '500':
+ *         description: There was an error.
+ */

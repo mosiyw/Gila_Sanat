@@ -87,3 +87,23 @@ exports.getFavoriteList = async (req, res) => {
     res.status(500).json({ error: "An error occurred" });
   }
 };
+
+exports.isFavorite = async (req, res) => {
+  try {
+    const productId = req.params.productId;
+    const token = req.cookies.token;
+    const decoded = jwt.verify(token, SECRET_KEY);
+    const userId = decoded.userId;
+
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    const isFavorite = user.favorites.includes(productId);
+    res.status(200).json({ isFavorite });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "An error occurred" });
+  }
+};

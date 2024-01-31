@@ -12,4 +12,6 @@ router.delete("/remove", favoriteListController.removeProductFromFavorites);
 
 router.get("/", favoriteListController.getFavoriteList);
 
+router.get("/isFavorite/:productId", favoriteListController.isFavorite);
+
 module.exports = router;
