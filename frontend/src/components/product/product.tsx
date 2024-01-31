@@ -9,6 +9,7 @@ import Image from '@components/ui/image';
 import SocialShareBox from '@components/ui/social-share-box';
 import TagLabel from '@components/ui/tag-label';
 import { useCart } from '@contexts/cart/cart.context';
+import { useUI } from '@contexts/ui.context';
 import { useFavoriteProductMutation } from '@framework/product/post-favorite-product';
 import { ProductType } from '@framework/product/types';
 import usePrice from '@framework/product/use-price';
@@ -34,14 +35,15 @@ interface Props {
 const ProductSingleDetails = ({ product }: Props) => {
   const { t } = useTranslation('common');
 
-  const router = useRouter();
-  const { slug = [] } = router.query;
-  const productSlug = slug?.[0];
-  // const { data: product, isLoading } = useProductQuery(
-  //   productSlug as string
-  // );
+  const { query } = useRouter();
+  const productID = query.slug?.[0];
 
-  const { mutate: addToFavorite } = useFavoriteProductMutation();
+  const { withAuth } = useUI();
+
+  const { mutate: addToWishList } = useFavoriteProductMutation();
+  const handleAddToWishList = () => {
+    addToWishList(productID || '');
+  };
 
   const { width } = useWindowSize();
   const { addItemToCart, isInCart, getItemFromCart, isInStock } = useCart();
@@ -50,10 +52,9 @@ const ProductSingleDetails = ({ product }: Props) => {
   const [favorite, setFavorite] = useState<boolean>(false);
   const [quantity, setQuantity] = useState(1);
   const [addToCartLoader, setAddToCartLoader] = useState<boolean>(false);
-  const [addToWishlistLoader, setAddToWishlistLoader] =
-    useState<boolean>(false);
+
   const [shareButtonStatus, setShareButtonStatus] = useState<boolean>(false);
-  const productUrl = `${process.env.NEXT_PUBLIC_WEBSITE_URL}${ROUTES.PRODUCT}/${router.query.slug}`;
+  const productUrl = `${process.env.NEXT_PUBLIC_WEBSITE_URL}${ROUTES.PRODUCT}/${query.slug}`;
   const { price, basePrice, discount } = usePrice(product);
 
   const handleChange = () => {
@@ -92,25 +93,6 @@ const ProductSingleDetails = ({ product }: Props) => {
     const item = generateCartItem(product!, selectedVariation);
     addItemToCart(item, quantity);
     toast('Added to the bag', {
-      progressClassName: 'fancy-progress-bar',
-      position: width! > 768 ? 'bottom-right' : 'top-right',
-      autoClose: 1500,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-    });
-  };
-
-  const addToWishlist = () => {
-    setAddToWishlistLoader(true);
-    setFavorite(!favorite);
-    const toastStatus: string =
-      favorite === true ? t('text-remove-favorite') : t('text-added-favorite');
-    setTimeout(() => {
-      setAddToWishlistLoader(false);
-    }, 1500);
-    toast(toastStatus, {
       progressClassName: 'fancy-progress-bar',
       position: width! > 768 ? 'bottom-right' : 'top-right',
       autoClose: 1500,
@@ -247,6 +229,8 @@ const ProductSingleDetails = ({ product }: Props) => {
                   : selectedQuantity >= Number(item.stock)
               }
             />
+
+            {/* add to cart */}
             <Button
               onClick={addToCart}
               className="w-full px-1.5"
@@ -256,11 +240,14 @@ const ProductSingleDetails = ({ product }: Props) => {
               <CartIcon color="#ffffff" className="ltr:mr-3 rtl:ml-3" />
               {t('text-add-to-cart')}
             </Button>
+
+            {/* add to wishlist */}
             <div className="grid grid-cols-2 gap-2.5">
               <Button
                 variant="border"
-                onClick={addToWishlist}
-                loading={addToWishlistLoader}
+                onClick={() => {
+                  withAuth(handleAddToWishList);
+                }}
                 className={`group hover:text-brand ${
                   favorite === true && 'text-brand'
                 }`}
@@ -273,6 +260,8 @@ const ProductSingleDetails = ({ product }: Props) => {
 
                 {t('text-wishlist')}
               </Button>
+
+              {/* share */}
               <div className="relative group">
                 <Button
                   variant="border"

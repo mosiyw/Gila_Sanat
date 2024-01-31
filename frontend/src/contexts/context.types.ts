@@ -10,4 +10,6 @@ export type State = {
   toastText: string;
   isStickyheader: boolean;
   data?: any;
+  authorize: () => void;
+  withAuth: (fn: () => void) => void;
 };

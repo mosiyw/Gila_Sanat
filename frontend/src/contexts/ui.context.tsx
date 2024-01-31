@@ -1,10 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { ModalProvider } from '@components/common/modal/modal.context';
+import {
+  ModalProvider,
+  useModalAction,
+} from '@components/common/modal/modal.context';
 import { getToken } from '@framework/utils/get-token';
-import React from 'react';
+import React, { useReducer } from 'react';
 import { Action, DRAWER_VIEWS } from './actions.types';
 import { CartProvider } from './cart/cart.context';
-import { State } from './types';
+import { State } from './context.types';
 
 const initialState = {
   isAuthorized: getToken() ? true : false,
@@ -160,8 +163,16 @@ function uiReducer(state: State, action: Action) {
 }
 
 export const UIProvider: React.FC = (props) => {
-  const [state, dispatch] = React.useReducer(uiReducer, initialState);
+  const [state, dispatch] = useReducer(uiReducer, initialState);
+  const { openModal } = useModalAction();
 
+  const withAuth = (fn: Function) => {
+    if (state.isAuthorized) {
+      return fn();
+    } else {
+      return openModal('LOGIN_VIEW');
+    }
+  };
   const authorize = () => dispatch({ type: 'SET_AUTHORIZED' });
   const unauthorize = () => dispatch({ type: 'SET_UNAUTHORIZED' });
   const openSidebar = () => dispatch({ type: 'OPEN_SIDEBAR' });
@@ -182,10 +193,8 @@ export const UIProvider: React.FC = (props) => {
       : dispatch({ type: 'OPEN_CART' });
   const closeCartIfPresent = () =>
     state.displaySidebar && dispatch({ type: 'CLOSE_CART' });
-
   const openFilter = () => dispatch({ type: 'OPEN_FILTER' });
   const closeFilter = () => dispatch({ type: 'CLOSE_FILTER' });
-
   const openSearch = () => dispatch({ type: 'OPEN_SEARCH' });
   const closeSearch = () => dispatch({ type: 'CLOSE_SEARCH' });
   const openMobileSearch = () => dispatch({ type: 'OPEN_MOBILE_SEARCH' });
@@ -196,10 +205,8 @@ export const UIProvider: React.FC = (props) => {
       : dispatch({ type: 'OPEN_MOBILE_SEARCH' });
   const openDrawer = (data?: any) => dispatch({ type: 'OPEN_DRAWER', data });
   const closeDrawer = () => dispatch({ type: 'CLOSE_DRAWER' });
-
   const setUserAvatar = (_value: string) =>
     dispatch({ type: 'SET_USER_AVATAR', value: _value });
-
   const setDrawerView = (view: DRAWER_VIEWS) =>
     dispatch({ type: 'SET_DRAWER_VIEW', view });
   const enableStickyHeader = () => dispatch({ type: 'ENABLE_STICKY_HEADER' });
@@ -233,6 +240,7 @@ export const UIProvider: React.FC = (props) => {
       setUserAvatar,
       enableStickyHeader,
       disableStickyHeader,
+      withAuth,
     }),
     [
       closeCartIfPresent,
@@ -247,7 +255,9 @@ export const UIProvider: React.FC = (props) => {
   return <UIContext.Provider value={value} {...props} />;
 };
 
-export const useUI = () => {
+type ContextType = State;
+
+export const useUI = (): ContextType => {
   const context = React.useContext(UIContext);
   if (context === undefined) {
     throw new Error(`useUI must be used within a UIProvider`);
@@ -257,8 +267,8 @@ export const useUI = () => {
 
 export const ManagedUIContext: React.FC = ({ children }) => (
   <CartProvider>
-    <UIProvider>
-      <ModalProvider>{children}</ModalProvider>
-    </UIProvider>
+    <ModalProvider>
+      <UIProvider>{children}</UIProvider>
+    </ModalProvider>
   </CartProvider>
 );

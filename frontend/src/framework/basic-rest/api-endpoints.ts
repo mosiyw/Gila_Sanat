@@ -3,6 +3,7 @@ export const API_ENDPOINTS = {
   PROFILE: 'auth/profile',
   REGISTER: '/register',
   LOGOUT: '/logout',
+  ADD_WISHLIST: '/favorites/add',
   FORGET_PASSWORD: '/forget-password',
   CATEGORIES: '/categories.json',
   DIETARY: '/dietary.json',
@@ -27,5 +28,4 @@ export const API_ENDPOINTS = {
   CONTACT: '/contact.json',
   SHOP: '/shop.json',
   SHOPS: '/shops.json',
-  WISHLIST: '/wishlist.json',
 };

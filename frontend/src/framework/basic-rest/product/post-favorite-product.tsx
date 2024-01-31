@@ -8,11 +8,14 @@ import { AddFavoriteProductType } from './types';
 export const postFavoriteProduct = (
   input: AddFavoriteProductType['payload']
 ): Promise<AddFavoriteProductType['response']> =>
-  rest.post(API_ENDPOINTS.LOGIN, input);
+  rest.post(API_ENDPOINTS.ADD_WISHLIST, input);
 
 export const useFavoriteProductMutation = () => {
   return useMutation(
-    (input: AddFavoriteProductType['payload']) => postFavoriteProduct(input),
+    (input: string) =>
+      postFavoriteProduct({
+        productId: input,
+      }),
     {
       onSuccess: (data) => {
         toast('محصول با موفقیت اضافه شد', {
