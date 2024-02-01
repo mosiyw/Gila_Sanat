@@ -35,6 +35,7 @@ const options = {
     "./routes/favoriteList/favoritesSwagger.js",
     "./routes/orders/ordersSwagger.js",
     "./routes/products/productsSwagger.js",
+    "./routes/address/addressSwagger.js",
   ],
 };
 
