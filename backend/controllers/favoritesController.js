@@ -38,7 +38,7 @@ exports.addProductToFavorites = async (req, res) => {
     await user.save();
 
     // Return the updated favorites list
-    res.status(200).json(user.favorites);
+    res.status(200).json({ message: "Product added to favorites" });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "An error occurred" });
