@@ -42,18 +42,20 @@ function LoginForm() {
   });
 
   const submitForm = (data) => {
-    mutateLogin.mutate({ email: data.email, password: data.password });
+    mutateLogin.mutate({ phone_number: data.phone_number, password: data.password });
   };
 
   return (
     <form onSubmit={handleSubmit(submitForm)}>
       <Stack spacing={3}>
         <Controller
-          name="email"
+          name="phone_number"
           defaultValue=""
           rules={{ required: true }}
           control={control}
-          render={({ field, fieldState }) => <TextField {...field} error={Boolean(fieldState.error)} label="Email" />}
+          render={({ field, fieldState }) => (
+            <TextField {...field} error={Boolean(fieldState.error)} label="Phone Number" />
+          )}
         />
 
         <Controller

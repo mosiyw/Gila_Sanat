@@ -5,7 +5,7 @@ import { useController } from "react-hook-form";
 import { TextField } from "@mui/material";
 import PropTypes from "prop-types";
 
-function ControlledInputText({ fullWidth, name, control, label, rules }) {
+function ControlledInputText({ fullWidth, name, control, label, rules, type }) {
   const {
     field,
     fieldState: { error },
@@ -16,7 +16,7 @@ function ControlledInputText({ fullWidth, name, control, label, rules }) {
     defaultValue: "",
   });
 
-  return <TextField {...field} label={label} error={Boolean(error)} fullWidth={fullWidth} />;
+  return <TextField {...field} label={label} error={Boolean(error)} fullWidth={fullWidth} type={type} />;
 }
 
 ControlledInputText.propTypes = {
@@ -27,6 +27,7 @@ ControlledInputText.propTypes = {
   rules: PropTypes.shape({
     required: PropTypes.bool,
   }),
+  type: PropTypes.string,
 };
 
 export default ControlledInputText;
