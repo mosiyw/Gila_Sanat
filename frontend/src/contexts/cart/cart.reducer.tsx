@@ -1,15 +1,15 @@
 import {
   Item,
   UpdateItemInput,
-  addItemWithQuantity,
-  removeItemOrQuantity,
   addItem,
-  updateItem,
-  removeItem,
-  calculateUniqueItems,
+  addItemWithQuantity,
   calculateItemTotals,
-  calculateTotalItems,
   calculateTotal,
+  calculateTotalItems,
+  calculateUniqueItems,
+  removeItem,
+  removeItemOrQuantity,
+  updateItem,
 } from './cart.utils';
 
 interface Metadata {
@@ -32,6 +32,7 @@ export interface State {
   total: number;
   meta?: Metadata | null;
 }
+
 export const initialState: State = {
   items: [],
   isEmpty: true,
@@ -40,6 +41,7 @@ export const initialState: State = {
   total: 0,
   meta: null,
 };
+
 export function cartReducer(state: State, action: Action): State {
   switch (action.type) {
     case 'ADD_ITEM_WITH_QUANTITY': {

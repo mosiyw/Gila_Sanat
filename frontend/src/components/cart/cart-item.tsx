@@ -1,10 +1,10 @@
-import Link from '@components/ui/link';
+import Counter from '@components/ui/counter';
 import Image from '@components/ui/image';
-import { IoIosCloseCircle } from 'react-icons/io';
+import Link from '@components/ui/link';
 import { useCart } from '@contexts/cart/cart.context';
 import usePrice from '@framework/product/use-price';
 import { ROUTES } from '@utils/routes';
-import Counter from '@components/ui/counter';
+import { IoIosCloseCircle } from 'react-icons/io';
 
 type CartItemProps = {
   item: any;
@@ -12,14 +12,20 @@ type CartItemProps = {
 
 const CartItem: React.FC<CartItemProps> = ({ item }) => {
   const { image } = item;
-  const { isInStock, addItemToCart, removeItemFromCart, clearItemFromCart } =
-    useCart();
+  const {
+    isInCart,
+    isInStock,
+    addItemToCart,
+    removeItemFromCart,
+    clearItemFromCart,
+  } = useCart();
   const { price: totalPrice } = usePrice({
     amount: item?.itemTotal,
     currencyCode: 'IRR',
   });
 
-  const outOfStock = !isInStock(item.id);
+  const outOfStock = isInCart(item.id) && !isInStock(item.id);
+
   return (
     <div
       className={`group w-full h-auto flex justify-start items-center text-brand-light py-4 md:py-7 border-b border-border-one border-opacity-70 relative last:border-b-0`}

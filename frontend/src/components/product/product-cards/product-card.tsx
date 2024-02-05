@@ -1,18 +1,18 @@
-import React, { useState } from 'react';
-import cn from 'classnames';
+import { useModalAction } from '@components/common/modal/modal.context';
+import PlusIcon from '@components/icons/plus-icon';
 import Image from '@components/ui/image';
+import { useCart } from '@contexts/cart/cart.context';
 import usePrice from '@framework/product/use-price';
 import { Product } from '@framework/types';
-import { useModalAction } from '@components/common/modal/modal.context';
 import useWindowSize from '@utils/use-window-size';
-import PlusIcon from '@components/icons/plus-icon';
-import { useCart } from '@contexts/cart/cart.context';
+import cn from 'classnames';
+import React, { useState } from 'react';
 // import { AddToCart } from '@components/product/add-to-cart';
-import { useTranslation } from 'next-i18next';
 import { productPlaceholder } from '@assets/placeholders';
 import defaultImage from '@assets/placeholders/product-placeholder.png';
-import dynamic from 'next/dynamic';
 import toman from '@assets/toman.svg';
+import { useTranslation } from 'next-i18next';
+import dynamic from 'next/dynamic';
 import { useEffect } from 'react';
 const AddToCart = dynamic(() => import('@components/product/add-to-cart'), {
   ssr: false,
@@ -22,6 +22,7 @@ interface ProductProps {
   product: Product;
   className?: string;
 }
+
 function RenderPopupOrAddToCart({ data }: { data: Product }) {
   const { t } = useTranslation('common');
   const { id, quantity, balance, product_type } = data ?? {};
@@ -52,8 +53,14 @@ function RenderPopupOrAddToCart({ data }: { data: Product }) {
       </button>
     );
   }
-  return <AddToCart data={data} />;
+
+  return (
+    <>
+      <AddToCart data={data} />
+    </>
+  );
 }
+
 const ProductCard: React.FC<ProductProps> = ({ product, className }) => {
   const { name, image, unit, product_type, balance } = product ?? {};
   const { openModal } = useModalAction();
@@ -69,25 +76,31 @@ const ProductCard: React.FC<ProductProps> = ({ product, className }) => {
       setOriginalPrice(product?.price?.original);
     }
   }, [product]);
+
   const { price, basePrice, discount } = usePrice({
     amount: product?.sale_price ? product?.sale_price : product?.price,
     baseAmount: product?.price,
     currencyCode: 'IRR',
   });
+
   const { price: discountPriceValue } = usePrice({
     amount: discountPrices ? discountPrices / 10 : 0,
     currencyCode: 'IRR',
   });
+
   const discountPrice = `${discountPriceValue.replace('IRR', '').trim()}`;
 
   const { price: originalPriceValue } = usePrice({
     amount: originalPrices ? originalPrices / 10 : 0,
     currencyCode: 'IRR',
   });
+
   const originalPrice = `${originalPriceValue.replace('IRR', '').trim()}`;
+
   function handlePopupView() {
     openModal('PRODUCT_VIEW', product);
   }
+
   return (
     <article
       className={cn(
@@ -139,12 +152,12 @@ const ProductCard: React.FC<ProductProps> = ({ product, className }) => {
                 تنها {balance} عدد در انبار باقی مانده
               </p>
             ) : (
-              <p className="text-xs text-red-500 invisible">
+              <p className="invisible text-xs text-red-500">
                 تنها {balance} عدد در انبار باقی مانده
               </p>
             )}
           </div>
-          <div className="inline-block mx-1 text-sm font-semibold sm:text-15px lg:text-base text-brand-dark w-full px-1">
+          <div className="inline-block w-full px-1 mx-1 text-sm font-semibold sm:text-15px lg:text-base text-brand-dark">
             {' '}
             <span
               style={{

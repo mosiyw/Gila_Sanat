@@ -1,47 +1,24 @@
-import isEmpty from 'lodash/isEmpty';
-interface Item {
+type Item = {
   id: string | number;
   name: string;
-  slug: string;
-  image: {
+  image?: {
     cover: string;
     [key: string]: unknown;
   };
   price: number;
+  stock: number;
   sale_price?: number;
   quantity?: number;
-  [key: string]: unknown;
-}
-interface Variation {
-  id: string | number;
-  title: string;
-  price: number;
-  sale_price?: number;
-  quantity: number;
-  [key: string]: unknown;
-}
+};
 
-export function generateCartItem(item: Item, variation: Variation) {
-  const { _id, name, slug, image, price, quantity } = item;
-  const id = _id;
-  if (!isEmpty(variation)) {
-    return {
-      id: `${id}.${variation.id}`,
-      productId: id,
-      name: `${name} - ${variation.title}`,
-      slug,
-      stock: variation.quantity,
-      price: variation.sale_price ? variation.sale_price : variation.price,
-      image: image?.cover,
-      variationId: variation.id,
-    };
-  }
+export function generateCartItem(item: Item) {
+  const { id, name, image, price, quantity, stock } = item;
+
   return {
     id,
     name,
-    slug,
+    price,
+    stock,
     image: item?.image?.cover,
-    stock: item?.balance,
-    price: price,
   };
 }
