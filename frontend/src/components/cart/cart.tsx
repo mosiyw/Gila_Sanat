@@ -20,11 +20,7 @@ export default function Cart() {
     amount: total,
     currencyCode: 'IRR',
   });
-<<<<<<< HEAD
   console.log(items.map((item) => ({ id: item.id, quantity: item.quantity })));
-=======
-
->>>>>>> 63bdb6c63df0dc82e0651f2d53a50a45436da515
   return (
     <div className="flex flex-col justify-between w-full h-full">
       <div className="relative flex items-center justify-between w-full border-b ltr:pl-5 rtl:pr-5 md:ltr:pl-7 md:rtl:pr-7 border-border-base">
