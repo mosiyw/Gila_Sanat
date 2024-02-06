@@ -48,6 +48,48 @@ exports.addToCart = async (req, res) => {
   res.json({ message: "Product added to cart", cart: userCart });
 };
 
+exports.updateCart = async (req, res) => {
+  const { items } = req.body; // items should be an array of { productId, quantity }
+  const userId = req.user.userId;
+
+  let userCart = await Cart.findById(userId);
+  if (!userCart) {
+    userCart = new Cart({ _id: userId });
+  }
+
+  for (const item of items) {
+    const product = await Product.findOne({
+      _id: item.productId,
+      isActive: true,
+    });
+    if (!product) {
+      return res
+        .status(404)
+        .json({ error: `Product not found: ${item.productId}` });
+    }
+
+    const price = product.price.discount || product.price.original;
+
+    const cartItem = userCart.items.find((cartItem) =>
+      cartItem.product.equals(item.productId)
+    );
+    if (cartItem) {
+      cartItem.quantity += item.quantity;
+      cartItem.price = price;
+    } else {
+      userCart.items.push({
+        product: item.productId,
+        quantity: item.quantity,
+        price,
+      });
+    }
+  }
+
+  await userCart.save();
+
+  res.json({ message: "Cart updated", cart: userCart });
+};
+
 exports.removeFromCart = async (req, res) => {
   const { productId, removeAll } = req.body;
   const userId = req.user.userId;

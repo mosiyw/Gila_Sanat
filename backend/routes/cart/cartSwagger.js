@@ -51,6 +51,50 @@
  */
 /**
  * @swagger
+ * /api/cart/update:
+ *   post:
+ *     summary: Update the authenticated user's cart with multiple products
+ *     tags: [Cart]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - items
+ *             properties:
+ *               items:
+ *                 type: array
+ *                 items:
+ *                   type: object
+ *                   required:
+ *                     - productId
+ *                     - quantity
+ *                   properties:
+ *                     productId:
+ *                       type: string
+ *                     quantity:
+ *                       type: integer
+ *     responses:
+ *       200:
+ *         description: The cart was updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                 cart:
+ *                   $ref: '#/components/schemas/Cart'
+ *       404:
+ *         description: A product was not found
+ *       500:
+ *         description: An error occurred
+ */
+/**
+ * @swagger
  * /api/cart/remove:
  *   delete:
  *     summary: Remove a product from the authenticated user's cart

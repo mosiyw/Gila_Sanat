@@ -14,8 +14,8 @@ router.post("/add", authMiddleware.authenticate, (req, res) => {
   cartController.addToCart(req, res);
 });
 
-router.put("/update/:id", authMiddleware.authenticate, (req, res) => {
-  cartController.updateCartItem(req, res);
+router.post("/update", authMiddleware.authenticate, (req, res) => {
+  cartController.updateCart(req, res);
 });
 
 router.delete("/remove/:id", authMiddleware.authenticate, (req, res) => {
