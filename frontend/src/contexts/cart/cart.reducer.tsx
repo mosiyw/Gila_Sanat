@@ -45,19 +45,11 @@ export const initialState: State = {
 export function cartReducer(state: State, action: Action): State {
   switch (action.type) {
     case 'ADD_ITEM_WITH_QUANTITY': {
-      const items = addItemWithQuantity(
-        state.items,
-        action.item,
-        action.quantity
-      );
+      const items = addItemWithQuantity(state.items, action.item, 1);
       return generateFinalState(state, items);
     }
     case 'REMOVE_ITEM_OR_QUANTITY': {
-      const items = removeItemOrQuantity(
-        state.items,
-        action.id,
-        (action.quantity = 1)
-      );
+      const items = removeItemOrQuantity(state.items, action.id, 1);
       return generateFinalState(state, items);
     }
     case 'ADD_ITEM': {

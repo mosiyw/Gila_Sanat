@@ -1,3 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useUI } from '@contexts/ui.context';
+import { useCartMutation } from '@framework/cart/use-cart';
 import { useLocalStorage } from '@utils/use-local-storage';
 import React, {
   createContext,
@@ -31,38 +34,72 @@ export const useCart = () => {
   if (context === undefined) {
     throw new Error(`useCart must be used within a CartProvider`);
   }
+
   return context;
 };
 
 export const CartProvider: React.FC = (props) => {
+  const { isAuthorized, withAuth } = useUI();
+  const {
+    addItemToCartAuthenticated,
+    removeItemFromCartAuthenticated,
+    getItemsAuthenticated,
+  } = useCartMutation();
+
   const [savedCart, saveCart] = useLocalStorage(
     `borobazar-cart`,
     JSON.stringify(initialState)
   );
+
   const [state, dispatch] = useReducer(cartReducer, JSON.parse(savedCart!));
 
   useEffect(() => {
     saveCart(JSON.stringify(state));
   }, [state, saveCart]);
 
-  const addItemToCart = (item: Item, quantity: number) =>
+  const addItemToCart = (item: Item, quantity: number) => {
+    if (isAuthorized) {
+      addItemToCartAuthenticated.mutate(
+        { productId: item.id },
+        {
+          onSuccess(data, variables, context) {
+            getItemsAuthenticated.refetch();
+          },
+        }
+      );
+    }
+
     dispatch({ type: 'ADD_ITEM_WITH_QUANTITY', item, quantity });
-  const removeItemFromCart = (id: Item['id']) =>
+  };
+
+  const removeItemFromCart = (id: Item['id']) => {
+    if (isAuthorized) {
+      removeItemFromCartAuthenticated.mutate({
+        productId: id,
+        removeAll: false,
+      });
+    }
     dispatch({ type: 'REMOVE_ITEM_OR_QUANTITY', id });
+  };
+
   const clearItemFromCart = (id: Item['id']) =>
     dispatch({ type: 'REMOVE_ITEM', id });
+
   const isInCart = useCallback(
     (id: Item['id']) => !!getItem(state.items, id),
     [state.items]
   );
+
   const getItemFromCart = useCallback(
     (id: Item['id']) => getItem(state.items, id),
     [state.items]
   );
+
   const isInStock = useCallback(
     (id: Item['id']) => inStock(state.items, id),
     [state.items]
   );
+
   const resetCart = () => dispatch({ type: 'RESET_CART' });
 
   const value = useMemo(
@@ -76,7 +113,7 @@ export const CartProvider: React.FC = (props) => {
       isInStock,
       resetCart,
     }),
-    [getItemFromCart, isInCart, isInStock, state]
+    [addItemToCart, getItemFromCart, isInCart, isInStock, state]
   );
   return <cartContext.Provider value={value} {...props} />;
 };

@@ -4,9 +4,9 @@ import { API_ENDPOINTS } from '@framework/api-endpoints';
 import { RestErrorType } from '@framework/types';
 import rest from '@framework/utils/rest';
 import Cookies from 'js-cookie';
+import toast from 'react-hot-toast';
 import { useMutation } from 'react-query';
-import { toast } from 'react-toastify';
-import { LoginType } from './types';
+import type { LoginType } from './types';
 
 export const postLogin = (
   input: LoginType['payload']
@@ -18,28 +18,14 @@ export const useLoginMutation = () => {
 
   return useMutation((input: LoginType['payload']) => postLogin(input), {
     onSuccess: (data) => {
-      toast(data.message, {
-        progressClassName: 'fancy-progress-bar',
-        autoClose: 1500,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-      });
+      toast.success(data.message);
 
       Cookies.set('auth_token', data.token);
       authorize();
       closeModal();
     },
     onError: (data: RestErrorType) => {
-      toast(data.error, {
-        progressClassName: 'fancy-progress-bar',
-        autoClose: 1500,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-      });
+      toast.error(data.error);
     },
   });
 };

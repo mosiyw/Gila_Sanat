@@ -1,20 +1,22 @@
-import cn from 'classnames';
+import DeleteIcon from '@components/icons/delete-icon';
 import MinusIcon from '@components/icons/minus-icon';
 import PlusIcon from '@components/icons/plus-icon';
+import cn from 'classnames';
 import { useTranslation } from 'next-i18next';
 
 type ButtonEvent = (
   e: React.MouseEvent<HTMLButtonElement | MouseEvent>
 ) => void;
 
-type CounterProps = {
+interface CounterProps {
+  onDeleteItem: () => void;
   value: number;
   variant?: 'default' | 'cart' | 'single';
   onDecrement: ButtonEvent;
   onIncrement: ButtonEvent;
   className?: string;
   disabled?: boolean;
-};
+}
 
 const Counter: React.FC<CounterProps> = ({
   value,
@@ -23,9 +25,11 @@ const Counter: React.FC<CounterProps> = ({
   onIncrement,
   className,
   disabled,
+  onDeleteItem,
 }) => {
   const size = variant === 'single' ? '22' : '14';
   const { t } = useTranslation('common');
+
   return (
     <div
       className={cn(
@@ -40,7 +44,7 @@ const Counter: React.FC<CounterProps> = ({
       )}
     >
       <button
-        onClick={onDecrement}
+        onClick={value === 1 ? onDeleteItem : onDecrement}
         className={cn(
           'flex items-center justify-center shrink-0 h-full transition-all ease-in-out duration-300 focus:outline-none focus-visible:outline-none',
           {
@@ -54,7 +58,11 @@ const Counter: React.FC<CounterProps> = ({
         )}
       >
         <span className="sr-only">{t('button-minus')}</span>
-        <MinusIcon width={size} height={size} opacity="1" />
+        {value === 1 ? (
+          <DeleteIcon width={size} height={size} opacity="1" />
+        ) : (
+          <MinusIcon width={size} height={size} opacity="1" />
+        )}
       </button>
       <span
         className={cn(

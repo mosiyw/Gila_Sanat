@@ -28,39 +28,45 @@ interface Props {
 
 const ProductSingleDetails = ({ product }: Props) => {
   const { t } = useTranslation('common');
-  const { withAuth } = useUI();
+  const { withAuth, isAuthorized } = useUI();
   const { query } = useRouter();
 
-  const { addItemToCart, isInCart, getItemFromCart, isInStock } = useCart();
+  const {
+    addItemToCart,
+    isInCart,
+    getItemFromCart,
+    isInStock,
+    removeItemFromCart,
+  } = useCart();
   const selectedCartQty = getItemFromCart(product._id)?.quantity;
 
-  const [selectedQuantity, setSelectedQuantity] = useState(1);
-  const [attributes, setAttributes] = useState<{ [key: string]: string }>({});
-
-  const [shareButtonStatus, setShareButtonStatus] = useState<boolean>(false);
-  const productUrl = `${process.env.NEXT_PUBLIC_WEBSITE_URL}${ROUTES.PRODUCT}/${query.slug}`;
   const { price, basePrice, discount } = usePrice({
     amount: Number(product.price.discount),
     baseAmount: Number(product.price.original),
     currencyCode: 'IRR',
   });
 
-  const handleChange = () => {
+  const [attributes, setAttributes] = useState<{ [key: string]: string }>({});
+  const [shareButtonStatus, setShareButtonStatus] = useState<boolean>(false);
+  const productUrl = `${process.env.NEXT_PUBLIC_WEBSITE_URL}${ROUTES.PRODUCT}/${query.slug}`;
+
+  const shareProduct = () => {
     setShareButtonStatus(!shareButtonStatus);
   };
 
   const item = generateCartItem({
     id: product._id,
     name: product.name,
-    price: Number(price),
+    price: Number(product.price.original),
+    sale_price: Number(product.price.discount),
     stock: product.balance,
     quantity: product?.balance,
   });
 
-  const outOfStock = isInCart(item.id) && !isInStock(item.id);
+  const outOfStock = isInCart(product._id) && !isInStock(product._id);
 
   const addToCart = () => {
-    addItemToCart(item, selectedQuantity);
+    addItemToCart(item, 1);
   };
 
   const { data: isWishListed, refetch: fetchIsWishListed } =
@@ -117,30 +123,27 @@ const ProductSingleDetails = ({ product }: Props) => {
 
         {/* product base information */}
         <div className="flex flex-col col-span-5 shrink-0 xl:col-span-4 xl:ltr:pl-2 xl:rtl:pr-2">
-          <div className="pb-2">
-            <>
-              {Number(product.balance) > 0 || !outOfStock ? (
-                <span className="text-sm font-medium text-yellow">
-                  {`
-                   ${t('text-only')}
-                   ${Number(selectedCartQty)}
-                   ${t('text-left-item')}
-                  `}
-                </span>
-              ) : (
-                <div className="text-base text-red-500 whitespace-nowrap">
-                  {t('text-out-stock')}
-                </div>
-              )}
-            </>
-          </div>
-
           <div className="pb-3 lg:pb-5">
             {/* name and heading */}
             <div className="md:mb-2.5 block -mt-1.5">
               <Heading dir="rtl" variant="titleLarge">
                 {product?.name}
               </Heading>
+              <>
+                {Number(product.balance) > 0 || !outOfStock ? (
+                  <span className="text-sm font-medium text-yellow">
+                    {`
+                   ${t('text-only')}
+                   ${Number(selectedCartQty)}
+                   ${t('text-left-item')}
+                  `}
+                  </span>
+                ) : (
+                  <div className="text-base text-red-500 whitespace-nowrap">
+                    {t('text-out-stock')}
+                  </div>
+                )}
+              </>
             </div>
 
             {/* price */}
@@ -162,30 +165,40 @@ const ProductSingleDetails = ({ product }: Props) => {
           </div>
 
           <div className="pt-1.5 lg:pt-3 xl:pt-4 space-y-2.5 md:space-y-3.5">
-            <Counter
-              variant="single"
-              value={selectedQuantity}
-              onIncrement={() => setSelectedQuantity((prev) => prev + 1)}
-              onDecrement={() =>
-                setSelectedQuantity((prev) => (prev !== 1 ? prev - 1 : 1))
-              }
-              disabled={
-                isInCart(product._id)
-                  ? selectedCartQty + selectedQuantity >= Number(item.stock)
-                  : selectedQuantity >= Number(item.stock)
-              }
-            />
+            <div className="flex flex-row-reverse items-center gap-5">
+              {/* counter and add to cart */}
+              {isInCart(product._id) ? (
+                <>
+                  <Counter
+                    className="w-1/2"
+                    variant="single"
+                    value={selectedCartQty || 1}
+                    onIncrement={() => addToCart()}
+                    onDecrement={() => removeItemFromCart(product._id)}
+                    onDeleteItem={() => {
+                      removeItemFromCart(product._id);
+                    }}
+                    // disabled={
+                    //   isInCart(product._id)
+                    //     ? selectedCartQty + selectedQuantity >=
+                    //       Number(item.stock)
+                    //     : selectedQuantity >= Number(item.stock)
+                    // }
+                  />
 
-            {/* add to cart */}
-            <Button
-              onClick={addToCart}
-              className="w-full px-1.5"
-              disabled={outOfStock}
-            >
-              <CartIcon color="#ffffff" className="ltr:mr-3 rtl:ml-3" />
-              {t('text-add-to-cart')}
-            </Button>
-
+                  <h1>محصول در سبد خرید شما موجود است</h1>
+                </>
+              ) : (
+                <Button
+                  onClick={addToCart}
+                  className="w-full px-1.5"
+                  disabled={outOfStock}
+                >
+                  <CartIcon color="#ffffff" className="ltr:mr-3 rtl:ml-3" />
+                  {t('text-add-to-cart')}
+                </Button>
+              )}
+            </div>
             {/* add to wishlist */}
             <div className="grid grid-cols-2 gap-2.5">
               <Button
@@ -218,7 +231,7 @@ const ProductSingleDetails = ({ product }: Props) => {
                   className={`w-full hover:text-brand ${
                     shareButtonStatus === true && 'text-brand'
                   }`}
-                  onClick={handleChange}
+                  onClick={shareProduct}
                 >
                   <IoArrowRedoOutline className="text-2xl md:text-[26px] ltr:mr-2 rtl:ml-2 transition-all group-hover:text-brand" />
                   {t('text-share')}

@@ -6,6 +6,9 @@ export const API_ENDPOINTS = {
   ADD_WISHLIST: 'favorites/add',
   REMOVE_WISHLIST: 'favorites/remove',
   IS_EXIST_IN_WISHLIST: 'favorites/isFavorite/',
+  CART: 'cart',
+  ADD_CART: 'cart/add',
+  REMOVE_CART: 'cart/remove',
 
   FORGET_PASSWORD: '/forget-password',
   CATEGORIES: '/categories.json',
