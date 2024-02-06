@@ -84,6 +84,21 @@ const AccountDetails: React.FC = () => {
               className="!w-full sm:w-1/2 px-1.5 md:px-2.5"
               error={errors.phoneNumber?.message}
             />
+            <Input
+              type="email"
+              label={t('forms:label-email-star')}
+              {...register('email', {
+                required: 'forms:email-required',
+                pattern: {
+                  value:
+                    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                  message: 'forms:email-error',
+                },
+              })}
+              variant="solid"
+              className="!w-full sm:w-1/2  px-1.5 md:px-2.5"
+              error={errors.email?.message}
+            />
           </div>
         </div>
 
@@ -101,21 +116,6 @@ const AccountDetails: React.FC = () => {
           className="border-b border-border-base pb-7 md:pb-9 lg:pb-10"
         >
           <div className="grid grid-cols-1 md:grid-cols-2 gap-y-4">
-            <Input
-              type="email"
-              label={t('forms:label-email-star')}
-              {...register('email', {
-                required: 'forms:email-required',
-                pattern: {
-                  value:
-                    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                  message: 'forms:email-error',
-                },
-              })}
-              variant="solid"
-              className="!w-full sm:w-1/2  px-1.5 md:px-2.5"
-              error={errors.email?.message}
-            />
             <PasswordInput
               type="tel"
               label={t('forms:label-password')}
