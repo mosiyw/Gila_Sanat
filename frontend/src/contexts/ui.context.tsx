@@ -4,7 +4,7 @@ import {
   useModalAction,
 } from '@components/common/modal/modal.context';
 import { getToken } from '@framework/utils/get-token';
-import React, { useReducer } from 'react';
+import React, { createContext, useReducer } from 'react';
 import { Action, DRAWER_VIEWS } from './actions.types';
 import { CartProvider } from './cart/cart.context';
 import { ContextType, State } from './context.types';
@@ -23,7 +23,7 @@ const initialState: State = {
   data: null,
 };
 
-export const UIContext = React.createContext<State | any>(initialState);
+export const UIContext = createContext<State | any>(initialState);
 
 function uiReducer(state: State, action: Action) {
   const { type } = action;

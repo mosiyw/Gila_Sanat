@@ -1,20 +1,20 @@
+import { productGalleryPlaceholder } from '@assets/placeholders';
 import {
-  Swiper,
-  SwiperSlide,
-  SwiperOptions,
   Navigation,
+  Swiper,
+  SwiperOptions,
+  SwiperSlide,
   Thumbs,
 } from '@components/ui/carousel/slider';
 import Image from '@components/ui/image';
-import { useRef, useState } from 'react';
-import cn from 'classnames';
-import { productGalleryPlaceholder } from '@assets/placeholders';
 import { getDirection } from '@utils/get-direction';
+import cn from 'classnames';
 import { useRouter } from 'next/router';
+import { useRef, useState } from 'react';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 
 interface Props {
-  gallery: any[];
+  gallery: Array<string>;
   thumbnailClassName?: string;
   galleryClassName?: string;
 }

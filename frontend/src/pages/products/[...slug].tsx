@@ -1,5 +1,4 @@
 import Layout from '@components/layout/layout';
-import OnSalesProductFeed from '@components/product/feeds/onsales-product-feed';
 import ProductSingleDetails from '@components/product/product';
 import Seo from '@components/seo/seo';
 import Breadcrumb from '@components/ui/breadcrumb';
@@ -29,7 +28,7 @@ export default function ProductPage({ data }: Props) {
       </div>
 
       {/* <RelatedProductFeed uniqueKey="related-products" /> */}
-      <OnSalesProductFeed />
+      {/* <OnSalesProductFeed /> */}
     </>
   );
 }

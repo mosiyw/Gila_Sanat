@@ -15,4 +15,5 @@ export type State = {
 export type ContextType = State & {
   withAuth: (fn: () => void) => void;
   authorize: () => void;
+  closeDrawer: () => void;
 };

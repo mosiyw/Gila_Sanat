@@ -43,7 +43,7 @@ export function removeItemOrQuantity(
     return [...acc, item];
   }, []);
 }
-// Simple CRUD for Item
+
 export function addItem(items: Item[], item: Item) {
   return [...items, item];
 }
@@ -75,15 +75,12 @@ export function inStock(items: Item[], id: Item['id']) {
 export const calculateItemTotals = (items: Item[]) =>
   items.map((item) => ({
     ...item,
-    itemTotal:
-      ((item.price.discount ?? item.price.original) * item.quantity!) / 10,
+    itemTotal: ((item.price ?? item.price) * item.quantity!) / 10,
   }));
 
 export const calculateTotal = (items: Item[]) =>
   items.reduce(
-    (total, item) =>
-      total +
-      (item.quantity! * (item.price.discount ?? item.price.original)) / 10,
+    (total, item) => total + (item.quantity! * (item.price ?? item.price)) / 10,
     0
   );
 
