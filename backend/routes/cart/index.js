@@ -18,8 +18,8 @@ router.post("/update", authMiddleware.authenticate, (req, res) => {
   cartController.updateCart(req, res);
 });
 
-router.delete("/remove/:id", authMiddleware.authenticate, (req, res) => {
-  cartController.removeCartItem(req, res);
+router.delete("/remove", authMiddleware.authenticate, (req, res) => {
+  cartController.removeFromCart(req, res);
 });
 
 module.exports = router;

@@ -98,7 +98,6 @@ exports.removeFromCart = async (req, res) => {
   if (!userCart) {
     return res.status(404).json({ error: "Cart not found" });
   }
-
   const cartItemIndex = userCart.items.findIndex((item) =>
     item.product.equals(productId)
   );

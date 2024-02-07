@@ -43,7 +43,6 @@
  *                 message:
  *                   type: string
  *                 cart:
- *                   $ref: '#/components/schemas/Cart'
  *       404:
  *         description: The product was not found
  *       500:
@@ -87,7 +86,6 @@
  *                 message:
  *                   type: string
  *                 cart:
- *                   $ref: '#/components/schemas/Cart'
  *       404:
  *         description: A product was not found
  *       500:
@@ -97,31 +95,30 @@
  * @swagger
  * /api/cart/remove:
  *   delete:
- *     summary: Remove a product from the authenticated user's cart
- *     tags: [Cart]
- *     parameters:
- *       - in: body
- *         name: product
- *         description: The product to remove from the cart
- *         schema:
- *           type: object
- *           required:
- *             - productId
- *             - removeAll
- *           properties:
- *             productId:
- *               type: string
- *             removeAll:
- *               type: boolean
+ *     summary: "Remove a product from the authenticated user's cart"
+ *     tags: ["Cart"]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: "object"
+ *             properties:
+ *               productId:
+ *                 type: "string"
+ *                 description: "The ID of the product to remove from the cart"
+ *               removeAll:
+ *                 type: "boolean"
+ *                 description: "Whether to remove all quantities of the product"
+ *                 default: false
  *     responses:
  *       200:
- *         description: The product was removed from the cart successfully
+ *         description: "The product was removed from the cart successfully"
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Cart'
  *       404:
- *         description: The cart or product was not found
+ *         description: "The cart or product was not found"
  *       500:
- *         description: An error occurred
+ *         description: "An error occurred"
  */
