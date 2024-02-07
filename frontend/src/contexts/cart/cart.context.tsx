@@ -57,7 +57,7 @@ export const CartProvider: React.FC = (props) => {
     saveCart(JSON.stringify(state));
   }, [state, saveCart]);
 
-  const addItemToCart = (item: Item, quantity: number) => {
+  const addItemToCart = (item: Item) => {
     if (isAuthorized) {
       addItemToCartAuthenticated.mutate(
         { productId: item.id },
@@ -69,7 +69,7 @@ export const CartProvider: React.FC = (props) => {
       );
     }
 
-    dispatch({ type: 'ADD_ITEM_WITH_QUANTITY', item, quantity });
+    dispatch({ type: 'ADD_ITEM_WITH_QUANTITY', item, quantity: 1 });
   };
 
   const removeItemFromCart = (id: Item['id']) => {
