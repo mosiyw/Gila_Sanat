@@ -3,13 +3,38 @@ const Product = require("../models/Product");
 
 exports.getCart = async (req, res) => {
   try {
-    const userCart = await Cart.findById(req.user.userId).populate(
+    let userCart = await Cart.findById(req.user.userId).populate(
       "items.product"
     );
     if (!userCart) {
       return res.json({ message: "Cart is empty", cart: null });
     }
-    res.json({ cart: userCart });
+
+    let quantityUpdated = false; // Flag to track if any quantity was updated
+
+    // Iterate over each item in the cart
+    for (let item of userCart.items) {
+      // If the product's balance is less than the quantity in the cart
+      if (item.product.balance < item.quantity) {
+        // Update the quantity in the cart to match the product's balance
+        item.quantity = item.product.balance;
+        quantityUpdated = true; // Set the flag to true
+      }
+    }
+
+    // Save the updated cart
+    await userCart.save();
+
+    // If any quantity was updated, add a message to the response
+    if (quantityUpdated) {
+      res.json({
+        cart: userCart,
+        message:
+          "Some product quantities were updated to match the product balance",
+      });
+    } else {
+      res.json({ cart: userCart });
+    }
   } catch (error) {
     res.status(500).json({ error: "An error occurred" });
   }
