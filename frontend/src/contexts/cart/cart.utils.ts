@@ -20,10 +20,18 @@ export function addItemWithQuantity(
   );
 
   if (existingItemIndex > -1) {
-    const newItems = [...items];
-    newItems[existingItemIndex].quantity! += quantity;
-    return newItems;
+    return items.reduce((acc: Item[], item) => {
+      if (item.id === item.id) {
+        const newQuantity = item.quantity! + 1;
+
+        return newQuantity > 0
+          ? [...acc, { ...item, quantity: newQuantity }]
+          : [...acc];
+      }
+      return [...acc, item];
+    }, []);
   }
+
   return [...items, { ...item, quantity }];
 }
 

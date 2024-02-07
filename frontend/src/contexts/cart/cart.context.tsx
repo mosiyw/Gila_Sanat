@@ -62,7 +62,7 @@ export const CartProvider: React.FC = (props) => {
       addItemToCartAuthenticated.mutate(
         { productId: item.id },
         {
-          onSuccess(data, variables, context) {
+          onSuccess() {
             getItemsAuthenticated.refetch();
           },
         }
