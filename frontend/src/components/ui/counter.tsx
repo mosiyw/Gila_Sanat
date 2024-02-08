@@ -44,7 +44,8 @@ const Counter: React.FC<CounterProps> = ({
       )}
     >
       <button
-        onClick={value === 1 ? onDeleteItem : onDecrement}
+        // onClick={value === 1 ? onDeleteItem : onDecrement}
+        onClick={onDecrement}
         className={cn(
           'flex items-center justify-center shrink-0 h-full transition-all ease-in-out duration-300 focus:outline-none focus-visible:outline-none',
           {
