@@ -66,10 +66,7 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
           </div>
           <Counter
             value={item.quantity}
-            onIncrement={() => {
-              addItemToCart(item, 1);
-              console.log(item);
-            }}
+            onIncrement={() => addItemToCart(item, 1)}
             onDecrement={() => removeItemFromCart(item.id)}
             variant="cart"
             disabled={outOfStock}

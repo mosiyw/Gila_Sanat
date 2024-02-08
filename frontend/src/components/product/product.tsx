@@ -38,7 +38,7 @@ const ProductSingleDetails = ({ product }: Props) => {
     isInStock,
     removeItemFromCart,
   } = useCart();
-  const selectedCartQty = getItemFromCart(product.id)?.quantity;
+  const selectedCartQty = getItemFromCart(product._id)?.quantity;
 
   const { price, basePrice, discount } = usePrice({
     amount: Number(product.price.discount),
@@ -53,24 +53,24 @@ const ProductSingleDetails = ({ product }: Props) => {
   const shareProduct = () => {
     setShareButtonStatus(!shareButtonStatus);
   };
+  // const item = generateCartItem({
+  //   id: product._id,
+  //   name: product.name,
+  //   price: Number(product.price.original),
+  //   sale_price: Number(product.price.discount),
+  //   stock: product.balance,
+  //   // quantity: product?.balance,
+  // });
+  const item = generateCartItem(product);
 
-  const item = generateCartItem({
-    id: product.id,
-    name: product.name,
-    price: Number(product.price.original),
-    sale_price: Number(product.price.discount),
-    stock: product.balance,
-    // quantity: product?.balance,
-  });
-
-  const outOfStock = isInCart(product.id) && !isInStock(product.id);
+  const outOfStock = isInCart(product._id) && !isInStock(product._id);
 
   const addToCart = () => {
     addItemToCart(item, 1);
   };
 
   const { data: isWishListed, refetch: fetchIsWishListed } =
-    useIsProductExistInWishlistQuery(product.id || '');
+    useIsProductExistInWishlistQuery(product._id || '');
 
   const {
     add: addToWishlist,
@@ -79,7 +79,7 @@ const ProductSingleDetails = ({ product }: Props) => {
   } = useWishlistProductMutation();
 
   const handleAddToWishList = () => {
-    addToWishlist.mutate(product.id || '', {
+    addToWishlist.mutate(product._id || '', {
       onSuccess() {
         fetchIsWishListed();
       },
@@ -87,7 +87,7 @@ const ProductSingleDetails = ({ product }: Props) => {
   };
 
   const handleRemoveFromWishlist = () => {
-    removeFromWishlist.mutate(product.id || '', {
+    removeFromWishlist.mutate(product._id || '', {
       onSuccess() {
         fetchIsWishListed();
       },
@@ -167,19 +167,19 @@ const ProductSingleDetails = ({ product }: Props) => {
           <div className="pt-1.5 lg:pt-3 xl:pt-4 space-y-2.5 md:space-y-3.5">
             <div className="flex flex-row-reverse items-center gap-5">
               {/* counter and add to cart */}
-              {isInCart(product.id) ? (
+              {isInCart(product._id) ? (
                 <>
                   <Counter
                     className="w-1/2"
                     variant="single"
                     value={selectedCartQty || 1}
                     onIncrement={() => addToCart()}
-                    onDecrement={() => removeItemFromCart(product.id)}
+                    onDecrement={() => removeItemFromCart(product._id)}
                     onDeleteItem={() => {
-                      removeItemFromCart(product.id);
+                      removeItemFromCart(product._id);
                     }}
                     // disabled={
-                    //   isInCart(product.id)
+                    //   isInCart(product._id)
                     //     ? selectedCartQty + selectedQuantity >=
                     //       Number(item.stock)
                     //     : selectedQuantity >= Number(item.stock)

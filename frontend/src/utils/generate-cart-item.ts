@@ -12,7 +12,8 @@ type Item = {
 };
 
 export function generateCartItem(item: Item) {
-  const { _id, name, image, price, quantity, balance } = item;
+  console.log(item);
+  const { _id, name, image, quantity, balance, price } = item;
 
   const id = _id;
   const stock = balance;
@@ -20,34 +21,9 @@ export function generateCartItem(item: Item) {
   return {
     id,
     name,
-    price,
+    price: Number(price.original),
+    sale_price: Number(price.discount),
     stock,
     image: item?.image?.cover,
   };
 }
-
-// type Item = {
-//   id: string | number;
-//   name: string;
-//   image?: {
-//     cover: string;
-//     [key: string]: unknown;
-//   };
-//   price: number;
-//   stock: number;
-//   sale_price?: number;
-//   quantity?: number;
-// };
-
-// export function generateCartItem(item: Item) {
-//   const { _id, name, image, price, quantity, balance } = item;
-//   const id = _id;
-//   const stock = balance;
-//   return {
-//     id,
-//     name,
-//     price,
-//     stock,
-//     image: item?.image?.cover,
-//   };
-// }
