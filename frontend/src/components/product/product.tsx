@@ -66,7 +66,9 @@ const ProductSingleDetails = ({ product }: Props) => {
   const outOfStock = isInCart(product._id) && !isInStock(product._id);
 
   const addToCart = () => {
-    addItemToCart(item, 1);
+    if (selectedCartQty < product.balance || selectedCartQty === undefined) {
+      addItemToCart(item, 1);
+    }
   };
 
   const { data: isWishListed, refetch: fetchIsWishListed } =
@@ -93,7 +95,6 @@ const ProductSingleDetails = ({ product }: Props) => {
       },
     });
   };
-
   return (
     <div className="pt-6 pb-2 md:pt-7">
       <div className="grid-cols-10 lg:grid gap-7 2xl:gap-8">
@@ -134,7 +135,7 @@ const ProductSingleDetails = ({ product }: Props) => {
                   <span className="text-sm font-medium text-yellow">
                     {`
                    ${t('text-only')}
-                   ${Number(selectedCartQty)}
+                   ${Number(product.balance)}
                    ${t('text-left-item')}
                   `}
                   </span>

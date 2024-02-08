@@ -12,7 +12,6 @@ type Item = {
 };
 
 export function generateCartItem(item: Item) {
-  console.log(item);
   const { _id, name, image, quantity, balance, price } = item;
 
   const id = _id;
