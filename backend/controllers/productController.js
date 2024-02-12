@@ -21,6 +21,53 @@ exports.getActiveProducts = async (req, res) => {
 //   }
 // };
 
+exports.getSimilarProducts = async (req, res) => {
+  try {
+    const product = await Product.findById(req.params.id);
+    if (!product) {
+      return res.status(404).json({ error: "Product not found" });
+    }
+
+    let similarProducts = await Product.find({
+      labels: { $in: product.labels },
+      _id: { $ne: product._id }, // Exclude the current product
+      isActive: true,
+    });
+
+    // Sort by the number of matching labels
+    similarProducts = similarProducts.sort((a, b) => {
+      const aMatches = a.labels.filter((label) =>
+        product.labels.includes(label)
+      ).length;
+      const bMatches = b.labels.filter((label) =>
+        product.labels.includes(label)
+      ).length;
+      return bMatches - aMatches;
+    });
+
+    // If less than 10 similar products, fill with random products
+    if (similarProducts.length < 10) {
+      const randomProducts = await Product.aggregate([
+        {
+          $match: {
+            _id: { $nin: similarProducts.map((p) => p._id) },
+            isActive: true,
+          },
+        },
+        { $sample: { size: 10 - similarProducts.length } },
+      ]);
+      similarProducts = similarProducts.concat(randomProducts);
+    }
+
+    // Limit to 10 products
+    similarProducts = similarProducts.slice(0, 10);
+
+    res.json(similarProducts);
+  } catch (error) {
+    res.status(500).json({ error: "An error occurred" });
+  }
+};
+
 exports.getProductsByIds = async (req, res) => {
   try {
     const ids = req.body.ids;

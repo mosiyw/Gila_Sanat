@@ -4,6 +4,34 @@
  *   name: Products
  *   description: API endpoints for managing products
  */
+/**
+ * @swagger
+ * /api/products/similar/{id}:
+ *   get:
+ *     tags: [Products]
+ *     summary: Retrieve a list of similar products
+ *     description: Retrieve a list of up to 10 products that are similar to the product with the given ID. Similarity is based on matching labels. If there are less than 10 similar products, the remaining slots are filled with random products.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID of the product to find similar products for
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: A list of similar products
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Product'
+ *       404:
+ *         description: Product not found
+ *       500:
+ *         description: An error occurred
+ */
 
 /**
  * @swagger

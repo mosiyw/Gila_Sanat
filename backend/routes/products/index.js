@@ -7,8 +7,9 @@ const upload = require("../../middlewares/uploadMiddleware");
 router.get("/top-selling", (req, res) => {
   productController.getTopSellingProducts(req, res);
 });
-
 router.get("/list", productController.getProductsByIds);
+
+router.get("/similar/:id", productController.getSimilarProducts);
 
 router.get("/category", (req, res) => {
   productController.getProductsByCategory(req, res);
