@@ -29,7 +29,6 @@ function LabelsInput({ labels, setLabels }) {
       setInput("");
     }
   };
-
   return (
     <>
       <div style={{ display: "flex", justifyContent: "space-between" }}>

@@ -51,6 +51,7 @@ function ProductForm({ initialProductData, onSubmit, isEditing, isLoading }) {
         "price.discount": selectedProduct.price?.discount || "",
         balance: selectedProduct.balance || "",
         category: selectedProduct.category?.length > 0 ? selectedProduct.category[0] : "",
+        brand: selectedProduct.brand || "",
         isActive: selectedProduct.isActive || false,
       });
       setDescription(selectedProduct.description || "");
@@ -71,6 +72,7 @@ function ProductForm({ initialProductData, onSubmit, isEditing, isLoading }) {
     data.description = description;
     data.image = { cover: coverImage, images: galleryImages };
     data.galleryImages = galleryImages;
+    data.labels = labels;
     delete data["price.original"];
     delete data["price.discount"];
     onSubmit(data);
@@ -103,7 +105,6 @@ function ProductForm({ initialProductData, onSubmit, isEditing, isLoading }) {
     setOpenModal(false);
   };
   const ImageGalleryWithRef = forwardRef((props, ref) => <ImageGallery ref={ref} {...props} />);
-
   return (
     <FormProvider {...methods}>
       <Paper elevation={3} style={{ padding: "20px" }}>
