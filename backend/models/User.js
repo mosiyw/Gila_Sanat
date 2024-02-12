@@ -15,9 +15,9 @@ const userSchema = new mongoose.Schema({
       city: String,
       address: String,
       zipcode: Number,
+      postal_address: String,
       transferee: {
-        firstname: String,
-        lastname: String,
+        full_name: String,
         phone_number: String,
       },
     },

@@ -11,9 +11,10 @@ exports.addAddress = async (req, res) => {
       "city",
       "address",
       "zipcode",
+      "postal_address",
       "transferee",
     ];
-    const transfereeFields = ["firstname", "lastname", "phone_number"];
+    const transfereeFields = ["full_name", "phone_number"];
 
     for (const field of requiredFields) {
       if (!address[field]) {
