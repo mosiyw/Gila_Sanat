@@ -11,6 +11,8 @@ import { useTranslation } from 'next-i18next';
 import rest from '@framework/utils/rest';
 import { useMutation } from 'react-query';
 import toast from 'react-hot-toast';
+import ListBox from '@components/ui/form/list-box';
+import statelist from 'public/locales/fa/states.json';
 
 interface ContactFormValues {
   title: string;
@@ -97,8 +99,8 @@ const AddAddressForm: React.FC = () => {
         </div>
         <div className="grid grid-cols-1 mb-6 gap-7">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <Input
-              variant="solid"
+            <ListBox
+              options={statelist}
               label="استان"
               {...register('state', { required: 'استان را وارد کنید!' })}
               error={errors.state?.message}
@@ -112,19 +114,10 @@ const AddAddressForm: React.FC = () => {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <Input
-              type="text"
+              type="number"
               variant="solid"
               label="کد پستی"
-              {...register('zipcode', {
-                required: 'کد پستی را وارد کنید!',
-                pattern: {
-                  value: /^[0-9]*$/,
-                  message: 'Only numbers are allowed',
-                },
-              })}
-              onChange={(e) => {
-                e.target.value = e.target.value.replace(/[^0-9]/g, '');
-              }}
+              {...register('zipcode', { required: 'کد پستی را وارد کنید!' })}
               error={errors.zipcode?.message}
             />
             <Input
