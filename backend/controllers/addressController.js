@@ -11,7 +11,6 @@ exports.addAddress = async (req, res) => {
       "city",
       "address",
       "zipcode",
-      "postal_address",
       "transferee",
     ];
     const transfereeFields = ["full_name", "phone_number"];
