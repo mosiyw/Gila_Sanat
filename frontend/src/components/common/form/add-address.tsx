@@ -1,18 +1,21 @@
-import Input from '@components/ui/form/input';
+/* eslint-disable react-hooks/exhaustive-deps */
+import {
+  useModalAction,
+  useModalState,
+} from '@components/common/modal/modal.context';
 import Button from '@components/ui/button';
-import TextArea from '@components/ui/form/text-area';
-import { useForm } from 'react-hook-form';
-import { useModalState } from '@components/common/modal/modal.context';
-import { useModalAction } from '@components/common/modal/modal.context';
 import CloseButton from '@components/ui/close-button';
+import CitySelect, { Option } from '@components/ui/form/city-select';
+import Input from '@components/ui/form/input';
+import StateSelect from '@components/ui/form/state-select';
 import Heading from '@components/ui/heading';
-import Map from '@components/ui/map';
-import { useTranslation } from 'next-i18next';
 import rest from '@framework/utils/rest';
+import { useTranslation } from 'next-i18next';
+import citieslist from 'public/locales/fa/city.json';
+import stateslist from 'public/locales/fa/states.json';
+import { useEffect, useMemo, useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
-import toast from 'react-hot-toast';
-import ListBox from '@components/ui/form/list-box';
-import statelist from 'public/locales/fa/states.json';
 
 interface ContactFormValues {
   title: string;
@@ -31,14 +34,8 @@ interface ContactFormValues {
 const AddAddressForm: React.FC = () => {
   const { t } = useTranslation();
   const { data } = useModalState();
-
   const { closeModal } = useModalAction();
 
-  // function onSubmit(values: ContactFormValues, e: any) {
-  //   console.log(values, 'Add Address');
-  // }
-
-  // Define your mutation
   const mutation = useMutation((values: ContactFormValues) =>
     rest.post(`${process.env.NEXT_PUBLIC_BACKEND_API_ENDPOINT}/address`, {
       state: values.state,
@@ -52,32 +49,65 @@ const AddAddressForm: React.FC = () => {
     })
   );
 
-  async function onSubmit(values: ContactFormValues, e: any) {
-    mutation.mutate(values, {
-      onSuccess: () => {
-        toast.success('Address added successfully');
-      },
-      onError: () => {
-        toast.error('Failed to add address');
-      },
-    });
-  }
-
   const {
     register,
     handleSubmit,
+    control,
+    trigger,
+    watch,
     setValue,
     formState: { errors },
-  } = useForm<ContactFormValues>({
-    defaultValues: {
-      title: data || data?.title ? data?.title : '',
-      default: data || data?.default ? data?.default : '',
-      formatted_address:
-        data || data?.address?.formatted_address
-          ? data?.address?.formatted_address
-          : '',
-    },
-  });
+  } = useForm<ContactFormValues>({});
+
+  const onSubmit = (values: ContactFormValues, e: any) => {
+    console.log(values);
+
+    // mutation.mutate(values, {
+    //   onSuccess: () => {
+    //     toast.success('Address added successfully');
+    //   },
+    //   onError: () => {
+    //     toast.error('Failed to add address');
+    //   },
+    // });
+  };
+
+  const statesList = useMemo(
+    () =>
+      stateslist.map((state) => ({
+        name: state.name,
+        value: String(state.id),
+      })),
+    [stateslist]
+  );
+
+  const [selectedProvince, setSelectedProvince] = useState<number>();
+
+  const stateCities = useMemo(() => {
+    const provinceCities = citieslist.filter((city) => {
+      const selectedProvinceCities =
+        Number(city.province_id) === Number(selectedProvince);
+
+      return selectedProvinceCities;
+    });
+
+    if (provinceCities.length !== 0) {
+      const transformedArray = provinceCities.reduce((result, city) => {
+        result.push({ name: city.name, value: city.slug });
+        return result;
+      }, [] as Option[]);
+
+      return transformedArray;
+    }
+
+    return [];
+  }, [selectedProvince]);
+
+  useEffect(() => {
+    watch((item) => {
+      setSelectedProvince(item.state?.value);
+    });
+  }, [watch]);
 
   return (
     <div
@@ -92,27 +122,46 @@ const AddAddressForm: React.FC = () => {
         <div className="mb-6">
           {/* <Input
             variant="solid"
-            label="Address Title"
-            {...register('title', { required: 'Title Required' })}
+            label="عنوان آدرس"
+            {...register('title')}
             error={errors.title?.message}
           /> */}
         </div>
         <div className="grid grid-cols-1 mb-6 gap-7">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <ListBox
-              options={statelist}
-              label="استان"
-              {...register('state', { required: 'استان را وارد کنید!' })}
-              error={errors.state?.message}
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <Controller
+              name="state"
+              control={control}
+              rules={{ required: 'استان خود را انتخاب کنید !' }}
+              render={({ field: { onChange, name } }) => (
+                <StateSelect
+                  options={statesList}
+                  name={name}
+                  label="استان"
+                  placeholder="لطفا استان خود را انتخاب کنید"
+                  setValue={onChange}
+                  error={errors.state && errors.state.message}
+                />
+              )}
             />
-            <Input
-              variant="solid"
-              label="شهر"
-              {...register('city', { required: 'شهر را وارد کنید!' })}
-              error={errors.city?.message}
+
+            <Controller
+              name="city"
+              control={control}
+              rules={{ required: 'شهر خود را انتخاب کنید !' }}
+              render={({ field: { onChange, name } }) => (
+                <CitySelect
+                  options={stateCities}
+                  name={name}
+                  label="شهر"
+                  placeholder="لطفا شهر خود را انتخاب کنید"
+                  setValue={onChange}
+                  error={errors.city && errors.city.message}
+                />
+              )}
             />
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <Input
               type="number"
               variant="solid"
@@ -129,7 +178,7 @@ const AddAddressForm: React.FC = () => {
               error={errors.postal_address?.message}
             />
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <Input
               variant="solid"
               label="نام و نام خانوادگی تحویل گیرنده"
@@ -156,7 +205,7 @@ const AddAddressForm: React.FC = () => {
             />
           </div>
         </div>
-        <div className="flex w-full flex-row-reverse">
+        <div className="flex flex-row-reverse w-full">
           <Button
             className="h-11 md:h-12 mt-1.5 w-full sm:w-auto text-left"
             type="submit"
