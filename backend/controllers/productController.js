@@ -159,6 +159,7 @@ exports.createProduct = async (req, res) => {
       isActive,
       category,
       brand,
+      labels,
       createdAt,
     } = req.body;
     const product = await Product.create({
@@ -172,6 +173,7 @@ exports.createProduct = async (req, res) => {
       balance,
       totalSell: 0,
       isActive,
+      labels,
       createdAt,
     });
     res.status(201).json({ message: "Product created successfully", product });
