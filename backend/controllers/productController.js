@@ -93,8 +93,12 @@ exports.getAllProducts = async (req, res) => {
   try {
     const products = await Product.find()
       .sort({ isActive: -1, _id: -1 })
-      .limit(20);
-    res.json(products);
+      .skip(req.pagination.startIndex)
+      .limit(req.pagination.pageSize);
+    res.json({
+      totalPages: req.pagination.totalPages,
+      products,
+    });
   } catch (error) {
     res.status(500).json({ error: "An error occurred" });
   }

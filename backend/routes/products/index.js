@@ -3,6 +3,7 @@ const router = express.Router();
 const productController = require("../../controllers/productController");
 const authMiddleware = require("../../middlewares/authMiddleware");
 const upload = require("../../middlewares/uploadMiddleware");
+const pagination = require("../../middlewares/pagination");
 
 router.get("/top-selling", (req, res) => {
   productController.getTopSellingProducts(req, res);
@@ -36,6 +37,7 @@ router.get(
   "/allproduct",
   authMiddleware.authenticate,
   authMiddleware.isAdmin,
+  pagination,
   async (req, res) => {
     productController.getAllProducts(req, res);
   }

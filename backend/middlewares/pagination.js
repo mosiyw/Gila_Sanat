@@ -1,13 +1,17 @@
-module.exports = function pagination(req, res, next) {
+const Product = require("../models/Product"); // replace with your actual path
+
+module.exports = async function pagination(req, res, next) {
   const page = parseInt(req.query.page) || 1;
-  const limit = parseInt(req.query.limit) || 10;
-  const startIndex = (page - 1) * limit;
-  const endIndex = page * limit;
+  const pageSize = parseInt(req.query.pageSize) || 10;
+  const startIndex = (page - 1) * pageSize;
+
+  const total = await Product.countDocuments({});
+  const totalPages = Math.ceil(total / pageSize);
 
   req.pagination = {
-    limit,
+    pageSize,
     startIndex,
-    endIndex,
+    totalPages,
   };
 
   next();
