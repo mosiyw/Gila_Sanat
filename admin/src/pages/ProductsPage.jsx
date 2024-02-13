@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
+import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
 import { styled, alpha } from "@mui/material/styles";
@@ -19,6 +20,7 @@ import { ProductList } from "../sections/@dashboard/products";
 import Iconify from "../components/iconify";
 import { getProductsList } from "../api/products";
 import { useDebouncedState } from "../hooks/useDebounceState";
+import ProductPerPage from "../sections/@dashboard/products/ProductPerPage";
 
 const StyledSearch = styled(OutlinedInput)(({ theme }) => ({
   width: 240,
@@ -38,6 +40,7 @@ const StyledSearch = styled(OutlinedInput)(({ theme }) => ({
 
 export default function ProductsPage() {
   const [searchWord, setSearchWord] = useDebouncedState("", 200);
+  const [multiSelect, setMultiSelect] = useState(false);
 
   const productsList = useQuery({
     queryKey: ["products-list", searchWord],
@@ -48,6 +51,10 @@ export default function ProductsPage() {
         },
       }),
   });
+
+  const handleMultiSelectClick = () => {
+    setMultiSelect(!multiSelect);
+  };
 
   const navigate = useNavigate();
 
@@ -92,6 +99,15 @@ export default function ProductsPage() {
             <Button
               variant="contained"
               size="large"
+              color="warning"
+              startIcon={<Iconify icon={multiSelect ? "eva:checkmark-circle-2-fill" : "eva:minus-circle-outline"} />}
+              onClick={handleMultiSelectClick}
+            >
+              {multiSelect ? "Multi-Select On" : "Multi-Select Off"}
+            </Button>
+            <Button
+              variant="contained"
+              size="large"
               startIcon={<Iconify icon="eva:plus-fill" />}
               onClick={handleNewProductClick}
             >
@@ -99,7 +115,6 @@ export default function ProductsPage() {
             </Button>
           </Stack>
         </Stack>
-
         {productsList.isLoading && (
           <Box
             style={{
@@ -112,7 +127,10 @@ export default function ProductsPage() {
             <CircularProgress color="inherit" />
           </Box>
         )}
-        <ProductList key="Chad" products={productsList.data} />
+        <Stack direction="row" spacing={1} justifyContent="space-between" flexShrink={0} sx={{ my: 1 }}>
+          <ProductPerPage />
+        </Stack>
+        <ProductList key="Chad" products={productsList.data} multiSelect={multiSelect} />
       </Container>
     </>
   );
