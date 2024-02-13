@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Menu, Button, MenuItem, Typography } from "@mui/material";
 import Iconify from "../../../components/iconify";
 
@@ -9,7 +9,7 @@ const PER_PAGE_OPTIONS = [
   { value: 96, label: "96" },
 ];
 
-export default function ProductPerPage() {
+export default function ProductPerPage({ onPerPageChange }) {
   const [open, setOpen] = useState(null);
   const [perPage, setPerPage] = useState(PER_PAGE_OPTIONS[0].value);
 
@@ -25,6 +25,10 @@ export default function ProductPerPage() {
     setPerPage(value);
     handleClose();
   };
+
+  useEffect(() => {
+    onPerPageChange(perPage);
+  }, [perPage, onPerPageChange]);
 
   return (
     <>

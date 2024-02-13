@@ -13,7 +13,7 @@ import {
   InputAdornment,
   Box,
   CircularProgress,
-  Backdrop,
+  Pagination,
 } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import { ProductList } from "../sections/@dashboard/products";
@@ -41,11 +41,13 @@ const StyledSearch = styled(OutlinedInput)(({ theme }) => ({
 export default function ProductsPage() {
   const [searchWord, setSearchWord] = useDebouncedState("", 200);
   const [multiSelect, setMultiSelect] = useState(false);
+  const [perPage, setPerPage] = useState(12);
+  const [page, setPage] = useState(1);
 
   const productsList = useQuery({
-    queryKey: ["products-list", searchWord],
+    queryKey: ["products-list", searchWord, page, perPage],
     queryFn: () =>
-      getProductsList({
+      getProductsList(page, perPage, {
         params: {
           Keyword: searchWord || undefined,
         },
@@ -56,10 +58,18 @@ export default function ProductsPage() {
     setMultiSelect(!multiSelect);
   };
 
+  const handlePageChange = (event, value) => {
+    setPage(value);
+  };
+
   const navigate = useNavigate();
 
   const handleNewProductClick = () => {
     navigate("/dashboard/newproduct");
+  };
+
+  const handlePerPageChange = (newPerPage) => {
+    setPerPage(newPerPage);
   };
 
   return (
@@ -128,9 +138,12 @@ export default function ProductsPage() {
           </Box>
         )}
         <Stack direction="row" spacing={1} justifyContent="space-between" flexShrink={0} sx={{ my: 1 }}>
-          <ProductPerPage />
+          <ProductPerPage onPerPageChange={handlePerPageChange} />
         </Stack>
-        <ProductList key="Chad" products={productsList.data} multiSelect={multiSelect} />
+        <ProductList key="Chad" products={productsList.data?.products} multiSelect={multiSelect} />
+        <Box sx={{ display: "flex", justifyContent: "center", mt: 3 }}>
+          <Pagination count={productsList.data?.totalPages} page={page} onChange={handlePageChange} />
+        </Box>
       </Container>
     </>
   );
