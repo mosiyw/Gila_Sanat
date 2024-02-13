@@ -36,6 +36,13 @@ exports.addAddress = async (req, res) => {
       return res.status(404).json({ error: "User not found" });
     }
 
+    // Check if user already has 15 addresses
+    if (user.addresses.length >= 15) {
+      return res
+        .status(400)
+        .json({ error: "Cannot add more than 15 addresses" });
+    }
+
     user.addresses.push(address);
     await user.save();
 

@@ -1,5 +1,6 @@
 const Product = require("../models/Product");
 const Order = require("../models/Order");
+const User = require("../models/User");
 
 exports.getDashboard = async (req, res) => {
   try {
@@ -39,3 +40,20 @@ exports.updateOrderStatus = async (req, res) => {
 };
 
 // Add more admin-related controller functions as needed
+exports.getUsers = async (req, res) => {
+  try {
+    const users = await User.find(
+      {},
+      "firstname lastname phone_number email _id"
+    );
+    const modifiedUsers = users.map((user) => ({
+      name: user.firstname + " " + user.lastname,
+      phoneNumber: user.phone_number,
+      id: user._id,
+      email: user.email,
+    }));
+    res.json(modifiedUsers);
+  } catch (error) {
+    res.status(500).json({ error: "An error occurred" });
+  }
+};

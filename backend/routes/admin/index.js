@@ -21,6 +21,15 @@ router.put(
   }
 );
 
+router.get(
+  "/users",
+  authMiddleware.authenticate, // Verify user authentication
+  authMiddleware.isAdmin, // Check if the authenticated user is an admin
+  (req, res) => {
+    adminController.getUsers(req, res);
+  }
+);
+
 // Add more admin-related routes as needed
 
 module.exports = router;
