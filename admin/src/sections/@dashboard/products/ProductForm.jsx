@@ -20,9 +20,10 @@ import { LoadingButton } from "@mui/lab";
 import Iconify from "../../../components/iconify";
 import ImageGallery from "../../../components/image-upload/imageUpload";
 import ControlledInputText from "../../../components/controlled-input";
-import RichEditor from "../../../components/rich-editor";
+
 import getFullUrl from "../../../utils/getFullUrl";
 import LabelsInput from "../../../components/LabelsInput";
+import CategorySelector from "../../../components/category-selector";
 
 function ProductForm({ initialProductData, onSubmit, isEditing, isLoading }) {
   const methods = useForm();
@@ -200,6 +201,7 @@ function ProductForm({ initialProductData, onSubmit, isEditing, isLoading }) {
                 label="Product Name"
                 rules={{ required: true }}
                 control={control}
+                direction="rtl"
                 fullWidth
               />
             </Grid>
@@ -216,7 +218,14 @@ function ProductForm({ initialProductData, onSubmit, isEditing, isLoading }) {
               />
             </Grid>
             <Grid item xs={4}>
-              <ControlledInputText name="brand" label="Brand" rules={{ required: true }} control={control} fullWidth />
+              <ControlledInputText
+                name="brand"
+                label="Brand"
+                rules={{ required: true }}
+                control={control}
+                direction="rtl"
+                fullWidth
+              />
             </Grid>
             <Grid item xs={5}>
               <ControlledInputText
@@ -241,26 +250,25 @@ function ProductForm({ initialProductData, onSubmit, isEditing, isLoading }) {
             <Grid item xs={2}>
               <TextField label="Discount %" value={discountPercent.toFixed(2)} disabled fullWidth />
             </Grid>
-            <Grid item xs={8}>
+            <Grid item xs={3.4}>
               <FormControl variant="outlined" fullWidth>
                 <InputLabel id="category-label">Category</InputLabel>
-                <Controller
-                  name="category"
-                  control={control}
-                  defaultValue=""
-                  rules={{ required: true }}
-                  render={({ field, fieldState: { error } }) => (
-                    <Select {...field} error={Boolean(error)} labelId="category-label" label="Category">
-                      <MenuItem value="Electronics">Electronics</MenuItem>
-                      <MenuItem value="Clothing">Clothing</MenuItem>
-                      <MenuItem value="Home">Home</MenuItem>
-                      {/* Add more categories as needed  */}
-                    </Select>
-                  )}
-                />
+                <CategorySelector />
               </FormControl>
             </Grid>
-            <Grid item xs={4}>
+            <Grid item xs={3.3}>
+              <FormControl variant="outlined" fullWidth>
+                <InputLabel id="category-label">Category</InputLabel>
+                <CategorySelector />
+              </FormControl>
+            </Grid>
+            <Grid item xs={3.3}>
+              <FormControl variant="outlined" fullWidth>
+                <InputLabel id="category-label">Category</InputLabel>
+                <CategorySelector />
+              </FormControl>
+            </Grid>
+            <Grid item xs={2}>
               <Controller
                 name="isActive"
                 control={control}

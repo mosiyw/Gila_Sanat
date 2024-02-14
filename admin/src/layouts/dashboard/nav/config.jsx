@@ -22,6 +22,11 @@ const navConfig = [
     path: "/dashboard/products",
     icon: icon("ic_product"),
   },
+  {
+    title: "category",
+    path: "/dashboard/category",
+    icon: icon("ic_category"),
+  },
 ];
 
 export default navConfig;
