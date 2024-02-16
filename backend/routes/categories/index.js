@@ -35,6 +35,23 @@ router.put(
   }
 );
 
+router.post(
+  "/:id/subcategory",
+  authMiddleware.authenticate,
+  authMiddleware.isAdmin,
+  (req, res) => {
+    categoryController.addSubcategory(req, res);
+  }
+);
+router.post(
+  "/:categoryId/:subcategoryId/second_subcategories",
+  authMiddleware.authenticate,
+  authMiddleware.isAdmin,
+  (req, res) => {
+    categoryController.addSecondSubcategory(req, res);
+  }
+);
+
 router.delete(
   "/:id",
   authMiddleware.authenticate,

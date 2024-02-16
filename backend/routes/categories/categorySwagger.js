@@ -68,7 +68,87 @@
  *       '500':
  *         description: Internal server error.
  */
+/**
+ * @swagger
+ * /api/categories/{id}/subcategory:
+ *   post:
+ *     summary: Add a Subcategory (Admin)
+ *     description: Add a new subcategory to an existing category.
+ *     tags: [Categories]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID of the category to add a subcategory to.
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *             example:
+ *               name: "Subcategory Name"
+ *     responses:
+ *       '201':
+ *         description: Subcategory added successfully.
+ *       '401':
+ *         description: Unauthorized - user is not an admin.
+ *       '404':
+ *         description: Category not found.
+ *       '500':
+ *         description: Internal server error.
+ */
 
+/**
+ * @swagger
+ * /api/categories/{categoryId}/{subcategoryId}/second_subcategories:
+ *   post:
+ *     summary: Add a Second Subcategory (Admin)
+ *     description: Add a new second subcategory to an existing subcategory within a category.
+ *     tags: [Categories]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: categoryId
+ *         required: true
+ *         description: ID of the category to add a second subcategory to.
+ *         schema:
+ *           type: string
+ *       - in: path
+ *         name: subcategoryId
+ *         required: true
+ *         description: ID of the subcategory to add a second subcategory to.
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *             example:
+ *               name: "Second Subcategory Name"
+ *     responses:
+ *       '201':
+ *         description: Second subcategory added successfully.
+ *       '401':
+ *         description: Unauthorized - user is not an admin.
+ *       '404':
+ *         description: Category or subcategory not found.
+ *       '500':
+ *         description: Internal server error.
+ */
 /**
  * @swagger
  * /api/categories/{id}:
