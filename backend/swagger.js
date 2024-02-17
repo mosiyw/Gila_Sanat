@@ -10,7 +10,11 @@ const options = {
     },
     servers: [
       {
-        url: "http://localhost:5000", // Replace with your server URL
+        url: `${
+          process.env.PRODUCTION_URL
+            ? process.env.PRODUCTION_URL
+            : "http://localhost:5000"
+        }`, // Replace with your server URL
         description: "Development server",
       },
     ],
