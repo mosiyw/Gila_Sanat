@@ -1,0 +1,21 @@
+name: Deploy Production
+on:
+  push:
+    branches:
+      - backend-production
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "21.4.0"
+      - name: Update Liara
+        env:
+          LIARA_TOKEN: ${{ secrets.LIARA_API_TOKEN }}
+        run: |
+          cd backend
+          npm i -g @liara/cli@5
+          liara deploy --app="gila-sanat-backend" --api-token="$LIARA_TOKEN" --no-app-logs
