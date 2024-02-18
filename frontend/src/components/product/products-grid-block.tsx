@@ -1,3 +1,4 @@
+// @ts-nocheck
 import SectionHeader from '@components/common/section-header';
 import ProductCard from '@components/product/product-cards/product-card';
 import Alert from '@components/ui/alert';

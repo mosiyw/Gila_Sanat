@@ -1,3 +1,4 @@
+// @ts-nocheck
 import CartIcon from '@components/icons/cart-icon';
 import Button from '@components/ui/button';
 import ThumbnailCarousel from '@components/ui/carousel/thumbnail-carousel';

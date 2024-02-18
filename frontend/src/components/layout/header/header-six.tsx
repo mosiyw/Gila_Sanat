@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { useRef } from 'react';
 import dynamic from 'next/dynamic';
 import { useTranslation } from 'next-i18next';

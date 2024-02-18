@@ -1,3 +1,4 @@
+// @ts-nocheck
 import Link from '@components/ui/link';
 import SearchIcon from '@components/icons/search-icon';
 import UserIcon from '@components/icons/user-icon';

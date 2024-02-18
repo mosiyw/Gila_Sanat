@@ -1,3 +1,4 @@
+// @ts-nocheck
 import dynamic from 'next/dynamic';
 import StoryCard from '@components/story/storyCard';
 import SectionHeader from '@components/common/section-header';

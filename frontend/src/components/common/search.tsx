@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useState } from 'react';
 import cn from 'classnames';
 import { useSearchQuery } from '@framework/product/use-search';

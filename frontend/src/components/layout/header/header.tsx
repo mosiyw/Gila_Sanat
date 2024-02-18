@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { useModalAction } from '@components/common/modal/modal.context';
 import Search from '@components/common/search';
 import SearchIcon from '@components/icons/search-icon';

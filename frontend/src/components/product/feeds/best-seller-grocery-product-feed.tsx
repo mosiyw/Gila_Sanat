@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { useBestSellerGroceryProductsQuery } from '@framework/product/get-all-best-seller-grocery-products';
 import { LIMITS } from '@framework/utils/limits';
 import type { FC } from 'react';

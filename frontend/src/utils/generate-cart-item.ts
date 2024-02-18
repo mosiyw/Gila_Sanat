@@ -1,12 +1,16 @@
 type Item = {
-  id: string | number;
+  _id: string | number; // Change 'id' to '_id'
   name: string;
   image?: {
     cover: string;
     [key: string]: unknown;
   };
-  price: number;
-  stock: number;
+  price: {
+    // Change 'price' to an object with 'original' and 'discount' properties
+    original: number;
+    discount: number;
+  };
+  balance: number; // Change 'stock' to 'balance'
   sale_price?: number;
   quantity?: number;
 };

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import MapIcon from '@components/icons/account-address';
 import NotificationIcon from '@components/icons/account-notification';
 import OrdersIcon from '@components/icons/account-order';

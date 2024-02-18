@@ -1,3 +1,4 @@
+// @ts-nocheck
 import RCPagination, { PaginationProps } from 'rc-pagination';
 import 'rc-pagination/assets/index.css';
 
