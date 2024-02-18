@@ -14,6 +14,7 @@ export interface CheckoutInputType {
 async function checkout(input: CheckoutInputType) {
   return input;
 }
+
 export const useCheckoutMutation = () => {
   return useMutation((input: CheckoutInputType) => checkout(input), {
     onSuccess: (data) => {

@@ -7,6 +7,7 @@ export interface ChangeEmailInputType {
 async function changeEmail(input: ChangeEmailInputType) {
   return input;
 }
+
 export const useChangeEmailMutation = () => {
   return useMutation((input: ChangeEmailInputType) => changeEmail(input), {
     onSuccess: (data) => {

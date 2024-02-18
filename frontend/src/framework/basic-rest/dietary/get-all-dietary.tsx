@@ -10,6 +10,7 @@ export const fetchDietary = async ({ queryKey }: any) => {
   } = await http.get(API_ENDPOINTS.DIETARY);
   return { dietary: { data: data as Dietary[] } };
 };
+
 export const useDietaryQuery = (options: QueryOptionsType) => {
   return useQuery<{ dietary: { data: Dietary[] } }, Error>(
     [API_ENDPOINTS.DIETARY, options],

@@ -8,6 +8,7 @@ export const fetchCookiesProducts = async ({ queryKey }: any) => {
   const { data } = await http.get(API_ENDPOINTS.COOKIES_PRODUCTS);
   return data as Product[];
 };
+
 export const useCookiesProductsQuery = (options: QueryOptionsType) => {
   return useQuery<Product[], Error>(
     [API_ENDPOINTS.COOKIES_PRODUCTS, options],

@@ -3,6 +3,7 @@ import { useTranslation } from 'next-i18next';
 interface CheckBoxProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string | any;
 }
+
 export const CheckBox = React.forwardRef<HTMLInputElement, CheckBoxProps>(
   ({ label, ...rest }, ref) => {
     const { t } = useTranslation();

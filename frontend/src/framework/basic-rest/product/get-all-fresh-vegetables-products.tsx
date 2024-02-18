@@ -8,6 +8,7 @@ export const fetchFreshVegetablesProducts = async ({ queryKey }: any) => {
   const { data } = await http.get(API_ENDPOINTS.FRESH_VEGETABLES_PRODUCTS);
   return data as Product[];
 };
+
 export const useFreshVegetablesProductsQuery = (options: QueryOptionsType) => {
   return useQuery<Product[], Error>(
     [API_ENDPOINTS.FRESH_VEGETABLES_PRODUCTS, options],

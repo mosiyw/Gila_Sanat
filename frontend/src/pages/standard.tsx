@@ -57,10 +57,9 @@ export default function Home() {
     </>
   );
 }
-
 Home.Layout = Layout;
 
-Home.Layout = Layout;
+// Add a blank line here
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const queryClient = new QueryClient();
 

@@ -15,6 +15,7 @@ export interface UpdateUserType {
 async function updateUser(input: UpdateUserType) {
   return input;
 }
+
 export const useUpdateUserMutation = () => {
   return useMutation((input: UpdateUserType) => updateUser(input), {
     onSuccess: (data) => {
