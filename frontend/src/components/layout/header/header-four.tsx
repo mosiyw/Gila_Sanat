@@ -5,7 +5,7 @@ import { useTranslation } from 'next-i18next';
 import { siteSettings } from '@settings/site-settings';
 import { ROUTES } from '@utils/routes';
 import { useUI } from '@contexts/ui.context';
-import { addActiveScroll } from '@utils/add-active-scroll';
+import { useAddActiveScroll } from '@utils/add-active-scroll';
 import Container from '@components/ui/container';
 import Logo from '@components/ui/logo';
 import UserIcon from '@components/icons/user-icon';
@@ -27,7 +27,7 @@ const Header: React.FC = () => {
   const { openModal } = useModalAction();
   const { isAuthorized, displayMobileSearch } = useUI();
   const siteHeaderRef = useRef() as DivElementRef;
-  addActiveScroll(siteHeaderRef);
+  useAddActiveScroll(siteHeaderRef);
   function handleLogin() {
     openModal('LOGIN_VIEW');
   }

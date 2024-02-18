@@ -10,7 +10,7 @@ import LanguageSwitcher from '@components/ui/language-switcher';
 import Logo from '@components/ui/logo';
 import { useUI } from '@contexts/ui.context';
 import { siteSettings } from '@settings/site-settings';
-import { addActiveScroll } from '@utils/add-active-scroll';
+import { useAddActiveScroll } from '@utils/add-active-scroll';
 import { ROUTES } from '@utils/routes';
 import useOnClickOutside from '@utils/use-click-outside';
 import cn from 'classnames';
@@ -37,7 +37,7 @@ const Header: React.FC = () => {
   const { openModal } = useModalAction();
   const siteHeaderRef = useRef() as DivElementRef;
   const siteSearchRef = useRef() as DivElementRef;
-  addActiveScroll(siteHeaderRef, 40);
+  useAddActiveScroll(siteHeaderRef, 40);
   useOnClickOutside(siteSearchRef, () => closeSearch());
 
   function handleLogin() {

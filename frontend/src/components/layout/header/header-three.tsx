@@ -6,7 +6,7 @@ import cn from 'classnames';
 import { ROUTES } from '@utils/routes';
 import { useUI } from '@contexts/ui.context';
 import { siteSettings } from '@settings/site-settings';
-import { addActiveScroll } from '@utils/add-active-scroll';
+import { useAddActiveScroll } from '@utils/add-active-scroll';
 import Container from '@components/ui/container';
 import Logo from '@components/ui/logo';
 import HeaderMenu from '@components/layout/header/header-menu';
@@ -39,7 +39,7 @@ const Header: React.FC = () => {
   const siteHeaderRef = useRef() as DivElementRef;
   const siteSearchRef = useRef() as DivElementRef;
   useOnClickOutside(siteSearchRef, () => closeSearch());
-  addActiveScroll(siteHeaderRef, 10);
+  useAddActiveScroll(siteHeaderRef, 10);
   function handleLogin() {
     openModal('LOGIN_VIEW');
   }
