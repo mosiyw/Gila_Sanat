@@ -16,6 +16,6 @@ jobs:
         env:
           LIARA_TOKEN: ${{ secrets.LIARA_API_TOKEN }}
         run: |
-          cd backend
+          cd frontend
           npm i -g @liara/cli@5
-          liara deploy --app="gila-sanat-frontend" --api-token="$LIARA_TOKEN" --port="3000" --no-app-logs
+          liara deploy --app="gila-sanat-frontend" --api-token="$LIARA_TOKEN" --platform=next --no-app-logs
