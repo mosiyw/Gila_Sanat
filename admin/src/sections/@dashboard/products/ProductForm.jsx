@@ -250,19 +250,7 @@ function ProductForm({ initialProductData, onSubmit, isEditing, isLoading }) {
             <Grid item xs={2}>
               <TextField label="Discount %" value={discountPercent.toFixed(2)} disabled fullWidth />
             </Grid>
-            <Grid item xs={3.4}>
-              <FormControl variant="outlined" fullWidth>
-                <InputLabel id="category-label">Category</InputLabel>
-                <CategorySelector />
-              </FormControl>
-            </Grid>
-            <Grid item xs={3.3}>
-              <FormControl variant="outlined" fullWidth>
-                <InputLabel id="category-label">Category</InputLabel>
-                <CategorySelector />
-              </FormControl>
-            </Grid>
-            <Grid item xs={3.3}>
+            <Grid item xs={10}>
               <FormControl variant="outlined" fullWidth>
                 <InputLabel id="category-label">Category</InputLabel>
                 <CategorySelector />
