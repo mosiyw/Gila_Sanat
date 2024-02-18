@@ -8,6 +8,7 @@ export const fetchPopularProducts = async ({ queryKey }: any) => {
   const { data } = await http2.get(API_ENDPOINTS.PRODUCTS);
   return data as Product[];
 };
+
 export const usePopularProductsQuery = (options: QueryOptionsType) => {
   return useQuery<Product[], Error>(
     [API_ENDPOINTS.PRODUCTS, options],

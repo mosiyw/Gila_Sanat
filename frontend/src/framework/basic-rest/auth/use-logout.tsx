@@ -14,6 +14,7 @@ async function logout() {
     message: 'Logout Successful!',
   };
 }
+
 export const useLogoutMutation = () => {
   const { unauthorize } = useUI();
   return useMutation(() => logout(), {

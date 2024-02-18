@@ -8,6 +8,7 @@ export const fetchBestSellerProducts = async ({ queryKey }: any) => {
   const { data } = await http.get(API_ENDPOINTS.BEST_SELLER_PRODUCTS);
   return data as Product[];
 };
+
 export const useBestSellerProductsQuery = (options: QueryOptionsType) => {
   return useQuery<Product[], Error>(
     [API_ENDPOINTS.BEST_SELLER_PRODUCTS, options],

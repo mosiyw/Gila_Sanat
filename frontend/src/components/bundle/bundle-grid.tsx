@@ -78,4 +78,5 @@ const BundleGrid: React.FC<Props> = ({ className = 'mb-12 pb-0.5', data }) => {
     </div>
   );
 };
+
 export default BundleGrid;
