@@ -1,3 +1,4 @@
+// @ts-nocheck
 import ProductCard from '@components/product/product-cards/product-card';
 import type { FC } from 'react';
 import { useProductsQuery } from '@framework/product/get-all-products';

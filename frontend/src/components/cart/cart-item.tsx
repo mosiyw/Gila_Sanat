@@ -68,6 +68,7 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
             value={item.quantity}
             onIncrement={() => addItemToCart(item, 1)}
             onDecrement={() => removeItemFromCart(item.id)}
+            onDeleteItem={() => clearItemFromCart(item.id)} // Use clearItemFromCart here
             variant="cart"
             disabled={outOfStock}
           />

@@ -10,29 +10,29 @@ export interface UpdateItemInput extends Partial<Omit<Item, 'id'>> {}
 
 export function addItemWithQuantity(
   items: Item[],
-  item: Item,
+  itemToAdd: Item,
   quantity: number
 ) {
   if (quantity <= 0)
     throw new Error("cartQuantity can't be zero or less than zero");
   const existingItemIndex = items.findIndex(
-    (existingItem) => existingItem.id === item.id
+    (existingItem) => existingItem.id === itemToAdd.id
   );
 
   if (existingItemIndex > -1) {
-    return items.reduce((acc: Item[], item) => {
-      if (item.id === item.id) {
-        const newQuantity = item.quantity! + 1;
+    return items.reduce((acc: Item[], currentItem) => {
+      if (currentItem.id === itemToAdd.id) {
+        const newQuantity = currentItem.quantity! + quantity;
 
         return newQuantity > 0
-          ? [...acc, { ...item, quantity: newQuantity }]
+          ? [...acc, { ...currentItem, quantity: newQuantity }]
           : [...acc];
       }
-      return [...acc, item];
+      return [...acc, currentItem];
     }, []);
   }
 
-  return [...items, { ...item, quantity }];
+  return [...items, { ...itemToAdd, quantity }];
 }
 
 export function removeItemOrQuantity(

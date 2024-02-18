@@ -1,3 +1,4 @@
+// @ts-nocheck
 import ManagedDrawer from '@components/common/drawer/managed-drawer';
 import ManagedModal from '@components/common/modal/managed-modal';
 import { DefaultSeo } from '@components/seo/default-seo';

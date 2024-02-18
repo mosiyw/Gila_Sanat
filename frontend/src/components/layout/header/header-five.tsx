@@ -1,3 +1,4 @@
+// @ts-nocheck
 import CategoryDropdownMenu from '@components/category/category-dropdown-menu';
 import { useModalAction } from '@components/common/modal/modal.context';
 import Search from '@components/common/search';

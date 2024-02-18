@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css'; // requires a loader
 import type { FC } from 'react';

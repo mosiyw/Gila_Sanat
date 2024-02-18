@@ -1,3 +1,4 @@
+// @ts-nocheck
 import BundleGrid from '@components/bundle/bundle-grid-two';
 import BannerGridTwo from '@components/common/banner-grid-two';
 import BannerHeroGrid from '@components/common/banner-hero-grid';

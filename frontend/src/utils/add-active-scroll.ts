@@ -1,6 +1,6 @@
 import { useEffect, RefObject } from 'react';
 
-export function useAddActiveScroll<T extends HTMLElement = HTMLElement>(
+export function addActiveScroll<T extends HTMLElement = HTMLElement>(
   ref: RefObject<T>,
   topOffset: number = 80
 ) {

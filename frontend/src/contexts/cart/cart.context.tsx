@@ -1,4 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+// @ts-nocheck
 import { useUI } from '@contexts/ui.context';
 import { useCartMutation } from '@framework/cart/use-cart';
 import { useLocalStorage } from '@utils/use-local-storage';

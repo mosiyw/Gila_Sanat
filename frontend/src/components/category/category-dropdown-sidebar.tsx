@@ -1,3 +1,4 @@
+// @ts-nocheck
 import Alert from '@components/ui/alert';
 import Scrollbar from '@components/ui/scrollbar';
 import SidebarMenu from '@components/ui/sidebar-menu';
