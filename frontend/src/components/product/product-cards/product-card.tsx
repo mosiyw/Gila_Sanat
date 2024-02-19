@@ -15,6 +15,7 @@ import toman from '@assets/toman.svg';
 import { useTranslation } from 'next-i18next';
 import dynamic from 'next/dynamic';
 import { useEffect } from 'react';
+import getFullUrl from '@utils/imgurl';
 const AddToCart = dynamic(() => import('@components/product/add-to-cart'), {
   ssr: false,
 });
@@ -117,7 +118,7 @@ const ProductCard: React.FC<ProductProps> = ({ product, className }) => {
             src={
               image
                 ? image?.cover
-                  ? `http://localhost:5000${image?.cover}`
+                  ? getFullUrl(image?.cover)
                   : defaultImage
                 : productPlaceholder
             }
