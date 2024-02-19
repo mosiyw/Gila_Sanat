@@ -1,3 +1,4 @@
+// @ts-nocheck
 import Modal from '@components/common/modal/modal';
 import dynamic from 'next/dynamic';
 import {

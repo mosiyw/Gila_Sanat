@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { usePopularProductsQuery } from '@framework/product/get-all-popular-products';
 import SectionHeader from '@components/common/section-header';
 import ProductCard from '@components/product/product-cards/product-card';

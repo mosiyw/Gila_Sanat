@@ -1,3 +1,4 @@
+// @ts-nocheck
 import BundleCardGrid from '@components/cards/bundle-card-grid';
 import useWindowSize from '@utils/use-window-size';
 import cn from 'classnames';

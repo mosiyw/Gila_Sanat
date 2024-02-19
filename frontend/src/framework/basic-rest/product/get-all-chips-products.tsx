@@ -8,6 +8,7 @@ export const fetchChipsProducts = async ({ queryKey }: any) => {
   const { data } = await http.get(API_ENDPOINTS.CHIPS_PRODUCTS);
   return data as Product[];
 };
+
 export const useChipsProductsQuery = (options: QueryOptionsType) => {
   return useQuery<Product[], Error>(
     [API_ENDPOINTS.CHIPS_PRODUCTS, options],

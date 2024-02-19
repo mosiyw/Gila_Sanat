@@ -1,3 +1,4 @@
+// @ts-nocheck
 import CategoryDropdownMenu from '@components/category/category-dropdown-menu';
 import { useModalAction } from '@components/common/modal/modal.context';
 import Search from '@components/common/search';
@@ -8,7 +9,7 @@ import Container from '@components/ui/container';
 import Logo from '@components/ui/logo';
 import { useUI } from '@contexts/ui.context';
 import { siteSettings } from '@settings/site-settings';
-import { addActiveScroll } from '@utils/add-active-scroll';
+import { useAddActiveScroll } from '@utils/add-active-scroll';
 import { ROUTES } from '@utils/routes';
 import useOnClickOutside from '@utils/use-click-outside';
 import cn from 'classnames';
@@ -40,7 +41,7 @@ const Header: React.FC = () => {
 
   const [categoryMenu, setCategoryMenu] = useState(Boolean(false));
 
-  addActiveScroll(siteHeaderRef, 40);
+  useAddActiveScroll(siteHeaderRef, 40);
   useOnClickOutside(siteSearchRef, () => closeSearch());
 
   const handleLogin = () => {

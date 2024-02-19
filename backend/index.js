@@ -17,7 +17,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(
   cors({
-    origin: ["http://localhost:3000", "http://localhost:4000"], // Replace with your frontend domain
+    origin: [
+      "http://localhost:3000",
+      "http://localhost:4000",
+      process.env.PRODUCTION_URL,
+    ], // Replace with your frontend domain
     credentials: true, // Allow sending cookies in cross-origin requests
   })
 );

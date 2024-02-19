@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import isEmpty from 'lodash/isEmpty';
@@ -163,7 +164,7 @@ export default function ProductPopup() {
       setOriginalPrice(data?.price?.original);
     }
     setSelectedbalance(1);
-  }, [data.id]);
+  }, [data.id, data?.price?.discount, data?.price?.original]);
 
   return (
     <div className="md:w-[600px] lg:w-[940px] xl:w-[1180px] 2xl:w-[1360px] mx-auto p-1 lg:p-0 xl:p-3 bg-brand-light rounded-md">

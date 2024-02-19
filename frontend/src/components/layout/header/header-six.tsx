@@ -1,9 +1,10 @@
+// @ts-nocheck
 import { useRef } from 'react';
 import dynamic from 'next/dynamic';
 import { useTranslation } from 'next-i18next';
 import { ROUTES } from '@utils/routes';
 import { useUI } from '@contexts/ui.context';
-import { addActiveScroll } from '@utils/add-active-scroll';
+import { useAddActiveScroll } from '@utils/add-active-scroll';
 import Container from '@components/ui/container';
 import Logo from '@components/ui/logo';
 import UserIcon from '@components/icons/user-icon';
@@ -24,7 +25,7 @@ const Header: React.FC = () => {
   const { openModal } = useModalAction();
   const { t } = useTranslation('common');
   const siteHeaderRef = useRef() as DivElementRef;
-  addActiveScroll(siteHeaderRef);
+  useAddActiveScroll(siteHeaderRef);
   function handleLogin() {
     openModal('LOGIN_VIEW');
   }

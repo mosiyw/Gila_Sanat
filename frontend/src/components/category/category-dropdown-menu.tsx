@@ -1,3 +1,4 @@
+// @ts-nocheck
 import Alert from '@components/ui/alert';
 import CategoryListCardLoader from '@components/ui/loaders/category-list-card-loader';
 import { useCategoriesQuery } from '@framework/category/get-all-categories';

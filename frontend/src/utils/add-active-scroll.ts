@@ -1,6 +1,6 @@
 import { useEffect, RefObject } from 'react';
 
-export function addActiveScroll<T extends HTMLElement = HTMLElement>(
+export function useAddActiveScroll<T extends HTMLElement = HTMLElement>(
   ref: RefObject<T>,
   topOffset: number = 80
 ) {
@@ -17,5 +17,5 @@ export function addActiveScroll<T extends HTMLElement = HTMLElement>(
     return () => {
       document.removeEventListener('scroll', listener);
     };
-  }, []);
+  }, [ref, topOffset]);
 }

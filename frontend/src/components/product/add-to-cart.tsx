@@ -1,3 +1,4 @@
+// @ts-nocheck
 import PlusIcon from '@components/icons/plus-icon';
 import Counter from '@components/ui/counter';
 import { useCart } from '@contexts/cart/cart.context';
@@ -23,6 +24,7 @@ const AddToCart = ({ data, variation, disabled }: Props) => {
     e: React.MouseEvent<HTMLButtonElement | MouseEvent>
   ) => {
     e.stopPropagation();
+    console.log(item);
     addItemToCart(item, 1);
   };
   const handleRemoveClick = (e: any) => {

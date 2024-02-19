@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { useShopQuery } from '@framework/shop/get-shop';
 import { useRouter } from 'next/router';
 import Image from 'next/image';

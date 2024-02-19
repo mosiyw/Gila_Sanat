@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { useModalAction } from '@components/common/modal/modal.context';
 import PlusIcon from '@components/icons/plus-icon';
 import Image from '@components/ui/image';

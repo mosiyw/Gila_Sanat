@@ -3,6 +3,7 @@ import { useTranslation } from 'next-i18next';
 interface RadioBoxProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label: string | React.ReactElement;
 }
+
 export const RadioBox = React.forwardRef<HTMLInputElement, RadioBoxProps>(
   ({ label, ...rest }, ref) => {
     const { t } = useTranslation('forms');

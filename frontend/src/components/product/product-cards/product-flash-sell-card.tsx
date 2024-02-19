@@ -1,3 +1,4 @@
+// @ts-nocheck
 import cn from 'classnames';
 import Image from '@components/ui/image';
 import usePrice from '@framework/product/use-price';

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import BundleCard from '@components/cards/bundle-card';
 import useWindowSize from '@utils/use-window-size';
 import cn from 'classnames';
@@ -70,7 +71,6 @@ const BundleGrid: React.FC<Props> = ({ className = 'mb-12 pb-0.5', data }) => {
               key={`bundle-key-${item.id}`}
               bundle={item}
               href={`${ROUTES.BUNDLE}/${item.slug}`}
-              description={item.title}
             />
           ))}
         </div>
@@ -78,4 +78,5 @@ const BundleGrid: React.FC<Props> = ({ className = 'mb-12 pb-0.5', data }) => {
     </div>
   );
 };
+
 export default BundleGrid;

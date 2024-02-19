@@ -109,7 +109,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ isPopup = true, className }) => {
                     message: t('forms:phone-number-error'),
                   },
                 })}
-                error={errors.phoneNumber?.message}
+                error={errors.phone_number?.message} // Corrected here
               />
               <PasswordInput
                 label={t('forms:label-password')}
