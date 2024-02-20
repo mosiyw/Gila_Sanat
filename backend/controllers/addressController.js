@@ -4,7 +4,6 @@ exports.addAddress = async (req, res) => {
   try {
     const userId = req.user.userId;
     const address = req.body;
-    address.zipcode = Number(address.zipcode); // Convert zipcode to Number
 
     // Validate address fields
     const requiredFields = [
@@ -88,7 +87,7 @@ exports.getAddresses = async (req, res) => {
       return res.status(404).json({ error: "User not found" });
     }
 
-    res.status(200).json({ addresses: user.addresses });
+    res.status(200).json(user.addresses);
   } catch (error) {
     res.status(500).json({ error: "An error occurred" });
   }

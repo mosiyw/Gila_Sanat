@@ -1,9 +1,9 @@
 import { API_ENDPOINTS } from '@framework/api-endpoints';
-import http from '@framework/utils/http';
+import rest from '@framework/utils/rest';
 import { useQuery } from 'react-query';
 
 const fetchAddress = async () => {
-  const { data } = await http.get(API_ENDPOINTS.ADDRESS);
+  const { data } = await rest.get(API_ENDPOINTS.ADDRESS);
   return {
     data: data,
   };

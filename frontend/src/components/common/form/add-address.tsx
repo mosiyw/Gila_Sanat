@@ -17,7 +17,8 @@ import stateslist from 'public/locales/fa/states.json';
 import { useEffect, useMemo, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
-
+import toast from 'react-hot-toast';
+import { ImSpinner2 } from 'react-icons/im';
 interface ContactFormValues {
   title: string;
   default: boolean;
@@ -38,9 +39,9 @@ const AddAddressForm: React.FC = () => {
   const { closeModal } = useModalAction();
 
   const mutation = useMutation((values: ContactFormValues) =>
-    rest.post(`${process.env.NEXT_PUBLIC_BACKEND_API_ENDPOINT}/address`, {
-      state: values.state,
-      city: values.city,
+    rest.post(`${process.env.NEXT_PUBLIC_BACKEND_API_ENDPOINT}/address/add`, {
+      state: values.state.name,
+      city: values.city.name,
       address: values.postal_address,
       zipcode: values.zipcode,
       transferee: {
@@ -49,7 +50,7 @@ const AddAddressForm: React.FC = () => {
       },
     })
   );
-
+  const { isLoading } = mutation;
   const {
     register,
     handleSubmit,
@@ -61,18 +62,16 @@ const AddAddressForm: React.FC = () => {
   } = useForm<ContactFormValues>({});
 
   const onSubmit = (values: ContactFormValues, e: any) => {
-    console.log(values);
-
-    // mutation.mutate(values, {
-    //   onSuccess: () => {
-    //     toast.success('Address added successfully');
-    //   },
-    //   onError: () => {
-    //     toast.error('Failed to add address');
-    //   },
-    // });
+    mutation.mutate(values, {
+      onSuccess: () => {
+        toast.success('آدرس با موفقیت اضافه شد');
+        closeModal();
+      },
+      onError: () => {
+        toast.error('خطا در اضافه کردن آدرس');
+      },
+    });
   };
-
   const statesList = useMemo(
     () =>
       stateslist.map((state) => ({
@@ -120,14 +119,6 @@ const AddAddressForm: React.FC = () => {
         {t('common:text-add-delivery-address')}
       </Heading>
       <form onSubmit={handleSubmit(onSubmit)} noValidate>
-        <div className="mb-6">
-          {/* <Input
-            variant="solid"
-            label="عنوان آدرس"
-            {...register('title')}
-            error={errors.title?.message}
-          /> */}
-        </div>
         <div className="grid grid-cols-1 mb-6 gap-7">
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <Controller
@@ -210,8 +201,13 @@ const AddAddressForm: React.FC = () => {
           <Button
             className="h-11 md:h-12 mt-1.5 w-full sm:w-auto text-left"
             type="submit"
+            disabled={isLoading}
           >
-            {t('common:text-save-address')}
+            {isLoading ? (
+              <ImSpinner2 className="w-5 h-5 animate-spin ltr:-mr-1 rtl:-ml-1 ltr:ml-3 rtl:mr-3 " />
+            ) : (
+              t('common:text-save-address')
+            )}
           </Button>
         </div>
       </form>
