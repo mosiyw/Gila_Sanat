@@ -34,6 +34,7 @@ import VariationPrice from './variation-price';
 import isEqual from 'lodash/isEqual';
 import { productGalleryPlaceholder } from '@assets/placeholders';
 import formatProductName from '@utils/format-product-name';
+import getFullUrl from '@utils/imgurl';
 
 const breakpoints = {
   '1536': {
@@ -181,7 +182,7 @@ export default function ProductPopup() {
                     src={
                       image
                         ? image?.cover
-                          ? `http://localhost:5000${image?.cover}`
+                          ? getFullUrl(image?.cover)
                           : defaultImage
                         : productPlaceholder
                     }

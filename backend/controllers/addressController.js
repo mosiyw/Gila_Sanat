@@ -4,6 +4,7 @@ exports.addAddress = async (req, res) => {
   try {
     const userId = req.user.userId;
     const address = req.body;
+    address.zipcode = Number(address.zipcode); // Convert zipcode to Number
 
     // Validate address fields
     const requiredFields = [
@@ -41,6 +42,13 @@ exports.addAddress = async (req, res) => {
       return res
         .status(400)
         .json({ error: "Cannot add more than 15 addresses" });
+    }
+
+    // Check if zipcode already exists in user's addresses
+    if (user.addresses.some((addr) => addr.zipcode === address.zipcode)) {
+      return res
+        .status(400)
+        .json({ error: "Zipcode already exists in user's addresses" });
     }
 
     user.addresses.push(address);
@@ -89,12 +97,25 @@ exports.getAddresses = async (req, res) => {
 exports.editAddress = async (req, res) => {
   try {
     const userId = req.user.userId;
-    const addressIndex = req.params.index;
+    const addressIndex = parseInt(req.params.index);
     const newAddress = req.body;
+    newAddress.zipcode = Number(newAddress.zipcode); // Convert zipcode to Number
 
     const user = await User.findById(userId);
     if (!user) {
       return res.status(404).json({ error: "User not found" });
+    }
+
+    // Check if zipcode already exists in user's other addresses
+    if (
+      user.addresses.some(
+        (addr, index) =>
+          index !== addressIndex && addr.zipcode === newAddress.zipcode
+      )
+    ) {
+      return res
+        .status(400)
+        .json({ error: "Zipcode already exists in user's other addresses" });
     }
 
     user.addresses[addressIndex] = newAddress;

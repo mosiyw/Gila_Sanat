@@ -13,7 +13,7 @@ module.exports = {
   // },
   i18n,
   images: {
-    domains: ['localhost'],
+    domains: ['localhost', 'api.gilasanat.ir', 'gilasanat.ir'],
   },
   ...(process.env.NODE_ENV === 'production' && {
     typescript: {

@@ -5,6 +5,7 @@ import { useCart } from '@contexts/cart/cart.context';
 import usePrice from '@framework/product/use-price';
 import { ROUTES } from '@utils/routes';
 import { IoIosCloseCircle } from 'react-icons/io';
+import getFullUrl from '@utils/imgurl';
 
 type CartItemProps = {
   item: any;
