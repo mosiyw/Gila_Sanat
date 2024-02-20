@@ -35,7 +35,6 @@ const LoginForm: React.FC<LoginFormProps> = ({ isPopup = true, className }) => {
   } = useForm<LoginInputType1>();
 
   const onSubmit = ({ phone_number, password }: LoginInputType1) => {
-    console.log(phone_number, password, remember, 'data');
     login({
       phone_number,
       password,
