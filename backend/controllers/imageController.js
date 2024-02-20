@@ -10,7 +10,7 @@ exports.getAllImages = async (req, res) => {
 exports.uploadImage = async (req, res) => {
   let newImage = new Image({
     title: req.body.title,
-    imageUrl: `/uploads/${req.file.filename}`,
+    imageUrl: `/uploads/products/${req.file.filename}`,
   });
 
   newImage = await newImage.save();
@@ -19,9 +19,15 @@ exports.uploadImage = async (req, res) => {
     req.file.originalname
   )}`;
 
-  fs.renameSync(req.file.path, path.join(req.file.destination, newFilename));
+  // Create the /uploads/products/ directory if it doesn't exist
+  const dir = path.join(req.file.destination, "products");
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir, { recursive: true });
+  }
 
-  newImage.imageUrl = `/uploads/${newFilename}`;
+  fs.renameSync(req.file.path, path.join(dir, newFilename));
+
+  newImage.imageUrl = `/uploads/products/${newFilename}`;
 
   const savedImage = await newImage.save();
 
