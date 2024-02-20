@@ -29,7 +29,7 @@ export const API_ENDPOINTS = {
   ORDERS: '/orders.json',
   ORDER: '/order.json',
   ORDER_STATUS: '/order-status.json',
-  ADDRESS: '/address.json',
+  ADDRESS: '/address',
   PAYMENT: '/payment.json',
   CONTACT: '/contact.json',
   SHOP: '/shop.json',
