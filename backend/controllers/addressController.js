@@ -4,7 +4,6 @@ exports.addAddress = async (req, res) => {
   try {
     const userId = req.user.userId;
     const address = req.body;
-    address.zipcode = Number(address.zipcode); // Convert zipcode to Number
 
     // Validate address fields
     const requiredFields = [
