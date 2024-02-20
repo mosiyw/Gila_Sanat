@@ -3,9 +3,10 @@ import rest from '@framework/utils/rest';
 import { useQuery } from 'react-query';
 
 const fetchAddress = async () => {
-  const { data } = await rest.get(API_ENDPOINTS.ADDRESS);
+  const response = await rest.get(API_ENDPOINTS.ADDRESS);
+  console.log(response);
   return {
-    data: data,
+    data: response,
   };
 };
 
