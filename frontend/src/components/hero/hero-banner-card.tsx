@@ -24,10 +24,12 @@ const HeroBannerCard: FC<BannerProps> = ({
   const images = [{ url: `${banner2.src}` }, { url: `${banner2.src}` }];
 
   return (
-    <div className="relative mb-5 lg:h-[45vh] h-[25vh] md:h-[20vh] lg:pt-5 pt-[2%] md:pt-[3%] pl-[3%] pr-[3%] mb-[6%]">
+    <div className="relative mb-5 lg:h-[45vh] h-[25vh] md:h-[20vh] lg:pt-5 pt-[2%] md:pt-[3%] pl-[2%] pr-[2%] mb-[6%]">
       <Carousel autoPlay infiniteLoop showThumbs={false} showStatus={false}>
         {images.map((img, index) => (
-          <div key={index}>
+          <div key={index} className="p-1.5">
+            {' '}
+            {/* Add margin here */}
             <img
               src={img.url}
               className="lg:h-[45vh] h-[25vh] md:h-[20vh] object-cover object-center rounded-xl"
