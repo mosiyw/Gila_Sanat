@@ -36,6 +36,10 @@ const breakpoints = {
     slidesPerView: 2,
     spaceBetween: 16,
   },
+  0: {
+    slidesPerView: 2,
+    spaceBetween: 16,
+  },
 };
 
 const ProductsGridBlock: React.FC<ProductsProps> = ({
