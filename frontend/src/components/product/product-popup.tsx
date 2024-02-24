@@ -35,6 +35,7 @@ import isEqual from 'lodash/isEqual';
 import { productGalleryPlaceholder } from '@assets/placeholders';
 import formatProductName from '@utils/format-product-name';
 import getFullUrl from '@utils/imgurl';
+import DOMPurify from 'dompurify';
 
 const breakpoints = {
   '1536': {
@@ -167,6 +168,7 @@ export default function ProductPopup() {
     setSelectedbalance(1);
   }, [data.id, data?.price?.discount, data?.price?.original]);
 
+  console.log(description);
   return (
     <div className="md:w-[600px] lg:w-[940px] xl:w-[1180px] 2xl:w-[1360px] mx-auto p-1 lg:p-0 xl:p-3 bg-brand-light rounded-md">
       <CloseButton onClick={closeModal} />
@@ -213,17 +215,20 @@ export default function ProductPopup() {
                   <Heading className="mb-3 lg:mb-3.5">
                     {t('text-product-details')} :
                   </Heading>
-                  <Text variant="small">
-                    {description.split(' ').slice(0, 40).join(' ')}
-                    {'...'}
-                    <span
-                      onClick={navigateToProductPage}
-                      role="button"
-                      className="text-brand ltr:ml-0.5 rtl:mr-0.5"
-                    >
-                      {t('text-read-more')}
-                    </span>
-                  </Text>
+                  <div
+                    style={{ textAlign: 'right', direction: 'rtl' }}
+                    dangerouslySetInnerHTML={{
+                      __html: DOMPurify.sanitize(description),
+                    }}
+                  ></div>
+
+                  <span
+                    onClick={navigateToProductPage}
+                    role="button"
+                    className="text-brand ltr:ml-0.5 rtl:mr-0.5"
+                  >
+                    {t('text-read-more')}
+                  </span>
                 </div>
                 {isEmpty(variations) && (
                   <div className="flex items-center mt-5">
