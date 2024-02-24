@@ -20,6 +20,7 @@ import { LoadingButton } from "@mui/lab";
 import Iconify from "../../../components/iconify";
 import ImageGallery from "../../../components/image-upload/imageUpload";
 import ControlledInputText from "../../../components/controlled-input";
+import MyQuill from "./MyQuill";
 
 import getFullUrl from "../../../utils/getFullUrl";
 import LabelsInput from "../../../components/LabelsInput";
@@ -276,7 +277,7 @@ function ProductForm({ initialProductData, onSubmit, isEditing, isLoading }) {
             <Grid item xs={12}>
               <Typography variant="subtitle1">Description</Typography>
               <Box paddingY={2}>
-                <ReactQuill value={description} onChange={handleDescriptionChange} />
+                <MyQuill value={description} onChange={handleDescriptionChange} />
               </Box>
             </Grid>
             <Grid item xs={12}>
