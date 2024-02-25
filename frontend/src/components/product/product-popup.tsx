@@ -35,7 +35,11 @@ import isEqual from 'lodash/isEqual';
 import { productGalleryPlaceholder } from '@assets/placeholders';
 import formatProductName from '@utils/format-product-name';
 import getFullUrl from '@utils/imgurl';
-import DOMPurify from 'dompurify';
+import dynamic from 'next/dynamic';
+
+const ReactQuill = dynamic(import('react-quill'), { ssr: false });
+
+import 'react-quill/dist/quill.snow.css';
 
 const breakpoints = {
   '1536': {
@@ -215,13 +219,18 @@ export default function ProductPopup() {
                   <Heading className="mb-3 lg:mb-3.5">
                     {t('text-product-details')} :
                   </Heading>
-                  <div
+                  {/* <div
                     style={{ textAlign: 'right', direction: 'rtl' }}
                     dangerouslySetInnerHTML={{
                       __html: DOMPurify.sanitize(description),
                     }}
-                  ></div>
-
+                    className="list-disc list-inside"
+                  ></div> */}
+                  <ReactQuill
+                    value={description}
+                    readOnly={true}
+                    theme={'bubble'}
+                  />
                   <span
                     onClick={navigateToProductPage}
                     role="button"
