@@ -3,7 +3,7 @@ import Axios from "axios";
 import storage from "../../utils/storage";
 
 const defaultOptions = {
-  baseURL: "http://localhost:5000/api",
+  baseURL: import.meta.env.VITE_BACKEND_APP_API_URL,
   withCredentials: true,
   headers: {
     "Access-Control-Allow-Credentials": true,

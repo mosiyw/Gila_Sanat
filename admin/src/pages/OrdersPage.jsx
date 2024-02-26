@@ -47,7 +47,7 @@ export default function OrdersPage() {
     // Fetch orders data from the API (replace with your API endpoint)
     async function fetchOrders() {
       try {
-        const response = await fetch("http://localhost:5000/api/orders"); // Adjust the URL to match your API endpoint
+        const response = await fetch(`${import.meta.env.VITE_BACKEND_APP_API_URL}/orders`); // Adjust the URL to match your API endpoint
         if (response.ok) {
           const data = await response.json();
           setOrders(data);

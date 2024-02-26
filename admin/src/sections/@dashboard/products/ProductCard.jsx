@@ -17,8 +17,6 @@ const StyledProductImg = styled("img")({
 
 function ShopProductCard({ product, onClick, selected }) {
   const { name, _id, price, image, code, balance } = product;
-  const URL = "http://localhost:5000";
-
   return (
     <Card
       onClick={onClick}
@@ -42,7 +40,7 @@ function ShopProductCard({ product, onClick, selected }) {
               {fCurrency(price.original)}
             </Label>
           )}
-          <StyledProductImg src={`${URL}${image.cover}`} />
+          <StyledProductImg src={`${import.meta.env.VITE_IMAGE_URL}${image.cover}`} />
         </Box>
         <Stack spacing={2} sx={{ p: 3 }}>
           <Link to={`editproduct/${_id}`} style={{ textDecoration: "none" }}>

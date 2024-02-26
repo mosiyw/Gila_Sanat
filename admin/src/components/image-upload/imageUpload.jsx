@@ -16,7 +16,7 @@ function ImageGallery({ setImage, handleCloseModal }) {
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/image-gallery", {
+        const response = await fetch(`${import.meta.env.VITE_BACKEND_APP_API_URL}/image-gallery`, {
           method: "GET",
           credentials: "include",
         });

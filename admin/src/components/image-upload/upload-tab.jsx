@@ -23,7 +23,7 @@ export default function UploadTab({ setImage, handleCloseModal }) {
     formData.append("image", selectedFile); // Use selectedFile instead of displayedImage
 
     try {
-      const response = await fetch("http://localhost:5000/api/image-gallery/upload", {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_APP_API_URL}/image-gallery/upload`, {
         method: "POST",
         body: formData,
         credentials: "include",
@@ -35,7 +35,7 @@ export default function UploadTab({ setImage, handleCloseModal }) {
 
       const data = await response.json();
       console.log(data);
-      setImage(`http://localhost:5000${data.imageUrl}`);
+      setImage(`${import.meta.env.VITE_IMAGE_URL}${data.imageUrl}`);
       setTitle("");
       setSelectedFile(null);
       setDisplayedImage("");

@@ -25,6 +25,7 @@ import MyQuill from "./MyQuill";
 import getFullUrl from "../../../utils/getFullUrl";
 import LabelsInput from "../../../components/LabelsInput";
 import CategorySelector from "../../../components/category-selector";
+import BrandSelector from "../../../components/brand-selector";
 
 function ProductForm({ initialProductData, onSubmit, isEditing, isLoading }) {
   const methods = useForm();
@@ -219,13 +220,23 @@ function ProductForm({ initialProductData, onSubmit, isEditing, isLoading }) {
               />
             </Grid>
             <Grid item xs={4}>
-              <ControlledInputText
+              {/* <ControlledInputText
                 name="brand"
                 label="Brand"
                 rules={{ required: true }}
                 control={control}
                 direction="rtl"
                 fullWidth
+              /> */}
+              <Controller
+                name="brand"
+                control={control}
+                rules={{ required: true }}
+                render={({ field }) => (
+                  <FormControl variant="outlined" fullWidth>
+                    <BrandSelector />
+                  </FormControl>
+                )}
               />
             </Grid>
             <Grid item xs={5}>
