@@ -74,6 +74,7 @@ export default function ProductPopup() {
   const [addToCartLoader, setAddToCartLoader] = useState<boolean>(false);
   const [favorite, setFavorite] = useState<boolean>(false);
   const [discountPrices, setDiscountPrice] = useState();
+  const [limitedDescription, setLimitedDescription] = useState('');
   const [originalPrices, setOriginalPrice] = useState();
   const [addToWishlistLoader, setAddToWishlistLoader] =
     useState<boolean>(false);
@@ -172,7 +173,21 @@ export default function ProductPopup() {
     setSelectedbalance(1);
   }, [data.id, data?.price?.discount, data?.price?.original]);
 
-  console.log(description);
+  useEffect(() => {
+    const parser = new DOMParser();
+    const serializer = new XMLSerializer();
+
+    const doc = parser.parseFromString(description, 'text/html');
+    const listItems = doc.querySelectorAll('li');
+
+    if (listItems.length > 5) {
+      for (let i = 5; i < listItems.length; i++) {
+        listItems[i].remove();
+      }
+    }
+
+    setLimitedDescription(serializer.serializeToString(doc));
+  }, [description]);
   return (
     <div className="md:w-[600px] lg:w-[940px] xl:w-[1180px] 2xl:w-[1360px] mx-auto p-1 lg:p-0 xl:p-3 bg-brand-light rounded-md">
       <CloseButton onClick={closeModal} />
@@ -227,10 +242,11 @@ export default function ProductPopup() {
                     className="list-disc list-inside"
                   ></div> */}
                   <ReactQuill
-                    value={description}
+                    value={limitedDescription}
                     readOnly={true}
                     theme={'bubble'}
                   />
+
                   <span
                     onClick={navigateToProductPage}
                     role="button"
