@@ -40,6 +40,7 @@ const options = {
     "./routes/orders/ordersSwagger.js",
     "./routes/products/productsSwagger.js",
     "./routes/address/addressSwagger.js",
+    "./routes/brands/brandsSwagger.js",
   ],
 };
 
