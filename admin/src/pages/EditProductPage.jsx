@@ -12,7 +12,7 @@ function EditProductPage() {
     // Fetch product data based on the product ID from the URL when the component mounts
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/products/admin/${id}`, {
+        const response = await axios.get(`${import.meta.env.VITE_BACKEND_APP_API_URL}/products/admin/${id}`, {
           withCredentials: true,
         }); // Replace with your API endpoint
         setProductData(response.data);
@@ -28,7 +28,7 @@ function EditProductPage() {
     console.log(editedProductData);
     try {
       // Send a PUT request to update the product with the edited data
-      await axios.put(`http://localhost:5000/api/products/${id}`, editedProductData, {
+      await axios.put(`${import.meta.env.VITE_BACKEND_APP_API_URL}/products/${id}`, editedProductData, {
         withCredentials: true,
       }); // Replace with your API endpoint
       // Redirect to the product details page or another appropriate page

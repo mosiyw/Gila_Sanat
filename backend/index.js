@@ -50,6 +50,7 @@ const imageGalleryRoutes = require("./routes/imageGallery");
 const commentRoutes = require("./routes/comment");
 const favoriteListRoutes = require("./routes/favoriteList");
 const addressRoutes = require("./routes/address/");
+const brandRoutes = require("./routes/brands");
 
 app.use("/api/auth", authRoutes);
 app.use("/api/products", productsRoutes);
@@ -62,6 +63,7 @@ app.use("/api/comments", commentRoutes);
 app.use("/uploads", express.static("uploads"));
 app.use("/api/favorites", favoriteListRoutes);
 app.use("/api/address", addressRoutes);
+app.use("/api/brands", brandRoutes);
 
 // ... Other app setup and route handling ...
 

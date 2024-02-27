@@ -35,6 +35,11 @@ import isEqual from 'lodash/isEqual';
 import { productGalleryPlaceholder } from '@assets/placeholders';
 import formatProductName from '@utils/format-product-name';
 import getFullUrl from '@utils/imgurl';
+import dynamic from 'next/dynamic';
+
+const ReactQuill = dynamic(import('react-quill'), { ssr: false });
+
+import 'react-quill/dist/quill.snow.css';
 
 const breakpoints = {
   '1536': {
@@ -69,6 +74,7 @@ export default function ProductPopup() {
   const [addToCartLoader, setAddToCartLoader] = useState<boolean>(false);
   const [favorite, setFavorite] = useState<boolean>(false);
   const [discountPrices, setDiscountPrice] = useState();
+  const [limitedDescription, setLimitedDescription] = useState('');
   const [originalPrices, setOriginalPrice] = useState();
   const [addToWishlistLoader, setAddToWishlistLoader] =
     useState<boolean>(false);
@@ -167,6 +173,21 @@ export default function ProductPopup() {
     setSelectedbalance(1);
   }, [data.id, data?.price?.discount, data?.price?.original]);
 
+  useEffect(() => {
+    const parser = new DOMParser();
+    const serializer = new XMLSerializer();
+
+    const doc = parser.parseFromString(description, 'text/html');
+    const listItems = doc.querySelectorAll('li');
+
+    if (listItems.length > 5) {
+      for (let i = 5; i < listItems.length; i++) {
+        listItems[i].remove();
+      }
+    }
+
+    setLimitedDescription(serializer.serializeToString(doc));
+  }, [description]);
   return (
     <div className="md:w-[600px] lg:w-[940px] xl:w-[1180px] 2xl:w-[1360px] mx-auto p-1 lg:p-0 xl:p-3 bg-brand-light rounded-md">
       <CloseButton onClick={closeModal} />
@@ -213,17 +234,26 @@ export default function ProductPopup() {
                   <Heading className="mb-3 lg:mb-3.5">
                     {t('text-product-details')} :
                   </Heading>
-                  <Text variant="small">
-                    {description.split(' ').slice(0, 40).join(' ')}
-                    {'...'}
-                    <span
-                      onClick={navigateToProductPage}
-                      role="button"
-                      className="text-brand ltr:ml-0.5 rtl:mr-0.5"
-                    >
-                      {t('text-read-more')}
-                    </span>
-                  </Text>
+                  {/* <div
+                    style={{ textAlign: 'right', direction: 'rtl' }}
+                    dangerouslySetInnerHTML={{
+                      __html: DOMPurify.sanitize(description),
+                    }}
+                    className="list-disc list-inside"
+                  ></div> */}
+                  <ReactQuill
+                    value={limitedDescription}
+                    readOnly={true}
+                    theme={'bubble'}
+                  />
+
+                  <span
+                    onClick={navigateToProductPage}
+                    role="button"
+                    className="text-brand ltr:ml-0.5 rtl:mr-0.5"
+                  >
+                    {t('text-read-more')}
+                  </span>
                 </div>
                 {isEmpty(variations) && (
                   <div className="flex items-center mt-5">

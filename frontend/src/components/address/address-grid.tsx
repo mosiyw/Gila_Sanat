@@ -6,7 +6,11 @@ import { useModalAction } from '@components/common/modal/modal.context';
 import { formatAddress } from '@utils/format-address';
 import Button from '@components/ui/button';
 import { useTranslation } from 'next-i18next';
-
+import Image from 'next/image';
+import addressIcon from '../../../public/assets/images/address/addressIcon.svg';
+import mailIcon from '../../../public/assets/images/address/mailIcon.svg';
+import phoneIcon from '../../../public/assets/images/address/phoneIcon.svg';
+import userIcon from '../../../public/assets/images/address/userIcon.svg';
 const AddressGrid: React.FC<{ address?: any }> = ({ address }) => {
   const { t } = useTranslation('common');
   const { openModal } = useModalAction();
@@ -19,7 +23,10 @@ const AddressGrid: React.FC<{ address?: any }> = ({ address }) => {
 
   const [selected, setSelected] = useState(address[0]);
   return (
-    <div className="flex flex-col justify-between h-full -mt-4 text-15px md:mt-0">
+    <div
+      className="flex flex-col justify-between h-full -mt-4 text-18px md:mt-0 "
+      dir="rtl"
+    >
       <RadioGroup
         value={selected}
         onChange={setSelected}
@@ -37,18 +44,39 @@ const AddressGrid: React.FC<{ address?: any }> = ({ address }) => {
               }
             >
               <RadioGroup.Label
-                as="h3"
+                as="h4"
                 className="mb-2 -mt-1 font-semibold text-brand-dark "
               >
-                {item?.title}
-              </RadioGroup.Label>
-              <RadioGroup.Description
-                as="div"
-                className="leading-6 text-brand-muted"
-              >
                 {formatAddress(item?.address)}
-              </RadioGroup.Description>
-              <div className="absolute z-10 flex transition-all ltr:right-3 rtl:left-3 top-3 lg:opacity-0 address__actions">
+              </RadioGroup.Label>
+              <div className="flex items-center mb-1 leading-6 text-brand-muted">
+                <Image src={addressIcon.src} width={18} height={18} />
+                <RadioGroup.Description className="mr-1.5" as="div">
+                  {item?.state} - {item?.city}
+                </RadioGroup.Description>
+              </div>
+
+              <div className="flex items-center mb-1 leading-6 text-brand-muted">
+                <Image src={mailIcon.src} width={18} height={18} />
+                <RadioGroup className="mr-1.5" as="p">
+                  {item.zipcode}
+                </RadioGroup>
+              </div>
+
+              <div className="flex items-center mb-1 leading-6 text-brand-muted">
+                <Image src={userIcon.src} width={18} height={18} />
+                <RadioGroup className="mr-1.5" as="p">
+                  {item?.transferee?.full_name}
+                </RadioGroup>
+              </div>
+
+              <div className="flex items-center mb-1 leading-6 text-brand-muted">
+                <Image src={phoneIcon.src} width={18} height={18} />
+                <RadioGroup as="p" className="mr-1.5">
+                  {item?.transferee?.phone_number}
+                </RadioGroup>
+              </div>
+              <div className="absolute z-10 flex transition-all bottom-3 left-3 lg:opacity-0 address__actions">
                 <button
                   onClick={() => handlePopupView(item)}
                   className="flex items-center justify-center w-6 h-6 text-base rounded-full bg-brand text-brand-light text-opacity-80"
