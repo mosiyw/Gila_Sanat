@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const brandsController = require("../../controllers/brandsController");
 const authMiddleware = require("../../middlewares/authMiddleware");
+const upload = require("../../middlewares/uploadMiddleware");
 
 router.get(
   "/",
@@ -14,6 +15,7 @@ router.post(
   "/add",
   authMiddleware.authenticate,
   authMiddleware.isAdmin,
+  upload.single("logo"),
   brandsController.addBrand
 );
 
@@ -22,13 +24,6 @@ router.delete(
   authMiddleware.authenticate,
   authMiddleware.isAdmin,
   brandsController.removeBrand
-);
-
-router.put(
-  "/edit/:id",
-  authMiddleware.authenticate,
-  authMiddleware.isAdmin,
-  brandsController.editBrand
 );
 
 module.exports = router;

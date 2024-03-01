@@ -1,3 +1,5 @@
+const fs = require("fs");
+const path = require("path");
 const Brand = require("../models/Brand");
 
 exports.getBrands = async (req, res) => {
@@ -6,16 +8,44 @@ exports.getBrands = async (req, res) => {
 };
 
 exports.addBrand = async (req, res) => {
-  const newBrand = new Brand({
+  // Check if a brand with the same name already exists
+  const existingBrand = await Brand.findOne({ name: req.body.name });
+  if (existingBrand) {
+    return res
+      .status(400)
+      .json({ message: "A brand with this name already exists." });
+  }
+
+  let newBrand = new Brand({
     name: req.body.name,
-    logo: req.body.logo,
+    logo: "temp", // temporary value
     description: req.body.description,
   });
 
+  // Save the brand to generate _id
+  newBrand = await newBrand.save();
+
+  const newFilename = `${newBrand.name}-${newBrand._id}${path.extname(
+    req.file.originalname
+  )}`;
+
+  // Create the /uploads/brands/ directory if it doesn't exist
+  const dir = path.join(req.file.destination, "brands");
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir, { recursive: true });
+  }
+
+  // Rename the file
+  fs.renameSync(req.file.path, path.join(dir, newFilename));
+
+  // Update the logo field with the new filename
+  newBrand.logo = `/uploads/brands/${newFilename}`;
+
+  // Save the brand again with the updated logo field
   const savedBrand = await newBrand.save();
+
   res.json(savedBrand);
 };
-
 exports.removeBrand = async (req, res) => {
   const removedBrand = await Brand.findByIdAndRemove(req.params.id);
   res.json(removedBrand);
