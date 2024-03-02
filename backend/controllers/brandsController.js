@@ -47,8 +47,21 @@ exports.addBrand = async (req, res) => {
   res.json(savedBrand);
 };
 exports.removeBrand = async (req, res) => {
-  const removedBrand = await Brand.findByIdAndRemove(req.params.id);
-  res.json(removedBrand);
+  const brand = await Brand.findById(req.params.id);
+
+  if (brand) {
+    // Delete the image file
+    const imagePath = path.join(__dirname, "..", brand.logo);
+    if (fs.existsSync(imagePath)) {
+      fs.unlinkSync(imagePath);
+    }
+
+    // Delete the brand document
+    const removedBrand = await Brand.findByIdAndRemove(req.params.id);
+    res.json(removedBrand);
+  } else {
+    res.status(404).json({ message: "Brand not found" });
+  }
 };
 
 exports.editBrand = async (req, res) => {
