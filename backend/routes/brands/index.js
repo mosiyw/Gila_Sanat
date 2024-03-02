@@ -11,6 +11,8 @@ router.get(
   brandsController.getBrands
 );
 
+router.get("/top", brandsController.getTopBrands);
+
 router.post(
   "/add",
   authMiddleware.authenticate,

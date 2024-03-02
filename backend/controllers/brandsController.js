@@ -7,6 +7,11 @@ exports.getBrands = async (req, res) => {
   res.json(brands);
 };
 
+exports.getTopBrands = async (req, res) => {
+  const brands = await Brand.find().sort({ created_at: -1 }).limit(10);
+  res.json(brands);
+};
+
 exports.addBrand = async (req, res) => {
   // Check if a brand with the same name already exists
   const existingBrand = await Brand.findOne({ name: req.body.name });
