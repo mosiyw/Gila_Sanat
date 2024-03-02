@@ -3,7 +3,7 @@ import CategoryCard from '@components/cards/category-card';
 import SectionHeader from '@components/common/section-header';
 import Alert from '@components/ui/alert';
 import CategoryCardLoader from '@components/ui/loaders/category-card-loader';
-import { useCategoriesQuery } from '@framework/category/get-all-categories';
+import { useBrandsQuery } from '@framework/brand/get-all-brands';
 import { LIMITS } from '@framework/utils/limits';
 import { ROUTES } from '@utils/routes';
 import useWindowSize from '@utils/use-window-size';
@@ -13,7 +13,7 @@ const Carousel = dynamic(() => import('@components/ui/carousel/carousel'), {
   ssr: false,
 });
 
-interface CategoriesProps {
+interface brandsProps {
   className?: string;
 }
 const breakpoints = {
@@ -43,13 +43,13 @@ const breakpoints = {
   },
 };
 
-const CategoryGridBlock: React.FC<CategoriesProps> = ({
+const CategoryGridBlock: React.FC<brandsProps> = ({
   className = 'mb-12 md:pt-3 lg:pt-0 3xl:pb-2 sm:mb-14 md:mb-16 xl:mb-24 2xl:mb-16 ',
 }) => {
   const { width } = useWindowSize();
 
-  const { data, isLoading, error } = useCategoriesQuery({
-    limit: LIMITS.CATEGORIES_LIMITS,
+  const { data, isLoading, error } = useBrandsQuery({
+    limit: LIMITS.brands_LIMITS,
   });
 
   return (
@@ -82,7 +82,7 @@ const CategoryGridBlock: React.FC<CategoriesProps> = ({
                     </SwiperSlide>
                   );
                 })
-              : data?.categories?.data?.slice(0, 16)?.map((category) => (
+              : data?.brands?.data?.slice(0, 16)?.map((category) => (
                   <SwiperSlide key={`category--key-${category.id}`}>
                     <CategoryCard
                       item={category}
@@ -106,7 +106,7 @@ const CategoryGridBlock: React.FC<CategoriesProps> = ({
             );
           })
         ) : (
-          data?.categories?.data?.slice(0, 16).map((category) => (
+          data?.brands?.data?.slice(0, 16).map((category) => (
             <CategoryCard
               key={`category--key-${category.id}`}
               item={category}

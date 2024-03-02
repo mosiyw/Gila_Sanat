@@ -1,3 +1,4 @@
+import { Brand } from './types';
 export const API_ENDPOINTS = {
   LOGIN: 'auth/login',
   PROFILE: 'auth/profile',
@@ -11,9 +12,9 @@ export const API_ENDPOINTS = {
   REMOVE_CART: 'cart/remove',
 
   FORGET_PASSWORD: '/forget-password',
+  BRANDS: '/brands/top',
   CATEGORIES: '/categories.json',
   DIETARY: '/dietary.json',
-  BRANDS: '/brands.json',
   PRODUCTS: '/products.json',
   PRODUCT: '/products',
   RELATED_PRODUCTS: '/related_products.json',
