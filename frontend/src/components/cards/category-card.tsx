@@ -13,7 +13,7 @@ interface Props {
   href: LinkProps['href'];
   className?: string;
 }
-
+//
 const CategoryCard: React.FC<Props> = ({ item, href, className }) => {
   const { t } = useTranslation('common');
   const { name, logo } = item ?? {};
