@@ -43,7 +43,7 @@
  */
 /**
  * @swagger
- * /api/brands/{id}:
+ * /api/brands/delete/{id}:
  *   delete:
  *     summary: Delete a brand
  *     description: Delete a brand. Only admins can delete a brand.
