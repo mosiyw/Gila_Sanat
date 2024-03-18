@@ -10,10 +10,11 @@ export const API_ENDPOINTS = {
   CART: 'cart',
   ADD_CART: 'cart/add',
   REMOVE_CART: 'cart/remove',
+  CATEGORIES: 'categories',
 
   FORGET_PASSWORD: '/forget-password',
   BRANDS: '/brands/top',
-  CATEGORIES: '/categories.json',
+  // CATEGORIES: '/categories.json',
   DIETARY: '/dietary.json',
   PRODUCTS: '/products.json',
   PRODUCT: '/products',
