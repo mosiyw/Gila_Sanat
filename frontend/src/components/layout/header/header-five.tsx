@@ -114,8 +114,18 @@ const Header: React.FC = () => {
                 <FiMenu className="text-2xl ltr:mr-3 rtl:ml-3" />
                 {t('text-all-categories')}
               </button>
-              {categoryMenu && <CategoryDropdownMenu />}
+              {categoryMenu && <CategoryDropdownMenu className="mt-1" />}
             </div>
+            {/* <div className="relative rtl:ml-5 shrink-0">
+              <button
+                className="focus:outline-none shrink-0 text-15px font-medium text-brand-dark px-[18px] py-3 flex items-center transition-all hover:border-border-four "
+                onClick={handleCategoryMenu}
+              >
+                <FiMenu className="text-2xl ltr:mr-3 rtl:ml-3" />
+                {t('text-all-brands')}
+              </button>
+              {categoryMenu && <CategoryDropdownMenu />}
+            </div> */}
 
             <HeaderMenu
               data={site_header.menu}

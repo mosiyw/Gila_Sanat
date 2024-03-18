@@ -16,10 +16,10 @@ const Widgets: React.FC<WidgetsProps> = ({ widgets }) => {
   const { social } = footer;
   return (
     <Container>
-      <div className="grid grid-cols-2 md:grid-cols-7 xl:grid-cols-12 gap-5 sm:gap-9 lg:gap-11 xl:gap-7 pb-[50px]">
+      <div className="grid grid-cols-4 md:grid-cols-7 xl:grid-cols-12 gap-5 sm:gap-9 lg:gap-11 xl:gap-7 pb-[50px]">
         <WidgetAbout
           social={social}
-          className="mb-4 border-b col-span-full sm:col-span-1 md:col-span-4 sm:border-b-0 border-border-three sm:mb-0"
+          className="mb-4 border-b col-span-full sm:col-span-2 md:col-span-4 sm:border-b-0 border-border-three sm:mb-0"
         />
         {widgets?.map((widget) => (
           <WidgetLink

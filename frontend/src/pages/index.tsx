@@ -49,10 +49,10 @@ export default function Home() {
         />
         <PopularProductFeed />
       </Container>
-      <CollectionGrid
+      {/* <CollectionGrid
         headingPosition="center"
         className="pb-1 mb-12 xl:pt-2 2xl:pt-4 3xl:pt-6 lg:pb-0 lg:mb-14 xl:mb-16 2xl:mb-20"
-      />
+      /> */}
     </>
   );
 }
