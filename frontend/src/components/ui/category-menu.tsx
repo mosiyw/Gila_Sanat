@@ -1,13 +1,20 @@
 import cn from 'classnames';
+import { useState } from 'react';
 import { useTranslation } from 'next-i18next';
 import Link from '@components/ui/link';
-import { IoIosArrowForward } from 'react-icons/io';
+import { IoIosArrowBack } from 'react-icons/io';
 import Image from '@components/ui/image';
 import { ROUTES } from '@utils/routes';
 
-function SidebarMenuItem({ className, item, depth = 0 }: any) {
+function SidebarMenuItem({
+  className,
+  item,
+  depth = 0,
+  setActiveCategory,
+}: any) {
   const { t } = useTranslation('common');
-  const { name, children: items, icon } = item;
+  const { name, subcategories, second_subcategories, icon } = item;
+
   return (
     <>
       <li
@@ -16,6 +23,7 @@ function SidebarMenuItem({ className, item, depth = 0 }: any) {
             ? className
             : 'text-sm hover:text-brand px-3.5 2xl:px-4 py-2.5 border-b border-border-base last:border-b-0'
         }`}
+        onMouseEnter={() => setActiveCategory(item)} // Change active category on hover
       >
         <Link
           href={ROUTES.SEARCH}
@@ -23,60 +31,106 @@ function SidebarMenuItem({ className, item, depth = 0 }: any) {
             'flex items-center w-full ltr:text-left rtl:text-right outline-none focus:outline-none focus:ring-0 focus:text-brand-dark'
           )}
         >
-          {icon && (
-            <div className="inline-flex w-8 shrink-0 3xl:h-auto">
-              <Image
-                src={icon ?? '/assets/placeholder/category-small.svg'}
-                alt={name || t('text-category-thumbnail')}
-                width={25}
-                height={25}
-              />
-            </div>
-          )}
           <span className="capitalize ltr:pl-2.5 rtl:pr-2.5 md:ltr:pl-4 md:rtl:pr-4 2xl:ltr:pl-3 2xl:rtl:pr-3 3xl:ltr:pl-4 3xl:rtl:pr-4">
             {name}
           </span>
-          {items && (
-            <span className="hidden ltr:ml-auto rtl:mr-auto md:inline-flex">
-              <IoIosArrowForward className="text-15px text-brand-dark text-opacity-40" />
+          {(subcategories || second_subcategories) && (
+            <span className="mr-auto">
+              <IoIosArrowBack className="text-15px text-brand-dark text-opacity-40" />
             </span>
           )}
         </Link>
-        {Array.isArray(items) ? (
-          <div className="absolute top-0 z-10 invisible hidden w-full h-full border rounded-md opacity-0 md:block left-full bg-brand-light border-border-base">
-            <ul key="content" className="text-xs py-1.5">
-              {items?.map((currentItem) => {
-                const childDepth = depth + 1;
-                return (
-                  <SidebarMenuItem
-                    key={`${currentItem.name}${currentItem.slug}`}
-                    item={currentItem}
-                    depth={childDepth}
-                    className={cn(
-                      'text-sm px-3 py-3 ltr:pr-3 rtl:pl-3 text-brand-muted hover:text-brand border-b border-border-base last:border-b-0 mb-0.5'
-                    )}
-                  />
-                );
-              })}
-            </ul>
-          </div>
-        ) : null}
+        {Array.isArray(second_subcategories) && depth === 1 && (
+          <ul className="text-xs mt-2">
+            {second_subcategories.map((subcategory) => (
+              <SidebarMenuItem
+                key={`${subcategory.name}${subcategory._id}`}
+                item={subcategory}
+                depth={2}
+                className="text-xs px-3 py-1 text-brand-muted hover:text-brand border-b border-border-base last:border-b-0 mb-0.5"
+                setActiveCategory={setActiveCategory}
+              />
+            ))}
+          </ul>
+        )}
       </li>
+    </>
+  );
+}
+function SidebarMenuSubItem({
+  className,
+  item,
+  depth = 0,
+  setActiveCategory,
+}: any) {
+  const { t } = useTranslation('common');
+  const { name, subcategories, second_subcategories, icon } = item;
+
+  return (
+    <>
+      {Array.isArray(second_subcategories) && depth === 1 && (
+        <div className="mt-2">
+          <div className="flex items-center">
+            <span
+              className="text-sm mb-1 px-3 py-1 text-brand-muted"
+              style={{ borderRight: '2px solid rgb(251, 174, 23)' }}
+            >
+              {name}
+            </span>
+            <span>
+              <IoIosArrowBack className="text-sm text-brand-dark text-opacity-40" />
+            </span>
+          </div>
+          <ul className="text-xs">
+            {second_subcategories.map((subcategory) => (
+              <li
+                key={`${subcategory.name}${subcategory._id}`}
+                className="text-xs px-3 py-1 text-brand-muted hover:text-brand border-b border-border-base last:border-b-0 mb-0.5"
+              >
+                {subcategory.name}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </>
   );
 }
 
 function SidebarMenu({ items, className }: any) {
+  const [activeCategory, setActiveCategory] = useState(items[0]); // Set initial active category to the first item
+
   return (
     <ul
       className={cn(
-        'w-64 md:w-72 h-430px bg-brand-light border border-border-base rounded-md category-dropdown-menu pt-1.5',
+        'w-64 md:w-72 h-430px bg-brand-light border border-border-base  category-dropdown-menu pt-1.5',
         className
       )}
     >
       {items?.map((item: any) => (
-        <SidebarMenuItem key={`${item.slug}-key-${item.id}`} item={item} />
+        <SidebarMenuItem
+          key={`${item._id}-key-${item.id}`}
+          item={item}
+          setActiveCategory={setActiveCategory}
+        />
       ))}
+      <div className="absolute top-0 z-10 w-full h-full border  md:block right-full bg-brand-light border-border-base">
+        <ul key="content" className="text-xs py-1.5">
+          {activeCategory.subcategories?.map((subcategory) => {
+            return (
+              <SidebarMenuSubItem
+                key={`${subcategory.name}${subcategory._id}`}
+                item={subcategory}
+                depth={1}
+                className={cn(
+                  'text-sm px-3 py-3 ltr:pr-3 rtl:pl-3 text-brand-muted hover:text-brand border-b border-border-base last:border-b-0 mb-0.5'
+                )}
+                setActiveCategory={setActiveCategory}
+              />
+            );
+          })}
+        </ul>
+      </div>
     </ul>
   );
 }

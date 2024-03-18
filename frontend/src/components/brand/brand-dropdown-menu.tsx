@@ -4,7 +4,6 @@ import CategoryListCardLoader from '@components/ui/loaders/category-list-card-lo
 import { useCategoriesQuery } from '@framework/category/get-all-categories';
 import cn from 'classnames';
 import CategoryMenu from '@components/ui/category-menu';
-import { useState } from 'react';
 
 interface CategoryDropdownProps {
   className?: string;
