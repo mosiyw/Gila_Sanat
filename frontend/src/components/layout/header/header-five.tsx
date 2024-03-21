@@ -17,6 +17,7 @@ import { useTranslation } from 'next-i18next';
 import dynamic from 'next/dynamic';
 import { useRef, useState } from 'react';
 import { FiMenu } from 'react-icons/fi';
+import { useCategoriesQuery } from '@framework/category/get-all-categories';
 const AuthMenu = dynamic(() => import('./auth-menu'), { ssr: false });
 const CartButton = dynamic(() => import('@components/cart/cart-button'), {
   ssr: false,
@@ -41,6 +42,14 @@ const Header: React.FC = () => {
 
   const [categoryMenu, setCategoryMenu] = useState(Boolean(false));
 
+  const {
+    data,
+    isLoading: loading,
+    error,
+  } = useCategoriesQuery({
+    limit: 15,
+  });
+
   useAddActiveScroll(siteHeaderRef, 40);
   useOnClickOutside(siteSearchRef, () => closeSearch());
 
@@ -48,8 +57,11 @@ const Header: React.FC = () => {
     openModal('LOGIN_VIEW');
   };
 
-  const handleCategoryMenu = () => {
-    setCategoryMenu(!categoryMenu);
+  const handleCategoryMenuOpen = () => {
+    setCategoryMenu(true);
+  };
+  const handleCategoryMenuClose = () => {
+    setCategoryMenu(false);
   };
 
   return (
@@ -107,14 +119,20 @@ const Header: React.FC = () => {
         <div className=" bg-brand-light">
           <Container className="h-20 justify-between items-center py-2.5 lg:flex hidden">
             <div className="relative rtl:ml-8 shrink-0 w-1/7">
-              <button
-                className="border border-border-base rounded-md focus:outline-none shrink-0 text-15px font-medium text-brand-dark px-[18px] py-3 flex items-center transition-all hover:border-border-four "
-                onClick={handleCategoryMenu}
+              <div
+                onMouseEnter={handleCategoryMenuOpen}
+                onMouseLeave={handleCategoryMenuClose}
               >
-                <FiMenu className="text-2xl ltr:mr-3 rtl:ml-3" />
-                {t('text-all-categories')}
-              </button>
-              {categoryMenu && <CategoryDropdownMenu className="mt-1" />}
+                <button className="border border-border-base rounded-md focus:outline-none shrink-0 text-15px font-medium text-brand-dark px-[18px] py-3 flex items-center transition-all hover:border-border-four ">
+                  <FiMenu className="text-2xl ltr:mr-3 rtl:ml-3" />
+                  {t('text-all-categories')}
+                </button>
+                <div className="pt-1">
+                  {categoryMenu && (
+                    <CategoryDropdownMenu query={{ data, loading, error }} />
+                  )}
+                </div>
+              </div>
             </div>
             {/* <div className="relative rtl:ml-5 shrink-0">
               <button

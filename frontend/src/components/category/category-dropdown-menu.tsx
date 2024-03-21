@@ -1,26 +1,21 @@
 // @ts-nocheck
 import Alert from '@components/ui/alert';
 import CategoryListCardLoader from '@components/ui/loaders/category-list-card-loader';
-import { useCategoriesQuery } from '@framework/category/get-all-categories';
 import cn from 'classnames';
 import CategoryMenu from '@components/ui/category-menu';
-import { useState } from 'react';
 
 interface CategoryDropdownProps {
   className?: string;
+  data: any;
+  loading: boolean;
+  error: any;
 }
 
 const CategoryDropdownMenu: React.FC<CategoryDropdownProps> = ({
   className,
+  query,
 }) => {
-  const {
-    data,
-    isLoading: loading,
-    error,
-  } = useCategoriesQuery({
-    limit: 15,
-  });
-
+  const { data, isLoading: loading, error } = query;
   return (
     <div className={cn('absolute z-30', className)}>
       <div className="max-h-full overflow-hidden">
@@ -36,7 +31,7 @@ const CategoryDropdownMenu: React.FC<CategoryDropdownProps> = ({
             />
           ))
         ) : (
-          <CategoryMenu items={data?.categories?.data.slice(0, 9)} />
+          <CategoryMenu items={data?.categories?.data} className="rounded-lg" />
         )}
       </div>
     </div>
