@@ -2,6 +2,7 @@ import Image from '@components/ui/image';
 import Link from '@components/ui/link';
 import { ROUTES } from '@utils/routes';
 import { searchProductPlaceholder } from '@assets/placeholders';
+import getFullUrl from '@utils/imgurl';
 
 type SearchProductProps = {
   item: any;
@@ -15,7 +16,7 @@ const SearchProduct: React.FC<SearchProductProps> = ({ item }) => {
     >
       <div className="relative flex w-12 h-12 overflow-hidden rounded-md cursor-pointer shrink-0 ltr:mr-4 rtl:ml-4">
         <Image
-          src={item?.image?.thumbnail ?? searchProductPlaceholder}
+          src={getFullUrl(item.image.cover)}
           width={48}
           height={48}
           loading="eager"

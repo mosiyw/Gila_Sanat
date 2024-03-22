@@ -20,54 +20,59 @@ export const siteSettings = {
   currencyCode: 'IRT',
   site_header: {
     menu: [
+      // {
+      //   id: 1,
+      //   path: '/',
+      //   label: 'menu-pages',
+      //   subMenu: [
+      //     {
+      //       id: 1,
+      //       path: '/',
+      //       label: 'menu-users',
+      //       subMenu: [
+      //         {
+      //           id: 1,
+      //           path: '/my-account/account-settings',
+      //           label: 'menu-my-account',
+      //         },
+      //         {
+      //           id: 2,
+      //           path: '/signin',
+      //           label: 'menu-sign-in',
+      //         },
+      //         {
+      //           id: 3,
+      //           path: '/signup',
+      //           label: 'menu-sign-up',
+      //         },
+      //       ],
+      //     },
+      //     {
+      //       id: 4,
+      //       path: '/privacy',
+      //       label: 'menu-privacy-policy',
+      //     },
+      //     {
+      //       id: 5,
+      //       path: '/terms',
+      //       label: 'menu-terms-condition',
+      //     },
+      //     {
+      //       id: 7,
+      //       path: '/checkout',
+      //       label: 'menu-checkout',
+      //     },
+      //     {
+      //       id: 8,
+      //       path: '/404',
+      //       label: 'menu-404',
+      //     },
+      //   ],
+      // },
       {
         id: 1,
-        path: '/',
-        label: 'menu-pages',
-        subMenu: [
-          {
-            id: 1,
-            path: '/',
-            label: 'menu-users',
-            subMenu: [
-              {
-                id: 1,
-                path: '/my-account/account-settings',
-                label: 'menu-my-account',
-              },
-              {
-                id: 2,
-                path: '/signin',
-                label: 'menu-sign-in',
-              },
-              {
-                id: 3,
-                path: '/signup',
-                label: 'menu-sign-up',
-              },
-            ],
-          },
-          {
-            id: 4,
-            path: '/privacy',
-            label: 'menu-privacy-policy',
-          },
-          {
-            id: 5,
-            path: '/terms',
-            label: 'menu-terms-condition',
-          },
-          {
-            id: 7,
-            path: '/checkout',
-            label: 'menu-checkout',
-          },
-          {
-            id: 8,
-            path: '/404',
-            label: 'menu-404',
-          },
-        ],
+        path: '/faq',
+        label: 'menu-faq',
       },
       {
         id: 2,
@@ -76,23 +81,8 @@ export const siteSettings = {
       },
       {
         id: 3,
-        path: '/faq',
-        label: 'menu-faq',
-      },
-      {
-        id: 4,
-        path: '/about-us',
-        label: 'menu-about-us',
-      },
-      {
-        id: 5,
         path: '/cooperation-in-sales/',
         label: 'menu-cooperation',
-      },
-      {
-        id: 6,
-        path: '/',
-        label: 'menu-cooperation-discount',
       },
     ],
     languageMenu: [

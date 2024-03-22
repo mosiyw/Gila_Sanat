@@ -2,7 +2,7 @@
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css'; // requires a loader
 import type { FC } from 'react';
-import banner2 from '../../../public/assets/images/banner/Ronix-banner.jpg';
+import banner2 from '../../../public/assets/images/banner/himel-banner.jpeg';
 import arrowForward from '../../../public/assets/images/carousel/arrow-ios-forward.svg';
 import arrowBack from '../../../public/assets/images/carousel/arrow-ios-back.svg';
 import Image from 'next/image';
@@ -31,6 +31,7 @@ const HeroBannerCard: FC<BannerProps> = ({
             <button
               type="button"
               onClick={onClickHandler}
+              className="hidden lg:flex"
               title={label}
               style={{
                 position: 'absolute',
@@ -53,6 +54,7 @@ const HeroBannerCard: FC<BannerProps> = ({
             <button
               type="button"
               onClick={onClickHandler}
+              className="hidden lg:flex"
               title={label}
               style={{
                 position: 'absolute',

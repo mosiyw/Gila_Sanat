@@ -39,16 +39,6 @@ const Layout: React.FC = ({ children }) => {
       {/* End of highlighted bar  */}
 
       <Header />
-      <main
-        className="relative flex-grow"
-        style={{
-          WebkitOverflowScrolling: 'touch',
-        }}
-      >
-        {children}
-      </main>
-      <Footer />
-      <MobileNavigation />
     </div>
   );
 };
