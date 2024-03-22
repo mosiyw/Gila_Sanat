@@ -129,7 +129,7 @@ exports.searchProducts = async (req, res) => {
           ],
         },
       ],
-    });
+    }).limit(15);
     res.json(products);
   } catch (error) {
     res.status(500).json({ error: "An error occurred" });
