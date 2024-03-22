@@ -26,6 +26,7 @@ import getFullUrl from "../../../utils/getFullUrl";
 import LabelsInput from "../../../components/LabelsInput";
 import CategorySelector from "../../../components/category-selector";
 import BrandSelector from "../../../components/brand-selector";
+import DetailsTable from "../../../components/details-table/undex";
 
 function ProductForm({ initialProductData, onSubmit, isEditing, isLoading }) {
   const methods = useForm();
@@ -290,6 +291,10 @@ function ProductForm({ initialProductData, onSubmit, isEditing, isLoading }) {
               <Box paddingY={2}>
                 <MyQuill value={description} onChange={handleDescriptionChange} />
               </Box>
+            </Grid>
+            <Grid item xs={12}>
+              <Typography variant="subtitle1">Details</Typography>
+              <DetailsTable />
             </Grid>
             <Grid item xs={12}>
               <Box paddingY={2}>

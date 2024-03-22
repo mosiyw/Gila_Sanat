@@ -1,3 +1,4 @@
+import { Brand } from './types';
 export const API_ENDPOINTS = {
   LOGIN: 'auth/login',
   PROFILE: 'auth/profile',
@@ -9,11 +10,13 @@ export const API_ENDPOINTS = {
   CART: 'cart',
   ADD_CART: 'cart/add',
   REMOVE_CART: 'cart/remove',
+  CATEGORIES: 'categories',
+  SEARCH: 'products/search',
 
   FORGET_PASSWORD: '/forget-password',
-  CATEGORIES: '/categories.json',
+  BRANDS: '/brands/top',
+  // CATEGORIES: '/categories.json',
   DIETARY: '/dietary.json',
-  BRANDS: '/brands.json',
   PRODUCTS: '/products.json',
   PRODUCT: '/products',
   RELATED_PRODUCTS: '/related_products.json',
@@ -25,7 +28,6 @@ export const API_ENDPOINTS = {
   CHIPS_PRODUCTS: '/products_chips.json',
   POPCORN_JERKY_PRODUCTS: '/products_popcorn_jerky.json',
   FRESH_VEGETABLES_PRODUCTS: '/products_fresh_vegetables.json',
-  SEARCH: '/search.json',
   ORDERS: '/orders.json',
   ORDER: '/order.json',
   ORDER_STATUS: '/order-status.json',

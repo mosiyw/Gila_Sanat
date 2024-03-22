@@ -1,14 +1,12 @@
 import { API_ENDPOINTS } from '@framework/api-endpoints';
 import { Brand, QueryOptionsType } from '@framework/types';
-import http from '@framework/utils/http';
+import rest from '@framework/utils/rest';
 import { useQuery } from 'react-query';
 
 export const fetchBrands = async ({ queryKey }: any) => {
   const [_key, _params] = queryKey;
-  const {
-    data: { data },
-  } = await http.get(API_ENDPOINTS.BRANDS);
-  return { brands: { data: data as Brand[] } };
+  const response = await rest.get(API_ENDPOINTS.BRANDS);
+  return { brands: { data: response as unknown as Brand[] } };
 };
 
 export const useBrandsQuery = (options: QueryOptionsType) => {

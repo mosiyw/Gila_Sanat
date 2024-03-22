@@ -245,6 +245,7 @@ export default function ProductPopup() {
                     value={limitedDescription}
                     readOnly={true}
                     theme={'bubble'}
+                    modules={{ toolbar: false }}
                   />
 
                   <span

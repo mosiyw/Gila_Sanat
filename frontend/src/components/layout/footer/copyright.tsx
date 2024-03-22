@@ -21,14 +21,7 @@ const Copyright: React.FC<CopyrightProps> = ({ payment }) => {
       <Container>
         <div className="flex justify-center flex-col pt-6 text-center border-t  md:justify-between border-border-three lg:pt-7">
           <p className="text-center text-brand-dark text-sm leading-7 lg:leading-[27px] lg:text-15px">
-            &copy;&nbsp;{t('text-copyright')} {year}&nbsp;
-            <a
-              className="transition-colors duration-200 ease-in-out text-brand-dark hover:text-brand"
-              href={siteSettings.author.websiteUrl}
-            >
-              {siteSettings.author.name}
-            </a>
-            &nbsp; {t('text-all-rights-reserved')}
+            &nbsp;{t('text-copyright')} &nbsp;
           </p>
         </div>
       </Container>

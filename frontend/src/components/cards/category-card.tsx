@@ -6,16 +6,17 @@ import { useRouter } from 'next/router';
 import { getDirection } from '@utils/get-direction';
 import cn from 'classnames';
 import { categoryPlaceholder } from '@assets/placeholders';
+import getFullUrl from '@utils/imgurl';
 
 interface Props {
   item: any;
   href: LinkProps['href'];
   className?: string;
 }
-
+//
 const CategoryCard: React.FC<Props> = ({ item, href, className }) => {
   const { t } = useTranslation('common');
-  const { name, image } = item ?? {};
+  const { name, logo } = item ?? {};
   const { locale } = useRouter();
   const dir = getDirection(locale);
   return (
@@ -32,7 +33,7 @@ const CategoryCard: React.FC<Props> = ({ item, href, className }) => {
           }`}
         >
           <Image
-            src={image?.original ?? categoryPlaceholder}
+            src={logo ? getFullUrl(logo) : categoryPlaceholder}
             alt={name || t('text-card-thumbnail')}
             width={178}
             height={178}
@@ -48,7 +49,7 @@ const CategoryCard: React.FC<Props> = ({ item, href, className }) => {
           }`}
         >
           <Image
-            src={image?.original ?? categoryPlaceholder}
+            src={logo ? getFullUrl(logo) : categoryPlaceholder}
             alt={name || t('text-card-thumbnail')}
             width={178}
             height={178}

@@ -76,47 +76,10 @@ const Carousel: React.FunctionComponent<CarouselPropsType> = ({
         dir={dir}
         pagination={pagination}
         grid={grid}
-        navigation={
-          navigation
-            ? {
-                prevEl: prevActivateId.length
-                  ? `#${prevActivateId}`
-                  : prevRef.current!, // Assert non-null
-                nextEl: nextActivateId.length
-                  ? `#${nextActivateId}`
-                  : nextRef.current!, // Assert non-null
-              }
-            : {}
-        }
         {...props}
       >
         {children}
       </Swiper>
-      {Boolean(navigation) && (
-        <div
-          className={`flex items-center w-full absolute top-2/4 z-10 ${buttonGroupClassName} hidden lg:flex`}
-        >
-          {prevActivateId.length > 0 ? (
-            <div className={prevButtonClasses} id={prevActivateId}>
-              {dir === 'rtl' ? <IoIosArrowForward /> : <IoIosArrowBack />}
-            </div>
-          ) : (
-            <div ref={prevRef} className={prevButtonClasses}>
-              {dir === 'rtl' ? <IoIosArrowForward /> : <IoIosArrowBack />}
-            </div>
-          )}
-
-          {nextActivateId.length > 0 ? (
-            <div className={nextButtonClasses} id={nextActivateId}>
-              {dir === 'rtl' ? <IoIosArrowBack /> : <IoIosArrowForward />}
-            </div>
-          ) : (
-            <div ref={nextRef} className={nextButtonClasses}>
-              {dir === 'rtl' ? <IoIosArrowBack /> : <IoIosArrowForward />}
-            </div>
-          )}
-        </div>
-      )}
     </div>
   );
 };
