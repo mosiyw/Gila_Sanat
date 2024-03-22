@@ -16,6 +16,7 @@ interface CopyrightProps {
 const year = new Date().getFullYear();
 const Copyright: React.FC<CopyrightProps> = () => {
   const { t } = useTranslation('footer');
+
   return (
     <div className="pb-20 lg:pb-7">
       <Container>
