@@ -11,6 +11,7 @@ export const API_ENDPOINTS = {
   ADD_CART: 'cart/add',
   REMOVE_CART: 'cart/remove',
   CATEGORIES: 'categories',
+  SEARCH: 'products/search',
 
   FORGET_PASSWORD: '/forget-password',
   BRANDS: '/brands/top',
@@ -27,7 +28,6 @@ export const API_ENDPOINTS = {
   CHIPS_PRODUCTS: '/products_chips.json',
   POPCORN_JERKY_PRODUCTS: '/products_popcorn_jerky.json',
   FRESH_VEGETABLES_PRODUCTS: '/products_fresh_vegetables.json',
-  SEARCH: '/search.json',
   ORDERS: '/orders.json',
   ORDER: '/order.json',
   ORDER_STATUS: '/order-status.json',

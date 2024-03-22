@@ -31,6 +31,7 @@ const HeroBannerCard: FC<BannerProps> = ({
             <button
               type="button"
               onClick={onClickHandler}
+              className="hidden lg:flex"
               title={label}
               style={{
                 position: 'absolute',
@@ -53,6 +54,7 @@ const HeroBannerCard: FC<BannerProps> = ({
             <button
               type="button"
               onClick={onClickHandler}
+              className="hidden lg:flex"
               title={label}
               style={{
                 position: 'absolute',
