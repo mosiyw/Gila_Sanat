@@ -478,3 +478,6 @@ input:checked + .slider:before {
   margin-top: 0 !important;
   font-family: 'IranYekan';
 }
+.pr-font {
+  font-family: 'IranYekan';
+}

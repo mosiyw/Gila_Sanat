@@ -26,8 +26,12 @@ export default function Search() {
       />
       <Divider />
       <Container>
-        <Element name="grid" className="flex pb-16 pt-7 lg:pt-7 lg:pb-20">
-          <div className="sticky hidden h-full lg:pt-4 shrink-0 ltr:pr-8 rtl:pl-8 xl:ltr:pr-16 xl:rtl:pl-16 lg:block w-80 xl:w-96 top-16">
+        <Element
+          name="grid"
+          style={{ direction: 'rtl' }}
+          className="flex pb-16 pt-7 lg:pt-7 lg:pb-20 p-4"
+        >
+          <div className="sticky hidden h-full lg:pt-4 shrink-0  xl:pl-8 lg:block w-[25%] top-16">
             <ShopFilters />
           </div>
           <div className="w-full lg:pt-4 lg:ltr:-ml-4 lg:rtl:-mr-2 xl:ltr:-ml-8 xl:rtl:-mr-8 lg:-mt-1">
