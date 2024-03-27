@@ -2,16 +2,14 @@ import { useMemo } from 'react';
 
 export function formatPrice({
   amount,
-  currencyCode,
   locale,
 }: {
   amount: number;
-  currencyCode: string;
   locale: string;
 }) {
   const formatCurrency = new Intl.NumberFormat(locale, {
-    style: 'currency',
-    currency: currencyCode,
+    style: 'decimal',
+    minimumFractionDigits: 0,
   });
 
   return formatCurrency.format(amount);
@@ -20,12 +18,10 @@ export function formatPrice({
 export function formatVariantPrice({
   amount,
   baseAmount,
-  currencyCode,
   locale,
 }: {
   baseAmount: number;
   amount: number;
-  currencyCode: string;
   locale: string;
 }) {
   const hasDiscount = baseAmount > amount;
@@ -34,9 +30,9 @@ export function formatVariantPrice({
     ? formatDiscount.format((baseAmount - amount) / baseAmount)
     : null;
 
-  const price = formatPrice({ amount, currencyCode, locale });
+  const price = formatPrice({ amount, locale });
   const basePrice = hasDiscount
-    ? formatPrice({ amount: baseAmount, currencyCode, locale })
+    ? formatPrice({ amount: baseAmount, locale })
     : null;
 
   return { price, basePrice, discount };
@@ -46,18 +42,17 @@ export default function usePrice(
   data?: {
     amount: number;
     baseAmount?: number;
-    currencyCode: string;
   } | null
 ) {
-  const { amount, baseAmount, currencyCode } = data ?? {};
+  const { amount, baseAmount } = data ?? {};
   const locale = 'en';
   const value = useMemo(() => {
-    if (typeof amount !== 'number' || !currencyCode) return '';
+    if (typeof amount !== 'number') return '';
 
     return baseAmount
-      ? formatVariantPrice({ amount, baseAmount, currencyCode, locale })
-      : formatPrice({ amount, currencyCode, locale });
-  }, [amount, baseAmount, currencyCode]);
+      ? formatVariantPrice({ amount, baseAmount, locale })
+      : formatPrice({ amount, locale });
+  }, [amount, baseAmount]);
 
   return typeof value === 'string'
     ? { price: value, basePrice: null, discount: null }

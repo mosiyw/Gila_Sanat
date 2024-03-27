@@ -21,8 +21,9 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
     removeItemFromCart,
     clearItemFromCart,
   } = useCart();
+  console.log(item);
   const { price: totalPrice } = usePrice({
-    amount: item?.itemTotal,
+    amount: item?.discount_price ? item?.discount_price : item?.itemTotal,
     currencyCode: 'IRR',
   });
 

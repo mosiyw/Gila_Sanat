@@ -25,7 +25,7 @@ export function generateCartItem(item: Item) {
     id,
     name,
     price: Number(price.original),
-    discount_price: Number(price.discount),
+    discount_price: Number(price.discount / 10),
     stock,
     image: item?.image?.cover,
   };
