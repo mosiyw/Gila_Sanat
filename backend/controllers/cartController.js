@@ -63,7 +63,7 @@ exports.addToCart = async (req, res) => {
   const ProductInCart = userCart.items.find((item) =>
     item.product.equals(productId)
   );
-  if (ProductInCart.quantity >= product.balance) {
+  if (!ProductInCart || ProductInCart.quantity >= product.balance) {
     return res
       .status(400)
       .json({ error: "Product quantity exceeds product balance" });
