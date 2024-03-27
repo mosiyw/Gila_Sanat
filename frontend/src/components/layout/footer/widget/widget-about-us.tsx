@@ -16,7 +16,7 @@ interface AboutProps {
     height: number;
   }[];
 }
-const WidgetAbout: React.FC<AboutProps> = ({ social, className }) => {
+const WidgetAbout: React.FC<AboutProps> = ({ className }) => {
   const { t } = useTranslation('footer');
 
   return (

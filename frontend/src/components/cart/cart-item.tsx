@@ -12,6 +12,7 @@ type CartItemProps = {
 };
 
 const CartItem: React.FC<CartItemProps> = ({ item }) => {
+  console.log(item);
   const { image } = item;
   const {
     isInCart,

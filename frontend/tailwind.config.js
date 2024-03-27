@@ -108,7 +108,8 @@ module.exports = {
         vendorSidebar:
           '0px 1px 2px rgba(0, 0, 0, 0.03), 0px 1px 3px rgba(0, 0, 0, 0.05)',
       },
+      scrollbar: ['rounded', 'dark'], // new scrollbar customizations
     },
   },
-  plugins: [require('@tailwindcss/forms')],
+  plugins: [require('@tailwindcss/forms'), require('tailwind-scrollbar')],
 };

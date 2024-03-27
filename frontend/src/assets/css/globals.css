@@ -476,4 +476,8 @@ input:checked + .slider:before {
 }
 .ql-editor {
   margin-top: 0 !important;
+  font-family: 'IranYekan';
+}
+.pr-font {
+  font-family: 'IranYekan';
 }

@@ -27,7 +27,16 @@ import '@assets/css/scrollbar.css';
 import '@assets/css/swiper-carousel.css';
 import '@assets/css/toast.css';
 
+// Material-UI imports
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+
 const Noop: React.FC = ({ children }) => <>{children}</>;
+
+const theme = createTheme({
+  typography: {
+    fontFamily: 'IranYekan, Arial',
+  },
+});
 
 const App = ({
   Component,
@@ -42,22 +51,24 @@ const App = ({
   const Layout = (Component as any).Layout || Noop;
 
   return (
-    <QueryClientProvider client={queryClientRef.current}>
-      <Hydrate state={pageProps.dehydratedState}>
-        <ManagedUIContext>
-          <>
-            <DefaultSeo />
-            <Layout pageProps={pageProps}>
-              <Component {...pageProps} key={router.route} />
-            </Layout>
-            <Toaster {...hotToastSetting} />
-            <ManagedModal />
-            <ManagedDrawer />
-          </>
-        </ManagedUIContext>
-      </Hydrate>
-      {/* <ReactQueryDevtools /> */}
-    </QueryClientProvider>
+    <ThemeProvider theme={theme}>
+      <QueryClientProvider client={queryClientRef.current}>
+        <Hydrate state={pageProps.dehydratedState}>
+          <ManagedUIContext>
+            <>
+              <DefaultSeo />
+              <Layout pageProps={pageProps}>
+                <Component {...pageProps} key={router.route} />
+              </Layout>
+              <Toaster {...hotToastSetting} />
+              <ManagedModal />
+              <ManagedDrawer />
+            </>
+          </ManagedUIContext>
+        </Hydrate>
+        {/* <ReactQueryDevtools /> */}
+      </QueryClientProvider>
+    </ThemeProvider>
   );
 };
 

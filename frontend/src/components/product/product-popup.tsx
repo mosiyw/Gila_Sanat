@@ -68,7 +68,14 @@ export default function ProductPopup() {
   const { width } = useWindowSize();
   const { closeModal } = useModalAction();
   const router = useRouter();
-  const { addItemToCart, isInCart, getItemFromCart, isInStock } = useCart();
+  const {
+    addItemToCart,
+    removeItemFromCart,
+    clearItemFromCart,
+    isInCart,
+    getItemFromCart,
+    isInStock,
+  } = useCart();
   const [selectedbalance, setSelectedbalance] = useState(1);
   const [attributes, setAttributes] = useState<{ [key: string]: string }>({});
   const [addToCartLoader, setAddToCartLoader] = useState<boolean>(false);
@@ -180,8 +187,8 @@ export default function ProductPopup() {
     const doc = parser.parseFromString(description, 'text/html');
     const listItems = doc.querySelectorAll('li');
 
-    if (listItems.length > 5) {
-      for (let i = 5; i < listItems.length; i++) {
+    if (listItems.length > 4) {
+      for (let i = 4; i < listItems.length; i++) {
         listItems[i].remove();
       }
     }
@@ -198,19 +205,35 @@ export default function ProductPopup() {
               {!!gallery?.length ? (
                 <ThumbnailCarousel gallery={gallery} />
               ) : (
-                <div className="flex items-center justify-center w-auto">
-                  <Image
-                    src={
-                      image
-                        ? image?.cover
-                          ? getFullUrl(image?.cover)
-                          : defaultImage
-                        : productPlaceholder
-                    }
-                    alt={name!}
-                    width={650}
-                    height={590}
-                  />
+                <div>
+                  <div className="hidden items-center justify-center w-auto lg:flex">
+                    <Image
+                      src={
+                        image
+                          ? image?.cover
+                            ? getFullUrl(image?.cover)
+                            : defaultImage
+                          : productPlaceholder
+                      }
+                      alt={name!}
+                      width={600}
+                      height={600}
+                    />
+                  </div>
+                  <div className="flex items-center justify-center w-auto lg:hidden">
+                    <Image
+                      src={
+                        image
+                          ? image?.cover
+                            ? getFullUrl(image?.cover)
+                            : defaultImage
+                          : productPlaceholder
+                      }
+                      alt={name!}
+                      width={300}
+                      height={300}
+                    />
+                  </div>
                 </div>
               )}
             </div>
@@ -335,29 +358,27 @@ export default function ProductPopup() {
               </div>
 
               <div className="pt-1.5 lg:pt-3 xl:pt-4 space-y-2.5 md:space-y-3.5">
-                <Counter
-                  variant="single"
-                  value={selectedbalance}
-                  onIncrement={() => setSelectedbalance((prev) => prev + 1)}
-                  onDecrement={() =>
-                    setSelectedbalance((prev) => (prev !== 1 ? prev - 1 : 1))
-                  }
-                  disabled={
-                    isInCart(item.id)
-                      ? getItemFromCart(item.id).balance + selectedbalance >=
-                        Number(item.stock)
-                      : selectedbalance >= Number(item.stock)
-                  }
-                />
-                <Button
-                  onClick={addToCart}
-                  className="w-full px-1.5"
-                  disabled={!isSelected}
-                  loading={addToCartLoader}
-                >
-                  <CartIcon color="#ffffff" className="ltr:mr-3 rtl:ml-3" />
-                  {t('text-add-to-cart')}
-                </Button>
+                {isInCart(item.id) && (
+                  <Counter
+                    variant="single"
+                    value={getItemFromCart(item.id).quantity}
+                    onIncrement={() => addItemToCart(item, 1)}
+                    onDecrement={() => removeItemFromCart(item.id)}
+                    onDeleteItem={() => clearItemFromCart(item.id)}
+                    disabled={outOfStock}
+                  />
+                )}
+                {!isInCart(item.id) && (
+                  <Button
+                    onClick={addToCart}
+                    className="w-full px-1.5"
+                    disabled={!isSelected}
+                    loading={addToCartLoader}
+                  >
+                    <CartIcon color="#ffffff" className="ltr:mr-3 rtl:ml-3" />
+                    {t('text-add-to-cart')}
+                  </Button>
+                )}
                 <div className="grid grid-cols-2 gap-2.5">
                   <Button
                     variant="border"
