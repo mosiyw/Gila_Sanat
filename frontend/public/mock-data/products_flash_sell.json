@@ -24,7 +24,7 @@
     "quantity": 70,
     "sold": 50,
     "price": 6.98,
-    "sale_price": 6.20,
+    "discount_price": 6.20,
     "unit": "1 each",
     "tag": [
       {
@@ -74,7 +74,7 @@
     "quantity": 70,
     "sold": 50,
     "price": 6.98,
-    "sale_price": 6.20,
+    "discount_price": 6.20,
     "unit": "1 each",
     "tag": [
       {

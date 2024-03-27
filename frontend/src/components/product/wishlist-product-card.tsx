@@ -17,7 +17,7 @@ const WishlistProductCard: FC<ProductProps> = ({ product, className }) => {
   const placeholderImage = `/assets/placeholder/product.svg`;
   const [favorite, setFavorite] = useState<boolean>(false);
   const { price, basePrice, discount } = usePrice({
-    amount: product.sale_price ? product.sale_price : product.price,
+    amount: product.discount_price ? product.discount_price : product.price,
     baseAmount: product.price,
     currencyCode: 'USD',
   });

@@ -11,7 +11,7 @@ type Item = {
     discount: number;
   };
   balance: number; // Change 'stock' to 'balance'
-  sale_price?: number;
+  discount_price?: number;
   quantity?: number;
 };
 
@@ -25,7 +25,7 @@ export function generateCartItem(item: Item) {
     id,
     name,
     price: Number(price.original),
-    sale_price: Number(price.discount),
+    discount_price: Number(price.discount),
     stock,
     image: item?.image?.cover,
   };

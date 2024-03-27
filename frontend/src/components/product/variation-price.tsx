@@ -10,8 +10,8 @@ export default function VariationPrice({
   const { t } = useTranslation('common');
   const { price, basePrice, discount } = usePrice(
     selectedVariation && {
-      amount: selectedVariation.sale_price
-        ? selectedVariation.sale_price
+      amount: selectedVariation.discount_price
+        ? selectedVariation.discount_price
         : selectedVariation.price,
       baseAmount: selectedVariation.price,
       currencyCode: 'USD',

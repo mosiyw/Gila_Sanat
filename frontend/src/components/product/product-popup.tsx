@@ -87,10 +87,12 @@ export default function ProductPopup() {
     useState<boolean>(false);
   const [shareButtonStatus, setShareButtonStatus] = useState<boolean>(false);
   const { price, basePrice, discount } = usePrice({
-    amount: data?.sale_price ? data?.sale_price : data?.price,
-    baseAmount: data?.price,
-    currencyCode: 'IRR',
+    amount: data?.price?.discount
+      ? data?.price?.discount
+      : data?.price?.original,
+    baseAmount: data?.price?.original,
   });
+
   const { price: discountPriceValue } = usePrice({
     amount: discountPrices ? discountPrices / 10 : 0,
     currencyCode: 'IRR',
@@ -289,7 +291,7 @@ export default function ProductPopup() {
                       alt="toman"
                     />
                     <div className="text-brand-dark font-bold text-base md:text-xl xl:text-[22px]">
-                      {discountPrice ? discountPrice : originalPrice}
+                      {discount ? price : originalPrice}
                     </div>
                     {discountPrices && (
                       <>

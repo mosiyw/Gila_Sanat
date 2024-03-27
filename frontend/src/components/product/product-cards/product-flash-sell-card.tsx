@@ -50,7 +50,7 @@ const ProductFlashSellCard: React.FC<ProductProps> = ({
   const { openModal } = useModalAction();
   const { t } = useTranslation('common');
   const { price, basePrice } = usePrice({
-    amount: product?.sale_price ? product?.sale_price : product?.price,
+    amount: product?.discount_price ? product?.discount_price : product?.price,
     baseAmount: product?.price,
     currencyCode: 'USD',
   });

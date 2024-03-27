@@ -101,7 +101,7 @@ export type Product = {
   quantity: number;
   sold: number;
   unit: string;
-  sale_price?: number;
+  discount_price?: number;
   min_price?: number;
   max_price?: number;
   image: Attachment;

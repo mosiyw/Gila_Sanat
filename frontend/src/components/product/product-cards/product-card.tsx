@@ -80,8 +80,10 @@ const ProductCard: React.FC<ProductProps> = ({ product, className }) => {
   }, [product]);
 
   const { price, basePrice, discount } = usePrice({
-    amount: product?.sale_price ? product?.sale_price : product?.price,
-    baseAmount: product?.price,
+    amount: product?.price?.discount
+      ? product?.price?.discount
+      : product?.price?.original,
+    baseAmount: product?.price?.original,
     currencyCode: 'IRR',
   });
 
@@ -130,11 +132,11 @@ const ProductCard: React.FC<ProductProps> = ({ product, className }) => {
           />
         </div>
         <div className="w-full h-full absolute top-0 pt-2.5 md:pt-3.5 px-3 md:px-4 lg:px-[18px] z-10 -mx-0.5 sm:-mx-1">
-          {discount && (
+          {/* {discount && (
             <span className="text-[11px] md:text-xs font-bold text-brand-light uppercase inline-block bg-brand rounded-full px-2.5 pt-1 pb-[3px] mx-0.5 sm:mx-1">
               {t('text-on-sale')}
             </span>
-          )}
+          )} */}
           <div className="block product-count-button-position">
             <RenderPopupOrAddToCart data={product} />
           </div>
@@ -176,9 +178,9 @@ const ProductCard: React.FC<ProductProps> = ({ product, className }) => {
                   src={toman.src}
                   alt="toman"
                 />
-                {discountPrice ? discountPrice : originalPrice}
+                {discount ? discountPrice : originalPrice}
               </div>
-              {discountPrice && (
+              {discount && (
                 <span
                   style={{
                     marginLeft: '8px',
@@ -198,7 +200,7 @@ const ProductCard: React.FC<ProductProps> = ({ product, className }) => {
               )}
             </span>
           </div>
-          {discountPrice && (
+          {discount && (
             <div className="mx-1 text-sm text-brand-dark text-opacity-70">
               <del dir="rtl">
                 {discountPrice

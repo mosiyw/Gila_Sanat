@@ -28,7 +28,7 @@
       ],
       "quantity": 70,
       "price": 1.74,
-      "sale_price": 1.74,
+      "discount_price": 1.74,
       "unit": "1 each",
       "tag": [
         {
@@ -111,7 +111,7 @@
       ],
       "quantity": 70,
       "price": 1.74,
-      "sale_price": 1.74,
+      "discount_price": 1.74,
       "unit": "1 each",
       "tag": [
         {
@@ -194,7 +194,7 @@
       ],
       "quantity": 70,
       "price": 1.74,
-      "sale_price": 1.48,
+      "discount_price": 1.48,
       "unit": "12 oz bag",
       "tag": [
         {
@@ -277,7 +277,7 @@
       ],
       "quantity": 70,
       "price": 3.46,
-      "sale_price": 3.46,
+      "discount_price": 3.46,
       "unit": "5.5 oz",
       "tag": [
         {
@@ -360,7 +360,7 @@
       ],
       "quantity": 70,
       "price": 1.74,
-      "sale_price": 1.74,
+      "discount_price": 1.74,
       "unit": "16 oz container",
       "tag": [
         {
@@ -443,7 +443,7 @@
       ],
       "quantity": 70,
       "price": 1.98,
-      "sale_price": 1.98,
+      "discount_price": 1.98,
       "unit": "1 ct",
       "tag": [
         {
@@ -526,7 +526,7 @@
       ],
       "quantity": 70,
       "price": 2.50,
-      "sale_price": 2.00,
+      "discount_price": 2.00,
       "unit": "1 each",
       "tag": [
         {
@@ -609,7 +609,7 @@
       ],
       "quantity": 70,
       "price": 6.98,
-      "sale_price": 8.30,
+      "discount_price": 8.30,
       "unit": "4 count bag ",
       "tag": [
         {

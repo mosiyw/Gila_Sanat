@@ -58,7 +58,7 @@ const ProductSingleDetails = ({ product }: Props) => {
   //   id: product._id,
   //   name: product.name,
   //   price: Number(product.price.original),
-  //   sale_price: Number(product.price.discount),
+  //   discount_price: Number(product.price.discount),
   //   stock: product.balance,
   //   // quantity: product?.balance,
   // });
